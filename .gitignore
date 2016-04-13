@@ -8,4 +8,4 @@ build/
 .classpath
 .target
 .idea/
-MyCompiler/test-output
+MyCompiler/test-output/
