@@ -1,5 +1,4 @@
-ICONST, 1
-ICONST, 2
-IADD
+PUSH
+hello
 PRINT
 HALT

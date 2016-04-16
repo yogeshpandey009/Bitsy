@@ -6,26 +6,29 @@ import java.util.Map;
 
 public class FuncMetaData {
 
-	private final Map<String, Integer> variables = new HashMap<>();
-    private final int returnAddress;
+	private final Map<String, String> variables = new HashMap<>();
+	private final int returnAddress;
 
-    public FuncMetaData(int returnAddress) {
-        this.returnAddress = returnAddress;
-    }
+	public FuncMetaData(int returnAddress) {
+		this.returnAddress = returnAddress;
+	}
 
-    public int getVariable(String var) {
-        return variables.getOrDefault(var, 0);
-    }
+	public String getVariable(String var) {
+		if (variables.containsKey(var)) {
+			return variables.get(var);
+		}
+		throw new InValidProgramException("Undefined Variable: " + var);
+	}
 
-    public void setVariable(String var, int value) {
-        variables.put(var, value);
-    }
+	public void setVariable(String var, String value) {
+		variables.put(var, value);
+	}
 
-    public int getReturnAddress() {
-        return returnAddress;
-    }
+	public int getReturnAddress() {
+		return returnAddress;
+	}
 
-    public Map<String, Integer> getVariables() {
-        return Collections.unmodifiableMap(variables);
-    }
+	public Map<String, String> getVariables() {
+		return Collections.unmodifiableMap(variables);
+	}
 }
