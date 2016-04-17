@@ -2,6 +2,7 @@ package main.java.runtime.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -30,8 +31,20 @@ public class RuntimeTest {
 		/*
 		 * print("hello");
 		 */
-		VM.execute(new String[] { "PUSH", "hello", "PRINT", "HALT" });
+		VM.execute(new String[] { "PUSH", "hello world", "PRINT", "HALT" });
+		assertEquals("hello world", outContent.toString());
+	}
+
+	@Test
+	public void testEcho() {
+		/*
+		 * print(input());
+		 */
+		ByteArrayInputStream in = new ByteArrayInputStream("hello".getBytes());
+		System.setIn(in);
+		VM.execute(new String[] { "INPUT", "PRINT", "HALT" });
 		assertEquals("hello", outContent.toString());
+		System.setIn(System.in);
 	}
 
 	@Test
@@ -45,9 +58,32 @@ public class RuntimeTest {
 	}
 
 	@Test
+	public void testPow() {
+		/*
+		 * print(2^3);
+		 */
+		VM.execute(new String[] { "PUSH", "2", "PUSH", "3", "POW", "PRINT",
+				"HALT" });
+		assertEquals("8", outContent.toString());
+	}
+
+
+	@Test
+	public void testMod() {
+		/*
+		 * print(7%4);
+		 */
+		VM.execute(new String[] { "PUSH", "7", "PUSH", "4", "MOD", "PRINT",
+				"HALT" });
+		assertEquals("3", outContent.toString());
+	}
+
+	@Test
 	public void testVariable() {
 		/*
-		 * a = 1; b = 2; print(a-b);
+		 * a = 1;
+		 * b = 2;
+		 * print(a-b);
 		 */
 		VM.execute(new String[] { "PUSH", "1", "STORE", "a", "PUSH", "2",
 				"STORE", "b", "LOAD", "a", "LOAD", "b", "SUB", "PRINT", "HALT" });
@@ -57,7 +93,8 @@ public class RuntimeTest {
 	@Test
 	public void testComplexExpression() {
 		/*
-		 * x = (2 + 3 * 4)/7; print(x);
+		 * x = (2 + 3 * 4)/7;
+		 * print(x);
 		 */
 		VM.execute(new String[] { "PUSH", "2", "PUSH", "3", "PUSH", "4", "MUL",
 				"ADD", "PUSH", "7", "DIV", "STORE", "x", "LOAD", "x", "PRINT",
@@ -135,8 +172,8 @@ public class RuntimeTest {
 				"STORE", "i", "LABEL", "label1", "LOAD", "i", "PUSH", "0",
 				"ISGT", "JIF", "label2", "LOAD", "sum", "LOAD", "i", "ADD",
 				"STORE", "sum", "LOAD", "i", "PUSH", "1", "SUB", "STORE", "i",
-				"JMP", "label1", "LABEL", "label2", "LOAD", "sum", "PRINT",
-				"HALT" });
+				"PUSH", "0", "JIF", "label1", "LABEL", "label2", "LOAD", "sum",
+				"PRINT", "HALT" });
 		assertEquals("55", outContent.toString());
 	}
 

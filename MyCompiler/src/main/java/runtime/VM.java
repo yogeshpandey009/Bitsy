@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class VM {
 
-	private static HashMap<String, Integer> labelsMap = new HashMap<String, Integer>();
+	private static HashMap<String, Integer> labelMap = new HashMap<String, Integer>();
 
 	public static void main(String[] args) {
 		String filename = "intermediate/simple.int";
@@ -39,7 +39,7 @@ public class VM {
 			if (!s.isEmpty()) {
 				if (s.equals(Instruction.LABEL.toString())) {
 					i++;
-					labelsMap.put(instr[i], line);
+					labelMap.put(instr[i], line);
 				} else {
 					program.add(s);
 					line++;
@@ -47,7 +47,7 @@ public class VM {
 			}
 		}
 		StackMachine sm = new StackMachine(program.toArray(new String[program
-				.size()]), labelsMap);
+				.size()]), labelMap);
 		sm.run();
 	}
 }

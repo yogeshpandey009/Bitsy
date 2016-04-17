@@ -1,8 +1,7 @@
 package main.java.runtime;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.Stack;
 
 import main.java.runtime.exceptions.ProgramExecutionException;
@@ -10,10 +9,10 @@ import main.java.runtime.exceptions.ProgramExecutionException;
 public class StackMachine {
 	private final String[] program;
 	private int instructionAddress = 0;
-	private final Deque<String> stack = new ArrayDeque<>();
+	private final Stack<String> executionStack = new Stack<>();
 	private boolean halted = false;
-	private Stack<FuncMetaData> frames = new Stack<>();
-	private HashMap<String, Integer> labelsMap = new HashMap<String, Integer>();
+	private Stack<FuncMetaData> callStack = new Stack<>();
+	private HashMap<String, Integer> labelMap = new HashMap<String, Integer>();
 
 	public StackMachine(String[] instructions,
 			HashMap<String, Integer> labelsMap) {
@@ -22,8 +21,8 @@ public class StackMachine {
 					"A program should have at least an instruction");
 		}
 		this.program = instructions;
-		this.labelsMap = labelsMap;
-		this.frames.push(new FuncMetaData(0)); // Prepare the initial frame
+		this.labelMap = labelsMap;
+		this.callStack.push(new FuncMetaData(0)); // Prepare the initial frame
 	}
 
 	public void run() {
@@ -46,10 +45,8 @@ public class StackMachine {
 	}
 
 	private void decodeInstruction(String instruction) {
+
 		switch (Instruction.valueOf(instruction)) {
-		default:
-			throw new ProgramExecutionException("Unknown instruction: "
-					+ instruction);
 
 		case HALT:
 			this.halted = true;
@@ -58,39 +55,40 @@ public class StackMachine {
 		case PUSH: {
 			// The word after the instruction will contain the value to push
 			String value = getNextInstruction("Should have the value after the PUSH instruction");
-			stack.push(value);
+			executionStack.push(value);
 			break;
 		}
 
 		case POP: {
 			checkStackHasAtLeastOneItem("POP");
-			stack.pop();
+			executionStack.pop();
 			break;
 		}
 
 		case DUP: {
 			checkStackHasAtLeastOneItem("DUP");
-			String n = stack.peek();
-			stack.push(n);
+			String n = executionStack.peek();
+			executionStack.push(n);
 			break;
 		}
 
 		case LOAD: {
 			String var = getNextInstruction("Should have the variable name after the LOAD instruction");
-			stack.push(getCurrentContext().getVariable(var));
+			executionStack.push(getCurrentContext().getVariable(var));
 			break;
 		}
 
 		case STORE: {
 			String var = getNextInstruction("Should have the variable name after the STORE instruction");
 			checkStackHasAtLeastOneItem("STORE");
-			getCurrentContext().setVariable(var, stack.pop());
+			getCurrentContext().setVariable(var, executionStack.pop());
 			break;
 		}
 
 		case NOT: {
 			checkStackHasAtLeastOneItem("NOT");
-			stack.push(toInt(!toBool(Integer.parseInt(stack.pop()))) + "");
+			executionStack.push(toInt(!toBool(Integer.parseInt(executionStack
+					.pop()))) + "");
 			break;
 		}
 
@@ -98,27 +96,20 @@ public class StackMachine {
 		case SUB:
 		case MUL:
 		case DIV:
+		case MOD:
+		case POW:
 		case AND:
 		case OR:
 		case ISEQ:
 		case ISGE:
 		case ISGT: {
-			if (stack.size() < 2) {
+			if (executionStack.size() < 2) {
 				throw new ProgramExecutionException(
 						"There should be at least two items on the stack to execute a binary instruction");
 			}
-			int n2 = Integer.parseInt(stack.pop());
-			int n1 = Integer.parseInt(stack.pop());
-			stack.push(doBinaryOp(instruction, n1, n2) + "");
-			break;
-		}
-
-		case JMP: {
-			// The word after the instruction will contain the address to jump
-			// to
-			String label = getNextInstruction("Should have the address after the JMP instruction");
-			int address = getLabelAddress(label);
-			this.instructionAddress = address;
+			int n2 = Integer.parseInt(executionStack.pop());
+			int n1 = Integer.parseInt(executionStack.pop());
+			executionStack.push(doBinaryOp(instruction, n1, n2) + "");
 			break;
 		}
 
@@ -128,7 +119,7 @@ public class StackMachine {
 			String label = getNextInstruction("Should have the address after the JIF instruction");
 			int address = getLabelAddress(label);
 			checkStackHasAtLeastOneItem("JIF");
-			if (!toBool(Integer.parseInt(stack.pop()))) {
+			if (!toBool(Integer.parseInt(executionStack.pop()))) {
 				this.instructionAddress = address;
 			}
 			break;
@@ -138,11 +129,8 @@ public class StackMachine {
 			// The word after the instruction will contain the function address
 			String label = getNextInstruction("Should have the address after the CALL instruction");
 			int address = getLabelAddress(label);
-			this.frames.push(new FuncMetaData(this.instructionAddress)); // Push
-																			// a
-																			// new
-																			// stack
-																			// frame
+			// Push a new stack frame
+			this.callStack.push(new FuncMetaData(this.instructionAddress));
 			this.instructionAddress = address; // and jump!
 			break;
 		}
@@ -151,24 +139,38 @@ public class StackMachine {
 			// Pop the stack frame and return to the previous address
 			checkThereIsAReturnAddress();
 			int returnAddress = getCurrentContext().getReturnAddress();
-			this.frames.pop();
+			this.callStack.pop();
 			this.instructionAddress = returnAddress;
 			break;
 		}
 
 		case PRINT: {
 			checkStackHasAtLeastOneItem("PRINT");
-			System.out.print(stack.peek());
+			System.out.print(executionStack.peek());
+			break;
 		}
+
+		case INPUT: {
+			Scanner sc = new Scanner(System.in);
+			String input = sc.nextLine();
+			sc.close();
+			executionStack.push(input);
+			break;
+		}
+
+		default:
+			throw new ProgramExecutionException("Unknown instruction: "
+					+ instruction);
+
 		}
 	}
 
 	private int getLabelAddress(String label) {
-		if (!labelsMap.containsKey(label)) {
-			throw new ProgramExecutionException(String.format("Invalid label %s",
-					label));
+		if (!labelMap.containsKey(label)) {
+			throw new ProgramExecutionException(String.format(
+					"Invalid label %s", label));
 		}
-		int address = labelsMap.get(label);
+		int address = labelMap.get(label);
 		checkJumpAddress(address);
 		return address;
 	}
@@ -182,7 +184,7 @@ public class StackMachine {
 	}
 
 	private void checkThereIsAReturnAddress() {
-		if (this.frames.size() == 1) {
+		if (this.callStack.size() == 1) {
 			throw new ProgramExecutionException(String.format(
 					"Invalid RET instruction: no current function call %d",
 					instructionAddress));
@@ -190,7 +192,7 @@ public class StackMachine {
 	}
 
 	private void checkStackHasAtLeastOneItem(String instruction) {
-		if (stack.size() < 1) {
+		if (executionStack.size() < 1) {
 			throw new ProgramExecutionException(
 					"There should be at least one item on the stack to execute an "
 							+ instruction + " instruction");
@@ -207,6 +209,10 @@ public class StackMachine {
 			return n1 * n2;
 		case DIV:
 			return n1 / n2;
+		case MOD:
+			return n1 % n2;
+		case POW:
+			return (int) Math.pow(n1, n2);
 		case AND:
 			return toInt(toBool(n1) && toBool(n2));
 		case OR:
@@ -240,6 +246,6 @@ public class StackMachine {
 	}
 
 	private FuncMetaData getCurrentContext() {
-		return frames.peek();
+		return callStack.peek();
 	}
 }
