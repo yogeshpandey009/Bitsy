@@ -65,13 +65,6 @@ public class StackMachine {
 			break;
 		}
 
-		case DUP: {
-			checkStackHasAtLeastOneItem("DUP");
-			String n = executionStack.peek();
-			executionStack.push(n);
-			break;
-		}
-
 		case LOAD: {
 			String var = getNextInstruction("Should have the variable name after the LOAD instruction");
 			executionStack.push(getCurrentContext().getVariable(var));
