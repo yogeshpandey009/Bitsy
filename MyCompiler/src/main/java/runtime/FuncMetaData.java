@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import main.java.runtime.exceptions.ProgramExecutionException;
+
 public class FuncMetaData {
 
 	private final Map<String, String> variables = new HashMap<>();
@@ -17,7 +19,7 @@ public class FuncMetaData {
 		if (variables.containsKey(var)) {
 			return variables.get(var);
 		}
-		throw new InValidProgramException("Undefined Variable: " + var);
+		throw new ProgramExecutionException("Undefined Variable: " + var);
 	}
 
 	public void setVariable(String var, String value) {

@@ -1,7 +1,7 @@
 package main.java.compiler;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 import main.java.compiler.exceptions.UndeclaredVariableException;
 import main.java.compiler.exceptions.VariableAlreadyDefinedException;
@@ -26,63 +26,63 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 public class MyVisitor extends MyLangBaseVisitor<String> {
 	
-	private Map<String, Integer> variables = new HashMap<>();
+	private Set<String> variables = new HashSet<>();
 	
 	@Override
 	public String visitPrintln(PrintlnContext ctx) {
 //		return "  getstatic java/lang/System/out Ljava/io/PrintStream;\n" + 
 //				 visit(ctx.argument) + "\n" + 
 //				"  invokevirtual java/io/PrintStream/println(I)V\n";
-		return visit(ctx.argument) +  "\n" + "PRINT";
+		return visit(ctx.argument) + "PRINT" +  "\n";
 	}
 	
 	@Override
 	public String visitPlus(PlusContext ctx) {
-		return visitChildren(ctx) + "\n" +
-			"ADD";
+		return visitChildren(ctx) +
+			"ADD" + "\n";
 	}
 	
 	@Override
 	public String visitMinus(MinusContext ctx) {
-		return visitChildren(ctx) + "\n" +
-				"SUB";
+		return visitChildren(ctx) +
+				"SUB" + "\n";
 	}
 	
 	@Override
 	public String visitDiv(DivContext ctx) {
-		return visitChildren(ctx) + "\n" +
-				"DIV";
+		return visitChildren(ctx) +
+				"DIV" + "\n";
 	}
 	
 	@Override
 	public String visitMult(MultContext ctx) {
-		return visitChildren(ctx) + "\n" +
-				"MUL";
+		return visitChildren(ctx) +
+				"MUL" + "\n";
 	}
 	
 	@Override
 	public String visitNumber(NumberContext ctx) {
-		return "PUSH " + ctx.number.getText();
+		return "PUSH " + ctx.number.getText() + "\n";
 	}
 	
 	@Override
 	public String visitVarDeclaration(VarDeclarationContext ctx) {
-		if (variables.containsKey(ctx.varName.getText())) {
+		if (variables.contains(ctx.varName.getText())) {
 			throw new VariableAlreadyDefinedException(ctx.varName);
 		}
-		variables.put(ctx.varName.getText(), variables.size());
+		variables.add(ctx.varName.getText());
 		return "";
 	}
 	
 	@Override
 	public String visitAssignment(AssignmentContext ctx) {
-		return visit(ctx.expr) + "\n" +
-				"STORE " + ctx.varName.getText();
+		return visit(ctx.expr) +
+				"STORE " + getVariableName(ctx.varName) + "\n";
 	}
 	
 	@Override
 	public String visitVariable(VariableContext ctx) {
-		return "LOAD " + ctx.varName.getText();
+		return "LOAD " + getVariableName(ctx.varName) + "\n";
 	}
 	
 	@Override
@@ -101,8 +101,8 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	
 	@Override
 	public String visitFunctionDefinition(FunctionDefinitionContext ctx) {
-		Map<String, Integer> oldVariables = variables;
-		variables = new HashMap<>();
+		Set<String> oldVariables = variables;
+		variables = new HashSet<>();
 		visit(ctx.params);
 		String statementInstructions = visit(ctx.statements);
 		String result = ".method public static " + ctx.funcName.getText() + "(";
@@ -135,9 +135,9 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 			ParseTree child = ctx.getChild(i);
 			String instructions = visit(child);
 			if (child instanceof MainStatementContext) {
-				mainCode += instructions + "\n";
+				mainCode += instructions;
 			} else {
-				functions += instructions + "\n";
+				functions += instructions;
 			}
 		}
 		/*
@@ -156,12 +156,12 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		"HALT";
 	}
 	
-	private int requireVariableIndex(Token varNameToken) {
-		Integer varIndex = variables.get(varNameToken.getText());
-		if (varIndex == null) {
+	private String getVariableName(Token varNameToken) {
+		String varName = varNameToken.getText();
+		if (!variables.contains(varName)) {
 			throw new UndeclaredVariableException(varNameToken);
 		}
-		return varIndex;
+		return varName;
 	}
 	
 	@Override
@@ -172,6 +172,6 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		if (nextResult == null) {
 			return aggregate;
 		}
-		return aggregate + "\n" + nextResult;
+		return aggregate + nextResult;
 	}
 }

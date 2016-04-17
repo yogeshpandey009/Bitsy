@@ -12,8 +12,6 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-
-
 public class Main {
 
 	public static void main(String[] args) throws Exception {
@@ -22,27 +20,28 @@ public class Main {
 			filename = args[0];
 		}
 		ANTLRInputStream input = new ANTLRFileStream(filename);
-		
+
 		System.out.println(compile(input));
 	}
-	
+
 	public static String compile(ANTLRInputStream input) {
 		MyLangLexer lexer = new MyLangLexer(input);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		MyLangParser parser = new MyLangParser(tokens);
-		
+
 		ParseTree tree = parser.program();
 		return createIntermediateCode(new MyVisitor().visit(tree));
 	}
-	
+
 	private static String createIntermediateCode(String instructions) {
-		File intrFile = new File("intermediate/simple.int"); 
+		File intrFile = new File("intermediate/simple.int");
 		try {
-			if(intrFile.createNewFile()) {
-				PrintWriter writer = new PrintWriter(intrFile);
-				writer.print(instructions);
-				writer.close();
+			if (!intrFile.exists()) {
+				intrFile.createNewFile();
 			}
+			PrintWriter writer = new PrintWriter(intrFile);
+			writer.print(instructions);
+			writer.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -51,9 +50,7 @@ public class Main {
 	}
 
 	private static String createJasminFile(String instructions) {
-		return ".class public HelloWorld\n" + 
-				".super java/lang/Object\n" + 
-				"\n" + 
-				instructions;
+		return ".class public HelloWorld\n" + ".super java/lang/Object\n"
+				+ "\n" + instructions;
 	}
 }

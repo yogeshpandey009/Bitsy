@@ -5,6 +5,8 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.Stack;
 
+import main.java.runtime.exceptions.ProgramExecutionException;
+
 public class StackMachine {
 	private final String[] program;
 	private int instructionAddress = 0;
@@ -16,7 +18,7 @@ public class StackMachine {
 	public StackMachine(String[] instructions,
 			HashMap<String, Integer> labelsMap) {
 		if (instructions.length == 0) {
-			throw new InValidProgramException(
+			throw new ProgramExecutionException(
 					"A program should have at least an instruction");
 		}
 		this.program = instructions;
@@ -38,7 +40,7 @@ public class StackMachine {
 
 	private void checkState() {
 		if (halted) {
-			throw new InValidProgramException(
+			throw new ProgramExecutionException(
 					"An halted CPU cannot execute the program");
 		}
 	}
@@ -46,7 +48,7 @@ public class StackMachine {
 	private void decodeInstruction(String instruction) {
 		switch (Instruction.valueOf(instruction)) {
 		default:
-			throw new InValidProgramException("Unknown instruction: "
+			throw new ProgramExecutionException("Unknown instruction: "
 					+ instruction);
 
 		case HALT:
@@ -102,7 +104,7 @@ public class StackMachine {
 		case ISGE:
 		case ISGT: {
 			if (stack.size() < 2) {
-				throw new InValidProgramException(
+				throw new ProgramExecutionException(
 						"There should be at least two items on the stack to execute a binary instruction");
 			}
 			int n2 = Integer.parseInt(stack.pop());
@@ -163,7 +165,7 @@ public class StackMachine {
 
 	private int getLabelAddress(String label) {
 		if (!labelsMap.containsKey(label)) {
-			throw new InValidProgramException(String.format("Invalid label %s",
+			throw new ProgramExecutionException(String.format("Invalid label %s",
 					label));
 		}
 		int address = labelsMap.get(label);
@@ -173,7 +175,7 @@ public class StackMachine {
 
 	private void checkJumpAddress(int address) {
 		if (address < 0 || address >= program.length) {
-			throw new InValidProgramException(String.format(
+			throw new ProgramExecutionException(String.format(
 					"Invalid jump address %d at %d", address,
 					instructionAddress));
 		}
@@ -181,7 +183,7 @@ public class StackMachine {
 
 	private void checkThereIsAReturnAddress() {
 		if (this.frames.size() == 1) {
-			throw new InValidProgramException(String.format(
+			throw new ProgramExecutionException(String.format(
 					"Invalid RET instruction: no current function call %d",
 					instructionAddress));
 		}
@@ -189,7 +191,7 @@ public class StackMachine {
 
 	private void checkStackHasAtLeastOneItem(String instruction) {
 		if (stack.size() < 1) {
-			throw new InValidProgramException(
+			throw new ProgramExecutionException(
 					"There should be at least one item on the stack to execute an "
 							+ instruction + " instruction");
 		}
@@ -230,7 +232,7 @@ public class StackMachine {
 
 	private String getNextInstruction(String errorMessage) {
 		if (instructionAddress >= program.length) {
-			throw new InValidProgramException(errorMessage);
+			throw new ProgramExecutionException(errorMessage);
 		}
 		String nextWord = program[instructionAddress];
 		++instructionAddress;
