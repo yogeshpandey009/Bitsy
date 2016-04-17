@@ -1,5 +1,9 @@
 package main.java.compiler;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import mycompiler.parser.MyLangLexer;
 import mycompiler.parser.MyLangParser;
 
@@ -13,7 +17,11 @@ import org.antlr.v4.runtime.tree.ParseTree;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-		ANTLRInputStream input = new ANTLRFileStream("./src/main/resources/simple.my");
+		String filename = "input/simple.my";
+		if (args.length > 0) {
+			filename = args[0];
+		}
+		ANTLRInputStream input = new ANTLRFileStream(filename);
 		
 		System.out.println(compile(input));
 	}
@@ -24,9 +32,24 @@ public class Main {
 		MyLangParser parser = new MyLangParser(tokens);
 		
 		ParseTree tree = parser.program();
-		return createJasminFile(new MyVisitor().visit(tree));
+		return createIntermediateCode(new MyVisitor().visit(tree));
 	}
 	
+	private static String createIntermediateCode(String instructions) {
+		File intrFile = new File("intermediate/simple.int"); 
+		try {
+			if(intrFile.createNewFile()) {
+				PrintWriter writer = new PrintWriter(intrFile);
+				writer.print(instructions);
+				writer.close();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return instructions;
+	}
+
 	private static String createJasminFile(String instructions) {
 		return ".class public HelloWorld\n" + 
 				".super java/lang/Object\n" + 

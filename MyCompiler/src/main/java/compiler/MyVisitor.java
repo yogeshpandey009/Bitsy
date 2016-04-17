@@ -30,38 +30,39 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	
 	@Override
 	public String visitPrintln(PrintlnContext ctx) {
-		return "  getstatic java/lang/System/out Ljava/io/PrintStream;\n" + 
-				 visit(ctx.argument) + "\n" + 
-				"  invokevirtual java/io/PrintStream/println(I)V\n";
+//		return "  getstatic java/lang/System/out Ljava/io/PrintStream;\n" + 
+//				 visit(ctx.argument) + "\n" + 
+//				"  invokevirtual java/io/PrintStream/println(I)V\n";
+		return visit(ctx.argument) +  "\n" + "PRINT";
 	}
 	
 	@Override
 	public String visitPlus(PlusContext ctx) {
 		return visitChildren(ctx) + "\n" +
-			"iadd";
+			"ADD";
 	}
 	
 	@Override
 	public String visitMinus(MinusContext ctx) {
 		return visitChildren(ctx) + "\n" +
-				"isub";
+				"SUB";
 	}
 	
 	@Override
 	public String visitDiv(DivContext ctx) {
 		return visitChildren(ctx) + "\n" +
-				"idiv";
+				"DIV";
 	}
 	
 	@Override
 	public String visitMult(MultContext ctx) {
 		return visitChildren(ctx) + "\n" +
-				"imul";
+				"MUL";
 	}
 	
 	@Override
 	public String visitNumber(NumberContext ctx) {
-		return "ldc " + ctx.number.getText();
+		return "PUSH " + ctx.number.getText();
 	}
 	
 	@Override
@@ -76,12 +77,12 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	@Override
 	public String visitAssignment(AssignmentContext ctx) {
 		return visit(ctx.expr) + "\n" +
-				"istore " + requireVariableIndex(ctx.varName);
+				"STORE " + ctx.varName.getText();
 	}
 	
 	@Override
 	public String visitVariable(VariableContext ctx) {
-		return "iload " + requireVariableIndex(ctx.varName);
+		return "LOAD " + ctx.varName.getText();
 	}
 	
 	@Override
@@ -139,6 +140,7 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 				functions += instructions + "\n";
 			}
 		}
+		/*
 		return functions + "\n" +
 		".method public static main([Ljava/lang/String;)V\n" + 
 		"  .limit stack 100\n" + 
@@ -148,6 +150,10 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		"  return\n" + 
 		"  \n" + 
 		".end method";
+		*/
+		return functions +
+		 mainCode +
+		"HALT";
 	}
 	
 	private int requireVariableIndex(Token varNameToken) {

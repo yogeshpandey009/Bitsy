@@ -1,4 +1,4 @@
-PUSH
+PUSH 
 hello
 PRINT
 HALT

@@ -47,7 +47,9 @@ public class RuntimeTest {
 	@Test
 	public void testVariable() {
 		/*
-		 * a = 1 b = 2 print(a-b)
+		 * a = 1 
+		 * b = 2 
+		 * print(a-b)
 		 */
 		VM.execute(new String[] { "PUSH", "1", "STORE", "a", "PUSH", "2",
 				"STORE", "b", "LOAD", "a", "LOAD", "b", "SUB", "PRINT", "HALT" });
@@ -55,13 +57,54 @@ public class RuntimeTest {
 	}
 
 	@Test
-	public void testExpression() {
+	public void testComplexExpression() {
 		/*
-		 * x = (2 + 3 * 4)/7 print(x)
+		 * x = (2 + 3 * 4)/7 
+		 * print(x)
 		 */
 		VM.execute(new String[] { "PUSH", "2", "PUSH", "3", "PUSH", "4", "MUL",
 				"ADD", "PUSH", "7", "DIV", "STORE", "x", "LOAD", "x", "PRINT",
 				"HALT" });
 		assertEquals("2", outContent.toString());
+	}
+
+	@Test
+	public void testIsEqualOperator() {
+		/*
+		 * print(3 == 3)
+		 */
+		VM.execute(new String[] { "PUSH", "3", "PUSH", "3", "ISEQ", "PRINT",
+				"HALT" });
+		assertEquals("1", outContent.toString());
+	}
+
+	@Test
+	public void testNotOperator() {
+		/*
+		 * print(3 != 3)
+		 */
+		VM.execute(new String[] { "PUSH", "3", "PUSH", "3", "ISEQ", "NOT", "PRINT",
+				"HALT" });
+		assertEquals("0", outContent.toString());
+	}
+
+	@Test
+	public void testLogicalOperators() {
+		/*
+		 * print(5 > 3 && 4 <= 7)
+		 */
+		VM.execute(new String[] { "PUSH", "5", "PUSH", "3", "ISGT", "PUSH", "4", "PUSH", "7", "ISGT", "NOT", "AND", "PRINT",
+				"HALT" });
+		assertEquals("1", outContent.toString());
+	}
+
+	@Test
+	public void testJumpIfTrue() {
+		/*
+		 * print(5 > 3 && 4 <= 7)
+		 */
+		VM.execute(new String[] { "PUSH", "5", "PUSH", "3", "ISGT", "PUSH", "4", "PUSH", "7", "ISGT", "NOT", "AND", "PRINT",
+				"HALT" });
+		assertEquals("1", outContent.toString());
 	}
 }
