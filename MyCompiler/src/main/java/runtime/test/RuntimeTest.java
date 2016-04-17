@@ -156,4 +156,24 @@ public class RuntimeTest {
 				"a", "LOAD", "b", "ADD", "PUSH", "2", "DIV", "RET" });
 		assertEquals("4", outContent.toString());
 	}
+
+	@Test
+	public void testRecursion() {
+		/*
+		 * x = 5;
+		 * print(fact(x));
+		 * func fact(int n) {
+		 * 	if(n==1) {
+		 * 		return 1;
+		 * 	}
+		 * 	return n * fact(n-1);
+		 * }
+		 */
+		VM.execute(new String[] { "PUSH", "5", "STORE", "x", "LOAD", "x",
+				"CALL", "fact", "PRINT", "HALT", "LABEL", "fact", "STORE", "n",
+				"LOAD", "n", "PUSH", "1", "ISEQ", "JIF", "label1", "PUSH", "1",
+				"RET", "LABEL", "label1", "LOAD", "n", "LOAD", "n", "PUSH",
+				"1", "SUB", "CALL", "fact", "MUL", "RET" });
+		assertEquals("120", outContent.toString());
+	}
 }
