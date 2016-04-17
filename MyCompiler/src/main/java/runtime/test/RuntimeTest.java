@@ -139,4 +139,21 @@ public class RuntimeTest {
 				"HALT" });
 		assertEquals("55", outContent.toString());
 	}
+
+	@Test
+	public void testFunctionCall() {
+		/*
+		 * x = 3;
+		 * y = 5;
+		 * print(avg(x, y));
+		 * func avg(int a, int b) {
+		 * 	return (a + b)/2;
+		 * }
+		 */
+		VM.execute(new String[] { "PUSH", "3", "STORE", "x", "PUSH", "5",
+				"STORE", "y", "LOAD", "x", "LOAD", "y", "CALL", "avg", "PRINT",
+				"HALT", "LABEL", "avg", "STORE", "b", "STORE", "a", "LOAD",
+				"a", "LOAD", "b", "ADD", "PUSH", "2", "DIV", "RET" });
+		assertEquals("4", outContent.toString());
+	}
 }
