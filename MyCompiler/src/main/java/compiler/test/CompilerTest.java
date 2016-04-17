@@ -11,7 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
 
-import main.java.compiler.Main;
+import main.java.compiler.Translator;
 import main.java.compiler.exceptions.UndeclaredVariableException;
 import main.java.compiler.exceptions.VariableAlreadyDefinedException;
 
@@ -135,7 +135,7 @@ public class CompilerTest {
 	}
 
 	private String compileAndRun(String code) throws Exception {
-		code = Main.compile(new ANTLRInputStream(code));
+		code = Translator.compile(new ANTLRInputStream(code));
 		ClassFile classFile = new ClassFile();
 		classFile.readJasmin(new StringReader(code), "", false);
 		Path outputPath = tempDir.resolve(classFile.getClassName() + ".class");

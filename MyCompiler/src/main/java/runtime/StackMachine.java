@@ -76,13 +76,13 @@ public class StackMachine {
 		}
 
 		case LOAD: {
-			String var = getNextInstruction("Should have the variable number after the LOAD instruction");
+			String var = getNextInstruction("Should have the variable name after the LOAD instruction");
 			stack.push(getCurrentContext().getVariable(var));
 			break;
 		}
 
 		case STORE: {
-			String var = getNextInstruction("Should have the variable number after the STORE instruction");
+			String var = getNextInstruction("Should have the variable name after the STORE instruction");
 			checkStackHasAtLeastOneItem("STORE");
 			getCurrentContext().setVariable(var, stack.pop());
 			break;
@@ -128,7 +128,7 @@ public class StackMachine {
 			String label = getNextInstruction("Should have the address after the JIF instruction");
 			int address = getLabelAddress(label);
 			checkStackHasAtLeastOneItem("JIF");
-			if (toBool(Integer.parseInt(stack.pop()))) {
+			if (!toBool(Integer.parseInt(stack.pop()))) {
 				this.instructionAddress = address;
 			}
 			break;
