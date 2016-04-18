@@ -94,8 +94,8 @@ public class StackMachine {
 		case AND:
 		case OR:
 		case ISEQ:
-		case ISGE:
-		case ISGT: {
+		case GRTEQ:
+		case GRT: {
 			if (executionStack.size() < 2) {
 				throw new ProgramExecutionException(
 						"There should be at least two items on the stack to execute a binary instruction");
@@ -212,9 +212,9 @@ public class StackMachine {
 			return toInt(toBool(n1) || toBool(n2));
 		case ISEQ:
 			return toInt(n1 == n2);
-		case ISGE:
+		case GRTEQ:
 			return toInt(n1 >= n2);
-		case ISGT:
+		case GRT:
 			return toInt(n1 > n2);
 		default:
 			throw new AssertionError();
