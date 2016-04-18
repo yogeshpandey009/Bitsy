@@ -121,13 +121,13 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	@Override
 	public String visitGreater(GreaterContext ctx) {
 		return visitChildren(ctx) +
-				"GRT" + "\n";
+				"ISGT" + "\n";
 	}
 	
 	@Override
 	public String visitGreaterEq(GreaterEqContext ctx) {
 		return visitChildren(ctx) +
-				"GRTEQ" + "\n";
+				"ISGE" + "\n";
 	}
 	
 	@Override
