@@ -10,9 +10,17 @@ import mycompiler.parser.MyLangParser.AssignmentContext;
 import mycompiler.parser.MyLangParser.DivContext;
 import mycompiler.parser.MyLangParser.FunctionCallContext;
 import mycompiler.parser.MyLangParser.FunctionDefinitionContext;
+import mycompiler.parser.MyLangParser.GreaterContext;
+import mycompiler.parser.MyLangParser.GreaterEqContext;
+import mycompiler.parser.MyLangParser.IsEqContext;
+import mycompiler.parser.MyLangParser.LessContext;
+import mycompiler.parser.MyLangParser.LessEqContext;
+import mycompiler.parser.MyLangParser.LogicalANDContext;
+import mycompiler.parser.MyLangParser.LogicalORContext;
 import mycompiler.parser.MyLangParser.MainStatementContext;
 import mycompiler.parser.MyLangParser.MinusContext;
 import mycompiler.parser.MyLangParser.MultContext;
+import mycompiler.parser.MyLangParser.NotEqContext;
 import mycompiler.parser.MyLangParser.NumberContext;
 import mycompiler.parser.MyLangParser.PlusContext;
 import mycompiler.parser.MyLangParser.PrintlnContext;
@@ -41,6 +49,7 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		return visitChildren(ctx) +
 			"ADD" + "\n";
 	}
+	
 	
 	@Override
 	public String visitMinus(MinusContext ctx) {
@@ -83,6 +92,54 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	@Override
 	public String visitVariable(VariableContext ctx) {
 		return "LOAD " + getVariableName(ctx.varName) + "\n";
+	}
+	
+	@Override
+	public String visitLogicalAND(LogicalANDContext ctx) {
+		return visitChildren(ctx) +
+				"AND" + "\n";
+	}
+	
+	@Override
+	public String visitLogicalOR(LogicalORContext ctx) {
+		return visitChildren(ctx) +
+				"OR" + "\n";
+	}
+	
+	@Override
+	public String visitLess(LessContext ctx) {
+		return visitChildren(ctx) +
+				"LESS" + "\n";
+	}
+	
+	@Override
+	public String visitLessEq(LessEqContext ctx) {
+		return visitChildren(ctx) +
+				"LESSEQ" + "\n";
+	}
+	
+	@Override
+	public String visitGreater(GreaterContext ctx) {
+		return visitChildren(ctx) +
+				"GRT" + "\n";
+	}
+	
+	@Override
+	public String visitGreaterEq(GreaterEqContext ctx) {
+		return visitChildren(ctx) +
+				"GRTEQ" + "\n";
+	}
+	
+	@Override
+	public String visitIsEq(IsEqContext ctx) {
+		return visitChildren(ctx) +
+				"ISEQ" + "\n";
+	}
+	
+	@Override
+	public String visitNotEq(NotEqContext ctx) {
+		return visitChildren(ctx) +
+				"NOTEQ" + "\n";
 	}
 	
 	@Override
