@@ -109,13 +109,13 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	@Override
 	public String visitLess(LessContext ctx) {
 		return visitChildren(ctx) +
-				"LESS" + "\n";
+				"ISGE" + "\n" + "NOT" + "\n";
 	}
 	
 	@Override
 	public String visitLessEq(LessEqContext ctx) {
 		return visitChildren(ctx) +
-				"LESSEQ" + "\n";
+				"ISGT" + "\n" + "NOT" + "\n";
 	}
 	
 	@Override
@@ -139,7 +139,7 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	@Override
 	public String visitNotEq(NotEqContext ctx) {
 		return visitChildren(ctx) +
-				"NOTEQ" + "\n";
+				"ISEQ" + "\n" + "NOT" + "\n";
 	}
 	
 	@Override
