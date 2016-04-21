@@ -5,3 +5,7 @@ println(x);
 int y;
 y = 0 || 0;
 println(y);
+
+int z;
+z = 6 <= 8 && 5 > 7;
+println(z);
