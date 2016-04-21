@@ -29,7 +29,7 @@ public class RuntimeTest {
 	@Test
 	public void testPrint() {
 		/*
-		 * print("hello");
+		 * print("hello world");
 		 */
 		VM.execute(new String[] { "PUSH", "hello world", "PRINT", "HALT" });
 		assertEquals("hello world", outContent.toString());

@@ -15,14 +15,14 @@ expression: left=expression '/' right=expression #Div
           | left=expression '*' right=expression #Mult
           | left=expression '-' right=expression #Minus
           | left=expression '+' right=expression #Plus
-          | left=expression '&&' right=expression #LogicalAND
-          | left=expression '||' right=expression #LogicalOR
           | left=expression '<' right=expression #Less
           | left=expression '>' right=expression #Greater
           | left=expression '<=' right=expression #LessEq
           | left=expression '>=' right=expression #GreaterEq
           | left=expression '==' right=expression #IsEq
           | left=expression '!=' right=expression #NotEq
+          | left=expression '&&' right=expression #LogicalAND
+          | left=expression '||' right=expression #LogicalOR
           | number=NUMBER #Number
           | varName=IDENTIFIER #Variable
           | functionCall #funcCallExpression
