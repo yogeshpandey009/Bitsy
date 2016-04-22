@@ -9,6 +9,7 @@ programPart: statement		#MainStatement
 statement: print ';'
          | varDeclaration ';'
          | assignment ';'
+         | returnStat ';'
          | ifStat
          ;
 
@@ -36,7 +37,9 @@ assignment: varName=IDENTIFIER '=' expr=expression;
 
 print: 'print(' argument=expression ')' ;
 
-functionDefinition: 'int' funcName=IDENTIFIER '(' params=parameterDeclaration ')' '{' statements=statementList 'return' returnValue=expression ';' '}' ;
+returnStat: 'return' returnValue=expression ;
+
+functionDefinition: 'int' funcName=IDENTIFIER '(' params=parameterDeclaration ')' '{' statements=statementList '}' ;
 
 parameterDeclaration: declarations+=varDeclaration (',' declarations+=varDeclaration)*
                     |

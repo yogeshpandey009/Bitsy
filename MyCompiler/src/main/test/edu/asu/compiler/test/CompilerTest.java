@@ -131,7 +131,12 @@ public class CompilerTest {
 						"int a;\n" + "a = 6;\n" + "if(a < 5) {\n"
 								+ "	print(1);\n" + "} elif(a < 10) {\n"
 								+ "	print(2);\n" + "} else {\n"
-								+ "	print(3);\n" + "}", "2" } };
+								+ "	print(3);\n" + "}", "2" },
+				{
+						"int x;\n" + "x = 5;\n" + "print(fact(x));\n"
+								+ "int fact(int n) {\n" + "	if(n==1) {\n"
+								+ "		return 1;\n" + "	}\n"
+								+ "	return n * fact(n-1);\n" + "}", "120" } };
 	}
 
 	private void compileAndRun(String code) throws Exception {

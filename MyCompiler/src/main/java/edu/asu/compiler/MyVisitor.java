@@ -28,6 +28,7 @@ import mycompiler.parser.MyLangParser.ParanContext;
 import mycompiler.parser.MyLangParser.PlusContext;
 import mycompiler.parser.MyLangParser.PrintContext;
 import mycompiler.parser.MyLangParser.ProgramContext;
+import mycompiler.parser.MyLangParser.ReturnStatContext;
 import mycompiler.parser.MyLangParser.VarDeclarationContext;
 import mycompiler.parser.MyLangParser.VariableContext;
 
@@ -170,10 +171,14 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 			result += "STORE "
 					+ ctx.params.declarations.get(i).varName.getText() + "\n";
 		}
-		result += (statementInstructions == null ? "" : statementInstructions)
-				+ visit(ctx.returnValue) + "RET\n";
+		result += (statementInstructions == null ? "" : statementInstructions);
 		variables = oldVariables;
 		return result;
+	}
+
+	@Override
+	public String visitReturnStat(ReturnStatContext ctx) {
+		return visitChildren(ctx) + "RET\n";
 	}
 
 	@Override
