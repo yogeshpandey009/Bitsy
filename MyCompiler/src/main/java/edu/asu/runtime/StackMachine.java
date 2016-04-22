@@ -107,14 +107,24 @@ public class StackMachine {
 		}
 
 		case JIF: {
+			// JMP if stack top value is false
 			// The word after the instruction will contain the address to jump
-			// to
+			// to 
 			String label = getNextInstruction("Should have the address after the JIF instruction");
 			int address = getLabelAddress(label);
 			checkStackHasAtLeastOneItem("JIF");
 			if (!toBool(Integer.parseInt(executionStack.pop()))) {
 				this.instructionAddress = address;
 			}
+			break;
+		}
+
+		case JMP: {
+			// The word after the instruction will contain the address to jump
+			// to
+			String label = getNextInstruction("Should have the address after the JIF instruction");
+			int address = getLabelAddress(label);
+			this.instructionAddress = address;
 			break;
 		}
 

@@ -126,7 +126,12 @@ public class CompilerTest {
 								+ "print(i);", "4" + "42" },
 				{
 						"int add(int a, int b) {\n" + "  return a+b;\n" + "}\n"
-								+ "print(add(5,8));", "13" } };
+								+ "print(add(5,8));", "13" },
+				{
+						"int a;\n" + "a = 6;\n" + "if(a < 5) {\n"
+								+ "	print(1);\n" + "} elif(a < 10) {\n"
+								+ "	print(2);\n" + "} else {\n"
+								+ "	print(3);\n" + "}", "2" } };
 	}
 
 	private void compileAndRun(String code) throws Exception {

@@ -2,13 +2,14 @@ grammar MyLang;
 
 program: programPart+ ;
 
-programPart: statement ';'       #MainStatement
+programPart: statement		#MainStatement
            | functionDefinition  #ProgPartFunctionDefinition
            ;
 
-statement: print
-         | varDeclaration
-         | assignment
+statement: print ';'
+         | varDeclaration ';'
+         | assignment ';'
+         | ifStat
          ;
 
 expression: '(' expr=expression ')' #Paran
@@ -41,7 +42,16 @@ parameterDeclaration: declarations+=varDeclaration (',' declarations+=varDeclara
                     |
                     ;
 
-statementList: (statement ';')* ;
+statementList: (statement)* ;
+
+ifStat: 'if' ifBlock=conditionBlock ( elifBlock+=elifStat )* ( elseBlock= elseStat )? ;
+
+elifStat: 'elif' cond=conditionBlock ;
+
+elseStat: 'else' '{' statements=statementList '}' ;
+ 
+conditionBlock: '(' expr=expression ')' '{' statements=statementList '}';
+ 
 
 functionCall: funcName=IDENTIFIER '(' arguments=expressionList ')' ;
 

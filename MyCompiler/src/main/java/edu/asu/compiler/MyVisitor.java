@@ -7,11 +7,13 @@ import edu.asu.compiler.exceptions.UndeclaredVariableException;
 import edu.asu.compiler.exceptions.VariableAlreadyDefinedException;
 import mycompiler.parser.MyLangBaseVisitor;
 import mycompiler.parser.MyLangParser.AssignmentContext;
+import mycompiler.parser.MyLangParser.ConditionBlockContext;
 import mycompiler.parser.MyLangParser.DivContext;
 import mycompiler.parser.MyLangParser.FunctionCallContext;
 import mycompiler.parser.MyLangParser.FunctionDefinitionContext;
 import mycompiler.parser.MyLangParser.GreaterContext;
 import mycompiler.parser.MyLangParser.GreaterEqContext;
+import mycompiler.parser.MyLangParser.IfStatContext;
 import mycompiler.parser.MyLangParser.IsEqContext;
 import mycompiler.parser.MyLangParser.LessContext;
 import mycompiler.parser.MyLangParser.LessEqContext;
@@ -35,15 +37,12 @@ import org.antlr.v4.runtime.tree.ParseTree;
 public class MyVisitor extends MyLangBaseVisitor<String> {
 
 	private Set<String> variables = new HashSet<>();
+	private int labelCounter = 1;
+	private String pLabel = "label_main";
 
 	@Override
 	public String visitPrint(PrintContext ctx) {
 		return visit(ctx.argument) + "PRINT" + "\n";
-	}
-
-	@Override
-	public String visitParan(ParanContext ctx) {
-		return visitChildren(ctx);
 	}
 
 	@Override
@@ -131,6 +130,24 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	}
 
 	@Override
+	public String visitIfStat(IfStatContext ctx) {
+		String label = generateLabel();
+		pLabel = label;
+		return visitChildren(ctx) + "LABEL " + label + "\n";
+	}
+
+	@Override
+	public String visitConditionBlock(ConditionBlockContext ctx) {
+		String label = generateLabel();
+		String result = visit(ctx.expr);
+		result += "JIF " + label + "\n";
+		result += visit(ctx.statements);
+		result += "JMP " + getParentScopeLabel() + "\n";
+		result += "LABEL " + label + "\n";
+		return result;
+	}
+
+	@Override
 	public String visitFunctionCall(FunctionCallContext ctx) {
 		String instructions = "";
 		String argumentsInstructions = visit(ctx.arguments);
@@ -192,5 +209,15 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 			return aggregate;
 		}
 		return aggregate + nextResult;
+	}
+
+	private String generateLabel() {
+		String label = "label_" + labelCounter;
+		labelCounter++;
+		return label;
+	}
+
+	private String getParentScopeLabel() {
+		return pLabel;
 	}
 }

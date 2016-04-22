@@ -172,7 +172,7 @@ public class RuntimeTest {
 				"STORE", "i", "LABEL", "label1", "LOAD", "i", "PUSH", "0",
 				"ISGT", "JIF", "label2", "LOAD", "sum", "LOAD", "i", "ADD",
 				"STORE", "sum", "LOAD", "i", "PUSH", "1", "SUB", "STORE", "i",
-				"PUSH", "0", "JIF", "label1", "LABEL", "label2", "LOAD", "sum",
+				"JMP", "label1", "LABEL", "label2", "LOAD", "sum",
 				"PRINT", "HALT" });
 		assertEquals("55", outContent.toString());
 	}

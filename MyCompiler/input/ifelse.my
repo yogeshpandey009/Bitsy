@@ -1,5 +1,5 @@
 int a;
-a = 6;
+a = 3;
 if(a < 5) {
 	print(1);
 } elif(a < 10) {
