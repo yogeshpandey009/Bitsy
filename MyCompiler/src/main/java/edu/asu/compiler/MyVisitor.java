@@ -1,10 +1,10 @@
-package main.java.compiler;
+package edu.asu.compiler;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import main.java.compiler.exceptions.UndeclaredVariableException;
-import main.java.compiler.exceptions.VariableAlreadyDefinedException;
+import edu.asu.compiler.exceptions.UndeclaredVariableException;
+import edu.asu.compiler.exceptions.VariableAlreadyDefinedException;
 import mycompiler.parser.MyLangBaseVisitor;
 import mycompiler.parser.MyLangParser.AssignmentContext;
 import mycompiler.parser.MyLangParser.DivContext;
@@ -24,7 +24,7 @@ import mycompiler.parser.MyLangParser.NotEqContext;
 import mycompiler.parser.MyLangParser.NumberContext;
 import mycompiler.parser.MyLangParser.ParanContext;
 import mycompiler.parser.MyLangParser.PlusContext;
-import mycompiler.parser.MyLangParser.PrintlnContext;
+import mycompiler.parser.MyLangParser.PrintContext;
 import mycompiler.parser.MyLangParser.ProgramContext;
 import mycompiler.parser.MyLangParser.VarDeclarationContext;
 import mycompiler.parser.MyLangParser.VariableContext;
@@ -37,7 +37,7 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	private Set<String> variables = new HashSet<>();
 
 	@Override
-	public String visitPrintln(PrintlnContext ctx) {
+	public String visitPrint(PrintContext ctx) {
 		// return "  getstatic java/lang/System/out Ljava/io/PrintStream;\n" +
 		// visit(ctx.argument) + "\n" +
 		// "  invokevirtual java/io/PrintStream/println(I)V\n";

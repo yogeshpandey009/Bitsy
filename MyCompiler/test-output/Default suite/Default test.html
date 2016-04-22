@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Default test</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>21/0/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>17/0/0</td>
 </tr><tr>
-<td>Started on:</td><td>Tue Apr 05 10:18:30 MST 2016</td>
+<td>Started on:</td><td>Wed Apr 20 22:59:35 MST 2016</td>
 </tr>
-<tr><td>Total time:</td><td>3 seconds (3437 ms)</td>
+<tr><td>Total time:</td><td>1 seconds (1390 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -76,29 +76,29 @@ function toggleAllBoxes() {
 </tr>
 <tr>
 <td title='main.java.compiler.test.CompilerTest.compilingCode_throwsUndeclaredVariableException_ifReadingUndefinedVariable()'><b>compilingCode_throwsUndeclaredVariableException_ifReadingUndefinedVariable</b><br>Test class: main.java.compiler.test.CompilerTest</td>
-<td><div><pre>main.java.compiler.exceptions.UndeclaredVariableException: 1:8 undeclared variable &lt;x&gt;
-	at main.java.compiler.MyVisitor.requireVariableIndex(MyVisitor.java:156)
-	at main.java.compiler.MyVisitor.visitVariable(MyVisitor.java:84)
+<td><div><pre>main.java.compiler.exceptions.UndeclaredVariableException: 1:6 undeclared variable &lt;x&gt;
+	at main.java.compiler.MyVisitor.getVariableName(MyVisitor.java:203)
+	at main.java.compiler.MyVisitor.visitVariable(MyVisitor.java:93)
 	at main.java.compiler.MyVisitor.visitVariable(MyVisitor.java:1)
-	at mycompiler.parser.MyLangParser$VariableContext.accept(MyLangParser.java:319)
+	at mycompiler.parser.MyLangParser$VariableContext.accept(MyLangParser.java:320)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
-	at main.java.compiler.MyVisitor.visitPrintln(MyVisitor.java:34)
-	at main.java.compiler.MyVisitor.visitPrintln(MyVisitor.java:1)
-	at mycompiler.parser.MyLangParser$PrintlnContext.accept(MyLangParser.java:666)
+	at main.java.compiler.MyVisitor.visitPrint(MyVisitor.java:44)
+	at main.java.compiler.MyVisitor.visitPrint(MyVisitor.java:1)
+	at mycompiler.parser.MyLangParser$PrintContext.accept(MyLangParser.java:986)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
-	at mycompiler.parser.MyLangBaseVisitor.visitStatement(MyLangBaseVisitor.java:133)
-	at mycompiler.parser.MyLangParser$StatementContext.accept(MyLangParser.java:226)
+	at mycompiler.parser.MyLangBaseVisitor.visitStatement(MyLangBaseVisitor.java:85)
+	at mycompiler.parser.MyLangParser$StatementContext.accept(MyLangParser.java:227)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
-	at mycompiler.parser.MyLangBaseVisitor.visitMainStatement(MyLangBaseVisitor.java:53)
-	at mycompiler.parser.MyLangParser$MainStatementContext.accept(MyLangParser.java:143)
+	at mycompiler.parser.MyLangBaseVisitor.visitMainStatement(MyLangBaseVisitor.java:125)
+	at mycompiler.parser.MyLangParser$MainStatementContext.accept(MyLangParser.java:144)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
-	at main.java.compiler.MyVisitor.visitProgram(MyVisitor.java:135)
+	at main.java.compiler.MyVisitor.visitProgram(MyVisitor.java:184)
 	at main.java.compiler.MyVisitor.visitProgram(MyVisitor.java:1)
-	at mycompiler.parser.MyLangParser$ProgramContext.accept(MyLangParser.java:79)
+	at mycompiler.parser.MyLangParser$ProgramContext.accept(MyLangParser.java:80)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
-	at main.java.compiler.Main.compile(Main.java:27)
-	at main.java.compiler.test.CompilerTest.compileAndRun(CompilerTest.java:138)
-	at main.java.compiler.test.CompilerTest.compilingCode_throwsUndeclaredVariableException_ifReadingUndefinedVariable(CompilerTest.java:64)
+	at main.java.compiler.Translator.compile(Translator.java:33)
+	at main.java.compiler.test.CompilerTest.compileAndRun(CompilerTest.java:149)
+	at main.java.compiler.test.CompilerTest.compilingCode_throwsUndeclaredVariableException_ifReadingUndefinedVariable(CompilerTest.java:75)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -123,30 +123,30 @@ function toggleAllBoxes() {
 	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:126)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:137)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:58)
-</pre></div><a href='#' onClick='toggleBox("stack-trace103887628", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace103887628'><pre>main.java.compiler.exceptions.UndeclaredVariableException: 1:8 undeclared variable &lt;x&gt;
-	at main.java.compiler.MyVisitor.requireVariableIndex(MyVisitor.java:156)
-	at main.java.compiler.MyVisitor.visitVariable(MyVisitor.java:84)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1032986144", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1032986144'><pre>main.java.compiler.exceptions.UndeclaredVariableException: 1:6 undeclared variable &lt;x&gt;
+	at main.java.compiler.MyVisitor.getVariableName(MyVisitor.java:203)
+	at main.java.compiler.MyVisitor.visitVariable(MyVisitor.java:93)
 	at main.java.compiler.MyVisitor.visitVariable(MyVisitor.java:1)
-	at mycompiler.parser.MyLangParser$VariableContext.accept(MyLangParser.java:319)
+	at mycompiler.parser.MyLangParser$VariableContext.accept(MyLangParser.java:320)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
-	at main.java.compiler.MyVisitor.visitPrintln(MyVisitor.java:34)
-	at main.java.compiler.MyVisitor.visitPrintln(MyVisitor.java:1)
-	at mycompiler.parser.MyLangParser$PrintlnContext.accept(MyLangParser.java:666)
+	at main.java.compiler.MyVisitor.visitPrint(MyVisitor.java:44)
+	at main.java.compiler.MyVisitor.visitPrint(MyVisitor.java:1)
+	at mycompiler.parser.MyLangParser$PrintContext.accept(MyLangParser.java:986)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
-	at mycompiler.parser.MyLangBaseVisitor.visitStatement(MyLangBaseVisitor.java:133)
-	at mycompiler.parser.MyLangParser$StatementContext.accept(MyLangParser.java:226)
+	at mycompiler.parser.MyLangBaseVisitor.visitStatement(MyLangBaseVisitor.java:85)
+	at mycompiler.parser.MyLangParser$StatementContext.accept(MyLangParser.java:227)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
-	at mycompiler.parser.MyLangBaseVisitor.visitMainStatement(MyLangBaseVisitor.java:53)
-	at mycompiler.parser.MyLangParser$MainStatementContext.accept(MyLangParser.java:143)
+	at mycompiler.parser.MyLangBaseVisitor.visitMainStatement(MyLangBaseVisitor.java:125)
+	at mycompiler.parser.MyLangParser$MainStatementContext.accept(MyLangParser.java:144)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
-	at main.java.compiler.MyVisitor.visitProgram(MyVisitor.java:135)
+	at main.java.compiler.MyVisitor.visitProgram(MyVisitor.java:184)
 	at main.java.compiler.MyVisitor.visitProgram(MyVisitor.java:1)
-	at mycompiler.parser.MyLangParser$ProgramContext.accept(MyLangParser.java:79)
+	at mycompiler.parser.MyLangParser$ProgramContext.accept(MyLangParser.java:80)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
-	at main.java.compiler.Main.compile(Main.java:27)
-	at main.java.compiler.test.CompilerTest.compileAndRun(CompilerTest.java:138)
-	at main.java.compiler.test.CompilerTest.compilingCode_throwsUndeclaredVariableException_ifReadingUndefinedVariable(CompilerTest.java:64)
+	at main.java.compiler.Translator.compile(Translator.java:33)
+	at main.java.compiler.test.CompilerTest.compileAndRun(CompilerTest.java:149)
+	at main.java.compiler.test.CompilerTest.compilingCode_throwsUndeclaredVariableException_ifReadingUndefinedVariable(CompilerTest.java:75)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -173,28 +173,28 @@ function toggleAllBoxes() {
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:58)
 </pre></div></td>
 <td>0</td>
-<td>main.java.compiler.test.CompilerTest@1810399e</td></tr>
+<td>main.java.compiler.test.CompilerTest@4439f31e</td></tr>
 <tr>
 <td title='main.java.compiler.test.CompilerTest.compilingCode_throwsUndeclaredVariableException_ifWritingUndefinedVariable()'><b>compilingCode_throwsUndeclaredVariableException_ifWritingUndefinedVariable</b><br>Test class: main.java.compiler.test.CompilerTest</td>
 <td><div><pre>main.java.compiler.exceptions.UndeclaredVariableException: 1:0 undeclared variable &lt;x&gt;
-	at main.java.compiler.MyVisitor.requireVariableIndex(MyVisitor.java:156)
-	at main.java.compiler.MyVisitor.visitAssignment(MyVisitor.java:79)
+	at main.java.compiler.MyVisitor.getVariableName(MyVisitor.java:203)
+	at main.java.compiler.MyVisitor.visitAssignment(MyVisitor.java:88)
 	at main.java.compiler.MyVisitor.visitAssignment(MyVisitor.java:1)
-	at mycompiler.parser.MyLangParser$AssignmentContext.accept(MyLangParser.java:620)
+	at mycompiler.parser.MyLangParser$AssignmentContext.accept(MyLangParser.java:940)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
-	at mycompiler.parser.MyLangBaseVisitor.visitStatement(MyLangBaseVisitor.java:133)
-	at mycompiler.parser.MyLangParser$StatementContext.accept(MyLangParser.java:226)
+	at mycompiler.parser.MyLangBaseVisitor.visitStatement(MyLangBaseVisitor.java:85)
+	at mycompiler.parser.MyLangParser$StatementContext.accept(MyLangParser.java:227)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
-	at mycompiler.parser.MyLangBaseVisitor.visitMainStatement(MyLangBaseVisitor.java:53)
-	at mycompiler.parser.MyLangParser$MainStatementContext.accept(MyLangParser.java:143)
+	at mycompiler.parser.MyLangBaseVisitor.visitMainStatement(MyLangBaseVisitor.java:125)
+	at mycompiler.parser.MyLangParser$MainStatementContext.accept(MyLangParser.java:144)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
-	at main.java.compiler.MyVisitor.visitProgram(MyVisitor.java:135)
+	at main.java.compiler.MyVisitor.visitProgram(MyVisitor.java:184)
 	at main.java.compiler.MyVisitor.visitProgram(MyVisitor.java:1)
-	at mycompiler.parser.MyLangParser$ProgramContext.accept(MyLangParser.java:79)
+	at mycompiler.parser.MyLangParser$ProgramContext.accept(MyLangParser.java:80)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
-	at main.java.compiler.Main.compile(Main.java:27)
-	at main.java.compiler.test.CompilerTest.compileAndRun(CompilerTest.java:138)
-	at main.java.compiler.test.CompilerTest.compilingCode_throwsUndeclaredVariableException_ifWritingUndefinedVariable(CompilerTest.java:73)
+	at main.java.compiler.Translator.compile(Translator.java:33)
+	at main.java.compiler.test.CompilerTest.compileAndRun(CompilerTest.java:149)
+	at main.java.compiler.test.CompilerTest.compilingCode_throwsUndeclaredVariableException_ifWritingUndefinedVariable(CompilerTest.java:84)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -219,26 +219,26 @@ function toggleAllBoxes() {
 	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:126)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:137)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:58)
-</pre></div><a href='#' onClick='toggleBox("stack-trace438135304", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace438135304'><pre>main.java.compiler.exceptions.UndeclaredVariableException: 1:0 undeclared variable &lt;x&gt;
-	at main.java.compiler.MyVisitor.requireVariableIndex(MyVisitor.java:156)
-	at main.java.compiler.MyVisitor.visitAssignment(MyVisitor.java:79)
+</pre></div><a href='#' onClick='toggleBox("stack-trace495792375", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace495792375'><pre>main.java.compiler.exceptions.UndeclaredVariableException: 1:0 undeclared variable &lt;x&gt;
+	at main.java.compiler.MyVisitor.getVariableName(MyVisitor.java:203)
+	at main.java.compiler.MyVisitor.visitAssignment(MyVisitor.java:88)
 	at main.java.compiler.MyVisitor.visitAssignment(MyVisitor.java:1)
-	at mycompiler.parser.MyLangParser$AssignmentContext.accept(MyLangParser.java:620)
+	at mycompiler.parser.MyLangParser$AssignmentContext.accept(MyLangParser.java:940)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
-	at mycompiler.parser.MyLangBaseVisitor.visitStatement(MyLangBaseVisitor.java:133)
-	at mycompiler.parser.MyLangParser$StatementContext.accept(MyLangParser.java:226)
+	at mycompiler.parser.MyLangBaseVisitor.visitStatement(MyLangBaseVisitor.java:85)
+	at mycompiler.parser.MyLangParser$StatementContext.accept(MyLangParser.java:227)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
-	at mycompiler.parser.MyLangBaseVisitor.visitMainStatement(MyLangBaseVisitor.java:53)
-	at mycompiler.parser.MyLangParser$MainStatementContext.accept(MyLangParser.java:143)
+	at mycompiler.parser.MyLangBaseVisitor.visitMainStatement(MyLangBaseVisitor.java:125)
+	at mycompiler.parser.MyLangParser$MainStatementContext.accept(MyLangParser.java:144)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
-	at main.java.compiler.MyVisitor.visitProgram(MyVisitor.java:135)
+	at main.java.compiler.MyVisitor.visitProgram(MyVisitor.java:184)
 	at main.java.compiler.MyVisitor.visitProgram(MyVisitor.java:1)
-	at mycompiler.parser.MyLangParser$ProgramContext.accept(MyLangParser.java:79)
+	at mycompiler.parser.MyLangParser$ProgramContext.accept(MyLangParser.java:80)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
-	at main.java.compiler.Main.compile(Main.java:27)
-	at main.java.compiler.test.CompilerTest.compileAndRun(CompilerTest.java:138)
-	at main.java.compiler.test.CompilerTest.compilingCode_throwsUndeclaredVariableException_ifWritingUndefinedVariable(CompilerTest.java:73)
+	at main.java.compiler.Translator.compile(Translator.java:33)
+	at main.java.compiler.test.CompilerTest.compileAndRun(CompilerTest.java:149)
+	at main.java.compiler.test.CompilerTest.compilingCode_throwsUndeclaredVariableException_ifWritingUndefinedVariable(CompilerTest.java:84)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -265,27 +265,27 @@ function toggleAllBoxes() {
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:58)
 </pre></div></td>
 <td>0</td>
-<td>main.java.compiler.test.CompilerTest@1810399e</td></tr>
+<td>main.java.compiler.test.CompilerTest@4439f31e</td></tr>
 <tr>
 <td title='main.java.compiler.test.CompilerTest.compilingCode_throwsVariableAlreadyDefinedException_whenDefiningAlreadyDefinedVariable()'><b>compilingCode_throwsVariableAlreadyDefinedException_whenDefiningAlreadyDefinedVariable</b><br>Test class: main.java.compiler.test.CompilerTest</td>
 <td><div><pre>main.java.compiler.exceptions.VariableAlreadyDefinedException: 2:4 variable already defined: &lt;x&gt;
-	at main.java.compiler.MyVisitor.visitVarDeclaration(MyVisitor.java:70)
+	at main.java.compiler.MyVisitor.visitVarDeclaration(MyVisitor.java:80)
 	at main.java.compiler.MyVisitor.visitVarDeclaration(MyVisitor.java:1)
-	at mycompiler.parser.MyLangParser$VarDeclarationContext.accept(MyLangParser.java:573)
+	at mycompiler.parser.MyLangParser$VarDeclarationContext.accept(MyLangParser.java:893)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
-	at mycompiler.parser.MyLangBaseVisitor.visitStatement(MyLangBaseVisitor.java:133)
-	at mycompiler.parser.MyLangParser$StatementContext.accept(MyLangParser.java:226)
+	at mycompiler.parser.MyLangBaseVisitor.visitStatement(MyLangBaseVisitor.java:85)
+	at mycompiler.parser.MyLangParser$StatementContext.accept(MyLangParser.java:227)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
-	at mycompiler.parser.MyLangBaseVisitor.visitMainStatement(MyLangBaseVisitor.java:53)
-	at mycompiler.parser.MyLangParser$MainStatementContext.accept(MyLangParser.java:143)
+	at mycompiler.parser.MyLangBaseVisitor.visitMainStatement(MyLangBaseVisitor.java:125)
+	at mycompiler.parser.MyLangParser$MainStatementContext.accept(MyLangParser.java:144)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
-	at main.java.compiler.MyVisitor.visitProgram(MyVisitor.java:135)
+	at main.java.compiler.MyVisitor.visitProgram(MyVisitor.java:184)
 	at main.java.compiler.MyVisitor.visitProgram(MyVisitor.java:1)
-	at mycompiler.parser.MyLangParser$ProgramContext.accept(MyLangParser.java:79)
+	at mycompiler.parser.MyLangParser$ProgramContext.accept(MyLangParser.java:80)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
-	at main.java.compiler.Main.compile(Main.java:27)
-	at main.java.compiler.test.CompilerTest.compileAndRun(CompilerTest.java:138)
-	at main.java.compiler.test.CompilerTest.compilingCode_throwsVariableAlreadyDefinedException_whenDefiningAlreadyDefinedVariable(CompilerTest.java:82)
+	at main.java.compiler.Translator.compile(Translator.java:33)
+	at main.java.compiler.test.CompilerTest.compileAndRun(CompilerTest.java:149)
+	at main.java.compiler.test.CompilerTest.compilingCode_throwsVariableAlreadyDefinedException_whenDefiningAlreadyDefinedVariable(CompilerTest.java:93)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -310,25 +310,25 @@ function toggleAllBoxes() {
 	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:126)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:137)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:58)
-</pre></div><a href='#' onClick='toggleBox("stack-trace1131316523", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace1131316523'><pre>main.java.compiler.exceptions.VariableAlreadyDefinedException: 2:4 variable already defined: &lt;x&gt;
-	at main.java.compiler.MyVisitor.visitVarDeclaration(MyVisitor.java:70)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1484594489", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1484594489'><pre>main.java.compiler.exceptions.VariableAlreadyDefinedException: 2:4 variable already defined: &lt;x&gt;
+	at main.java.compiler.MyVisitor.visitVarDeclaration(MyVisitor.java:80)
 	at main.java.compiler.MyVisitor.visitVarDeclaration(MyVisitor.java:1)
-	at mycompiler.parser.MyLangParser$VarDeclarationContext.accept(MyLangParser.java:573)
+	at mycompiler.parser.MyLangParser$VarDeclarationContext.accept(MyLangParser.java:893)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
-	at mycompiler.parser.MyLangBaseVisitor.visitStatement(MyLangBaseVisitor.java:133)
-	at mycompiler.parser.MyLangParser$StatementContext.accept(MyLangParser.java:226)
+	at mycompiler.parser.MyLangBaseVisitor.visitStatement(MyLangBaseVisitor.java:85)
+	at mycompiler.parser.MyLangParser$StatementContext.accept(MyLangParser.java:227)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
-	at mycompiler.parser.MyLangBaseVisitor.visitMainStatement(MyLangBaseVisitor.java:53)
-	at mycompiler.parser.MyLangParser$MainStatementContext.accept(MyLangParser.java:143)
+	at mycompiler.parser.MyLangBaseVisitor.visitMainStatement(MyLangBaseVisitor.java:125)
+	at mycompiler.parser.MyLangParser$MainStatementContext.accept(MyLangParser.java:144)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
-	at main.java.compiler.MyVisitor.visitProgram(MyVisitor.java:135)
+	at main.java.compiler.MyVisitor.visitProgram(MyVisitor.java:184)
 	at main.java.compiler.MyVisitor.visitProgram(MyVisitor.java:1)
-	at mycompiler.parser.MyLangParser$ProgramContext.accept(MyLangParser.java:79)
+	at mycompiler.parser.MyLangParser$ProgramContext.accept(MyLangParser.java:80)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
-	at main.java.compiler.Main.compile(Main.java:27)
-	at main.java.compiler.test.CompilerTest.compileAndRun(CompilerTest.java:138)
-	at main.java.compiler.test.CompilerTest.compilingCode_throwsVariableAlreadyDefinedException_whenDefiningAlreadyDefinedVariable(CompilerTest.java:82)
+	at main.java.compiler.Translator.compile(Translator.java:33)
+	at main.java.compiler.test.CompilerTest.compileAndRun(CompilerTest.java:149)
+	at main.java.compiler.test.CompilerTest.compilingCode_throwsVariableAlreadyDefinedException_whenDefiningAlreadyDefinedVariable(CompilerTest.java:93)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -355,133 +355,77 @@ function toggleAllBoxes() {
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:58)
 </pre></div></td>
 <td>0</td>
-<td>main.java.compiler.test.CompilerTest@1810399e</td></tr>
+<td>main.java.compiler.test.CompilerTest@4439f31e</td></tr>
 <tr>
-<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: println(1+2);, 3
-</td>
+<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: print(1+2);, 3</td>
 <td></td>
 <td>0</td>
-<td>main.java.compiler.test.CompilerTest@1810399e</td></tr>
+<td>main.java.compiler.test.CompilerTest@4439f31e</td></tr>
 <tr>
-<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: println(1+2+42);, 45
-</td>
+<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: print(1+2+42);, 45</td>
 <td></td>
 <td>0</td>
-<td>main.java.compiler.test.CompilerTest@1810399e</td></tr>
+<td>main.java.compiler.test.CompilerTest@4439f31e</td></tr>
 <tr>
-<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: println(1); println(2);, 1
-2
-</td>
+<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: print(1); print(2);, 12</td>
 <td></td>
 <td>0</td>
-<td>main.java.compiler.test.CompilerTest@1810399e</td></tr>
+<td>main.java.compiler.test.CompilerTest@4439f31e</td></tr>
 <tr>
-<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: println(3-2);, 1
-</td>
+<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: print(3-2);, 1</td>
 <td></td>
 <td>0</td>
-<td>main.java.compiler.test.CompilerTest@1810399e</td></tr>
+<td>main.java.compiler.test.CompilerTest@4439f31e</td></tr>
 <tr>
-<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: println(2*3);, 6
-</td>
+<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: print(2*3);, 6</td>
 <td></td>
 <td>0</td>
-<td>main.java.compiler.test.CompilerTest@1810399e</td></tr>
+<td>main.java.compiler.test.CompilerTest@4439f31e</td></tr>
 <tr>
-<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: println(6/2);, 3
-</td>
+<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: print(6/2);, 3</td>
 <td></td>
 <td>0</td>
-<td>main.java.compiler.test.CompilerTest@1810399e</td></tr>
+<td>main.java.compiler.test.CompilerTest@4439f31e</td></tr>
 <tr>
-<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: println(7/2);, 3
-</td>
+<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: print(7/2);, 3</td>
 <td></td>
 <td>0</td>
-<td>main.java.compiler.test.CompilerTest@1810399e</td></tr>
+<td>main.java.compiler.test.CompilerTest@4439f31e</td></tr>
 <tr>
-<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: println(8/2*4);, 16
-</td>
+<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: print(8/2*4);, 16</td>
 <td></td>
 <td>0</td>
-<td>main.java.compiler.test.CompilerTest@1810399e</td></tr>
+<td>main.java.compiler.test.CompilerTest@4439f31e</td></tr>
 <tr>
-<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: println(2+3*3);, 11
-</td>
+<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: print(2+3*3);, 11</td>
 <td></td>
 <td>0</td>
-<td>main.java.compiler.test.CompilerTest@1810399e</td></tr>
+<td>main.java.compiler.test.CompilerTest@4439f31e</td></tr>
 <tr>
-<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: println(9-2*3);, 3
-</td>
+<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: print(9-2*3);, 3</td>
 <td></td>
 <td>0</td>
-<td>main.java.compiler.test.CompilerTest@1810399e</td></tr>
+<td>main.java.compiler.test.CompilerTest@4439f31e</td></tr>
 <tr>
-<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: println(8-2+5);, 11
-</td>
+<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: print(8-2+5);, 11</td>
 <td></td>
 <td>0</td>
-<td>main.java.compiler.test.CompilerTest@1810399e</td></tr>
+<td>main.java.compiler.test.CompilerTest@4439f31e</td></tr>
 <tr>
-<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: int foo; foo = 42; println(foo);, 42
-</td>
+<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: int foo; foo = 42; print(foo);, 42</td>
 <td></td>
 <td>0</td>
-<td>main.java.compiler.test.CompilerTest@1810399e</td></tr>
+<td>main.java.compiler.test.CompilerTest@4439f31e</td></tr>
 <tr>
-<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: int foo; foo = 42; println(foo+2);, 44
-</td>
+<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: int foo; foo = 42; print(foo+2);, 44</td>
 <td></td>
 <td>0</td>
-<td>main.java.compiler.test.CompilerTest@1810399e</td></tr>
+<td>main.java.compiler.test.CompilerTest@4439f31e</td></tr>
 <tr>
-<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: int a; int b; a = 2; b = 5; println(a+b);, 7
-</td>
+<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: int a; int b; a = 2; b = 5; print(a+b);, 7</td>
 <td></td>
 <td>0</td>
-<td>main.java.compiler.test.CompilerTest@1810399e</td></tr>
-<tr>
-<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: int randomNumber() { return 4; } println(randomNumber());, 4
-</td>
-<td></td>
-<td>0</td>
-<td>main.java.compiler.test.CompilerTest@1810399e</td></tr>
-<tr>
-<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: int randomNumber() {
-  int i;
-  i = 4;
-  return i;
-}
-println(randomNumber());, 4
-</td>
-<td></td>
-<td>0</td>
-<td>main.java.compiler.test.CompilerTest@1810399e</td></tr>
-<tr>
-<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: int randomNumber() {
-  int i;
-  i = 4;
-  return i;
-}
-int i;
-i = 42;
-println(randomNumber());
-println(i);, 4
-42
-</td>
-<td></td>
-<td>0</td>
-<td>main.java.compiler.test.CompilerTest@1810399e</td></tr>
-<tr>
-<td title='main.java.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: main.java.compiler.test.CompilerTest<br>Parameters: int add(int a, int b) {
-  return a+b;
-}
-println(add(5,8));, 13
-</td>
-<td></td>
-<td>0</td>
-<td>main.java.compiler.test.CompilerTest@1810399e</td></tr>
+<td>main.java.compiler.test.CompilerTest@4439f31e</td></tr>
 </table><p>
 </body>
 </html>

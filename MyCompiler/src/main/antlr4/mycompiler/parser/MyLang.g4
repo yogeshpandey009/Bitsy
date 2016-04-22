@@ -6,7 +6,7 @@ programPart: statement ';'       #MainStatement
            | functionDefinition  #ProgPartFunctionDefinition
            ;
 
-statement: println
+statement: print
          | varDeclaration
          | assignment
          ;
@@ -33,7 +33,7 @@ varDeclaration: 'int' varName=IDENTIFIER ;
 
 assignment: varName=IDENTIFIER '=' expr=expression;
 
-println: 'println(' argument=expression ')' ;
+print: 'print(' argument=expression ')' ;
 
 functionDefinition: 'int' funcName=IDENTIFIER '(' params=parameterDeclaration ')' '{' statements=statementList 'return' returnValue=expression ';' '}' ;
 

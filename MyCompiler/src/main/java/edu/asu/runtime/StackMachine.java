@@ -1,10 +1,10 @@
-package main.java.runtime;
+package edu.asu.runtime;
 
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Stack;
 
-import main.java.runtime.exceptions.ProgramExecutionException;
+import edu.asu.runtime.exceptions.ProgramExecutionException;
 
 public class StackMachine {
 	private final String[] program;

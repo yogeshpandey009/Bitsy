@@ -1,4 +1,4 @@
-package main.java.runtime;
+package edu.asu.runtime;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,14 +24,18 @@ public class VM {
 			e.printStackTrace();
 		}
 		if (input != null) {
-			String content = input.useDelimiter("\\Z").next();
-			String[] instr = content.split("\\s+");
-			execute(instr);
+			String code = input.useDelimiter("\\Z").next();
+			run(code);
 			input.close();
 		}
 	}
+	
+	public static void run(String code) {
+		String[] instr = code.split("\\s+");
+		executeInstr(instr);
+	}
 
-	public static void execute(String[] instr) {
+	public static void executeInstr(String[] instr) {
 		int line = 0;
 		ArrayList<String> program = new ArrayList<String>();
 		for (int i = 0; i < instr.length; i++) {

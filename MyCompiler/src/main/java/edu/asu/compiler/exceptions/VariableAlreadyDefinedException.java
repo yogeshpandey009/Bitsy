@@ -1,4 +1,4 @@
-package main.java.compiler.exceptions;
+package edu.asu.compiler.exceptions;
 
 import org.antlr.v4.runtime.Token;
 

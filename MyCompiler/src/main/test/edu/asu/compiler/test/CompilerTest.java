@@ -1,30 +1,40 @@
-package main.java.compiler.test;
+package edu.asu.compiler.test;
 
-import jasmin.ClassFile;
-
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StringReader;
+import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Scanner;
 
-import main.java.compiler.Translator;
-import main.java.compiler.exceptions.UndeclaredVariableException;
-import main.java.compiler.exceptions.VariableAlreadyDefinedException;
+import edu.asu.compiler.Translator;
+import edu.asu.compiler.exceptions.UndeclaredVariableException;
+import edu.asu.compiler.exceptions.VariableAlreadyDefinedException;
+import edu.asu.runtime.VM;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 
 public class CompilerTest {
 	private Path tempDir;
+	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+
+	@BeforeTest
+	public void setUpStreams() {
+		System.setOut(new PrintStream(outContent));
+	}
+
+	@AfterTest
+	public void cleanUpStreams() {
+		System.setOut(null);
+	}
 	
 	@BeforeMethod
 	public void createTempDir() throws IOException {
@@ -51,17 +61,18 @@ public class CompilerTest {
 	public void runningCode_outputsExpectedText(
 			String code, String expectedText) throws Exception {
 		// execution
-		String actualOutput = compileAndRun(code);
+		compileAndRun(code);
 		
 		// evaluation
-		Assert.assertEquals(actualOutput, expectedText);
+		Assert.assertEquals(outContent.toString(), expectedText);
+		outContent.reset();
 	}
 	
 	@Test(expectedExceptions = UndeclaredVariableException.class,
-			expectedExceptionsMessageRegExp = "1:8 undeclared variable <x>")
+			expectedExceptionsMessageRegExp = "1:6 undeclared variable <x>")
 	public void compilingCode_throwsUndeclaredVariableException_ifReadingUndefinedVariable() throws Exception {
 		// execution
-		compileAndRun("println(x);");
+		compileAndRun("print(x);");
 		
 		// evaluation performed by expected exception
 	}
@@ -88,32 +99,31 @@ public class CompilerTest {
 	@DataProvider
 	public Object[][] provide_code_expectedText() {
 		return new Object[][]{
-				{"println(1+2);", "3" + System.lineSeparator()},
-				{"println(1+2+42);", "45" + System.lineSeparator()},
-				{"println(1); println(2);",
-					"1" + System.lineSeparator() +
-					"2" + System.lineSeparator()},
-				{"println(3-2);", "1" + System.lineSeparator()},
-				{"println(2*3);", "6" + System.lineSeparator()},
-				{"println(6/2);", "3" + System.lineSeparator()},
-				{"println(7/2);", "3" + System.lineSeparator()},
-				{"println(8/2*4);", "16" + System.lineSeparator()},
-				{"println(2+3*3);", "11" + System.lineSeparator()},
-				{"println(9-2*3);", "3" + System.lineSeparator()},
-				{"println(8-2+5);", "11" + System.lineSeparator()},
+				{"print(1+2);", "3"},
+				{"print(1+2+42);", "45"},
+				{"print(1); print(2);",
+					"1" +
+					"2"},
+				{"print(3-2);", "1"},
+				{"print(2*3);", "6"},
+				{"print(6/2);", "3"},
+				{"print(7/2);", "3"},
+				{"print(8/2*4);", "16"},
+				{"print(2+3*3);", "11"},
+				{"print(9-2*3);", "3"},
+				{"print(8-2+5);", "11"},
 				
-				{"int foo; foo = 42; println(foo);", "42" + System.lineSeparator()},
-				{"int foo; foo = 42; println(foo+2);", "44" + System.lineSeparator()},
-				{"int a; int b; a = 2; b = 5; println(a+b);", "7" + System.lineSeparator()},
-				
-				{"int randomNumber() { return 4; } println(randomNumber());", "4" + System.lineSeparator()},
+				{"int foo; foo = 42; print(foo);", "42"},
+				{"int foo; foo = 42; print(foo+2);", "44"},
+				{"int a; int b; a = 2; b = 5; print(a+b);", "7"}/*,
+				{"int randomNumber() { return 4; } print(randomNumber());", "4"},
 				
 				{"int randomNumber() {\n" + 
 						"  int i;\n" + 
 						"  i = 4;\n" + 
 						"  return i;\n" + 
 						"}\n" + 
-						"println(randomNumber());", "4" + System.lineSeparator()},
+						"print(randomNumber());", "4"},
 						
 				{"int randomNumber() {\n" + 
 						"  int i;\n" + 
@@ -122,33 +132,22 @@ public class CompilerTest {
 						"}\n" + 
 						"int i;\n" + 
 						"i = 42;\n" + 
-						"println(randomNumber());\n" + 
-						"println(i);",
-							"4" + System.lineSeparator() +
-							"42" + System.lineSeparator()},
+						"print(randomNumber());\n" + 
+						"print(i);",
+							"4" +
+							"42"},
 				{"int add(int a, int b) {\n" + 
 						"  return a+b;\n" + 
 						"}\n" + 
-						"println(add(5,8));",
-						"13" + System.lineSeparator()}
+						"print(add(5,8));",
+						"13"}
+						*/
 		};
 	}
 
-	private String compileAndRun(String code) throws Exception {
+	private void compileAndRun(String code) throws Exception {
 		code = Translator.compile(new ANTLRInputStream(code));
-		ClassFile classFile = new ClassFile();
-		classFile.readJasmin(new StringReader(code), "", false);
-		Path outputPath = tempDir.resolve(classFile.getClassName() + ".class");
-		try(OutputStream output = Files.newOutputStream(outputPath)) {
-			classFile.write(output);
-		}
-		return runJavaClass(tempDir, classFile.getClassName());
+		VM.run(code);
 	}
 
-	private String runJavaClass(Path dir, String className) throws Exception {
-		Process process = Runtime.getRuntime().exec(new String[]{"java", "-cp", dir.toString(), className});
-		try(InputStream in = process.getInputStream()) {
-			return new Scanner(in).useDelimiter("\\A").next();
-		}
-	}
 }
