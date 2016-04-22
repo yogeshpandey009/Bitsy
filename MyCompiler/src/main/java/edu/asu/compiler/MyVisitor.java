@@ -3,8 +3,6 @@ package edu.asu.compiler;
 import java.util.HashSet;
 import java.util.Set;
 
-import edu.asu.compiler.exceptions.UndeclaredVariableException;
-import edu.asu.compiler.exceptions.VariableAlreadyDefinedException;
 import mycompiler.parser.MyLangBaseVisitor;
 import mycompiler.parser.MyLangParser.AssignmentContext;
 import mycompiler.parser.MyLangParser.ConditionBlockContext;
@@ -24,7 +22,6 @@ import mycompiler.parser.MyLangParser.MinusContext;
 import mycompiler.parser.MyLangParser.MultContext;
 import mycompiler.parser.MyLangParser.NotEqContext;
 import mycompiler.parser.MyLangParser.NumberContext;
-import mycompiler.parser.MyLangParser.ParanContext;
 import mycompiler.parser.MyLangParser.PlusContext;
 import mycompiler.parser.MyLangParser.PrintContext;
 import mycompiler.parser.MyLangParser.ProgramContext;
@@ -34,6 +31,9 @@ import mycompiler.parser.MyLangParser.VariableContext;
 
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
+
+import edu.asu.compiler.exceptions.UndeclaredVariableException;
+import edu.asu.compiler.exceptions.VariableAlreadyDefinedException;
 
 public class MyVisitor extends MyLangBaseVisitor<String> {
 

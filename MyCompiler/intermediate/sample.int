@@ -1,0 +1,24 @@
+PUSH 6
+STORE a
+LOAD a
+PUSH 5
+ISGE
+NOT
+JIF label_2
+PUSH 1
+PRINT
+JMP label_1
+LABEL label_2
+LOAD a
+PUSH 10
+ISGE
+NOT
+JIF label_3
+PUSH 2
+PRINT
+JMP label_1
+LABEL label_3
+PUSH 3
+PRINT
+LABEL label_1
+HALT

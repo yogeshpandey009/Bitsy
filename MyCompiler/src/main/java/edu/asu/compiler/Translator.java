@@ -15,7 +15,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 public class Translator {
 
 	public static void main(String[] args) throws Exception {
-		String filename = "input/simple.my";
+		String filename = "input/sample.my";
 		if (args.length > 0) {
 			filename = args[0];
 		}
@@ -34,7 +34,7 @@ public class Translator {
 	}
 
 	private static String createIntermediateCode(String instructions) {
-		File intrFile = new File("intermediate/simple.int");
+		File intrFile = new File("intermediate/sample.int");
 		try {
 			if (!intrFile.exists()) {
 				intrFile.createNewFile();
@@ -47,10 +47,5 @@ public class Translator {
 			e.printStackTrace();
 		}
 		return instructions;
-	}
-
-	private static String createJasminFile(String instructions) {
-		return ".class public HelloWorld\n" + ".super java/lang/Object\n"
-				+ "\n" + instructions;
 	}
 }
