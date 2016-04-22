@@ -38,9 +38,6 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 
 	@Override
 	public String visitPrint(PrintContext ctx) {
-		// return "  getstatic java/lang/System/out Ljava/io/PrintStream;\n" +
-		// visit(ctx.argument) + "\n" +
-		// "  invokevirtual java/io/PrintStream/println(I)V\n";
 		return visit(ctx.argument) + "PRINT" + "\n";
 	}
 
@@ -138,13 +135,9 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		String instructions = "";
 		String argumentsInstructions = visit(ctx.arguments);
 		if (argumentsInstructions != null) {
-			instructions += argumentsInstructions + '\n';
+			instructions += argumentsInstructions;
 		}
-		instructions += "invokestatic HelloWorld/" + ctx.funcName.getText()
-				+ "(";
-		int numberOfParameters = ctx.arguments.expressions.size();
-		instructions += stringRepeat("I", numberOfParameters);
-		instructions += ")I";
+		instructions += "CALL " + ctx.funcName.getText() + "\n";
 		return instructions;
 	}
 
@@ -154,25 +147,16 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		variables = new HashSet<>();
 		visit(ctx.params);
 		String statementInstructions = visit(ctx.statements);
-		String result = ".method public static " + ctx.funcName.getText() + "(";
+		String result = "LABEL " + ctx.funcName.getText() + "\n";
 		int numberOfParameters = ctx.params.declarations.size();
-		result += stringRepeat("I", numberOfParameters);
-		result += ")I\n"
-				+ ".limit locals 100\n"
-				+ ".limit stack 100\n"
-				+ (statementInstructions == null ? "" : statementInstructions
-						+ "\n") + visit(ctx.returnValue) + "\n" + "ireturn\n"
-				+ ".end method";
+		for (int i = numberOfParameters - 1; i >= 0; i--) {
+			result += "STORE "
+					+ ctx.params.declarations.get(i).varName.getText() + "\n";
+		}
+		result += (statementInstructions == null ? "" : statementInstructions)
+				+ visit(ctx.returnValue) + "RET\n";
 		variables = oldVariables;
 		return result;
-	}
-
-	private String stringRepeat(String string, int count) {
-		StringBuilder result = new StringBuilder();
-		for (int i = 0; i < count; ++i) {
-			result.append(string);
-		}
-		return result.toString();
 	}
 
 	@Override
@@ -188,13 +172,7 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 				functions += instructions;
 			}
 		}
-		/*
-		 * return functions + "\n" +
-		 * ".method public static main([Ljava/lang/String;)V\n" +
-		 * "  .limit stack 100\n" + "  .limit locals 100\n" + "  \n" + mainCode
-		 * + "\n" + "  return\n" + "  \n" + ".end method";
-		 */
-		return functions + mainCode + "HALT";
+		return mainCode + "HALT\n" + functions;
 	}
 
 	private String getVariableName(Token varNameToken) {
