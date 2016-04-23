@@ -40,10 +40,7 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 
 	private Set<String> variables = new HashSet<>();
 	private int labelCounter = 1;
-	private Stack<String> outerScopeLabel = new Stack<String>();;
-//			{{
-//		push("label_main");
-//	}};
+	private Stack<String> outerScopeLabel = new Stack<String>();
 
 	@Override
 	public String visitPrint(PrintContext ctx) {
