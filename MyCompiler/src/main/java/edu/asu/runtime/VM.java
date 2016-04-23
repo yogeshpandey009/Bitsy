@@ -11,7 +11,7 @@ public class VM {
 	private static HashMap<String, Integer> labelMap = new HashMap<String, Integer>();
 
 	public static void main(String[] args) {
-		String filename = "intermediate/simple.int";
+		String filename = "intermediate/sample.int";
 		if (args.length > 0) {
 			filename = args[0];
 		}
