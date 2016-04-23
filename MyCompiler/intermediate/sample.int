@@ -1,7 +1,21 @@
-PUSH -2
+PUSH 2
+PUSH 1
+ISGT
+JIF label_2
 PUSH 3
-SUB
-STORE a
-LOAD a
+PUSH 2
+ISGT
+JIF label_4
+PUSH 1
+PRINT
+JMP label_3
+LABEL label_4
+LABEL label_3
+JMP label_1
+LABEL label_2
+PUSH 2
+PRINT
+LABEL label_1
+PUSH 3
 PRINT
 HALT

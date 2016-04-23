@@ -1,103 +1,79 @@
 package edu.asu.compiler.test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 import java.io.PrintStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
+
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.junit.Assert;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import edu.asu.compiler.Translator;
 import edu.asu.compiler.exceptions.UndeclaredVariableException;
 import edu.asu.compiler.exceptions.VariableAlreadyDefinedException;
 import edu.asu.runtime.VM;
-
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import edu.asu.runtime.exceptions.ProgramExecutionException;
 
 public class CompilerTest {
-	private Path tempDir;
-	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
-	@BeforeTest
-	public void setUpStreams() {
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
 
-		System.setOut(new PrintStream(outContent));
-	}
-
-	@AfterTest
-	public void cleanUpStreams() {
-		System.setOut(null);
-	}
-
-	@BeforeMethod
-	public void createTempDir() throws IOException {
-		tempDir = Files.createTempDirectory("compilerTest");
-	}
-
-	@AfterMethod
-	public void deleteTempDir() {
-		deleteRecursive(tempDir.toFile());
-	}
-
-	private void deleteRecursive(File file) {
-		if (file.isDirectory()) {
-			for (File child : file.listFiles()) {
-				deleteRecursive(child);
+	@Test
+	public void perfromAllValidTest()
+			throws Exception {
+		String[][] data = dataProvider();
+		for(String[] tc: data) {
+			try {
+				// execution
+				ByteArrayOutputStream outSpy = new ByteArrayOutputStream();
+				System.setOut(new PrintStream(outSpy));
+				compileAndRun(tc[0]);
+				// evaluation performed by expected exception
+				Assert.assertEquals(tc[1], outSpy.toString());
+				System.setOut(null);
+			} catch(ProgramExecutionException e) {
+				e.printStackTrace();
 			}
 		}
-		if (!file.delete()) {
-			throw new Error("Could not delete file <" + file + ">");
-		}
 	}
 
-	@Test(dataProvider = "provide_code_expectedText")
-	public void runningCode_outputsExpectedText(String code, String expectedText)
+	@Test
+	public void throwsUndeclaredVariableException_ifReadingUndefinedVariableTest()
 			throws Exception {
-		// execution
-		compileAndRun(code);
-
-		// evaluation
-		Assert.assertEquals(outContent.toString(), expectedText);
-		outContent.reset();
-	}
-
-	@Test(expectedExceptions = UndeclaredVariableException.class, expectedExceptionsMessageRegExp = "1:6 undeclared variable <x>")
-	public void compilingCode_throwsUndeclaredVariableException_ifReadingUndefinedVariable()
-			throws Exception {
+		thrown.expect(UndeclaredVariableException.class);
+		thrown.expectMessage("1:6 undeclared variable <x>");
 		// execution
 		compileAndRun("print(x);");
 
 		// evaluation performed by expected exception
 	}
 
-	@Test(expectedExceptions = UndeclaredVariableException.class, expectedExceptionsMessageRegExp = "1:0 undeclared variable <x>")
-	public void compilingCode_throwsUndeclaredVariableException_ifWritingUndefinedVariable()
+	@Test
+	public void throwsUndeclaredVariableException_ifWritingUndefinedVariableTest()
 			throws Exception {
+		thrown.expect(UndeclaredVariableException.class);
+		thrown.expectMessage("1:0 undeclared variable <x>");
 		// execution
 		compileAndRun("x = 5;");
 
 		// evaluation performed by expected exception
 	}
 
-	@Test(expectedExceptions = VariableAlreadyDefinedException.class, expectedExceptionsMessageRegExp = "2:4 variable already defined: <x>")
-	public void compilingCode_throwsVariableAlreadyDefinedException_whenDefiningAlreadyDefinedVariable()
+	@Test
+	public void throwsVariableAlreadyDefinedException_whenDefiningAlreadyDefinedVariableTest()
 			throws Exception {
+		thrown.expect(VariableAlreadyDefinedException.class);
+		thrown.expectMessage("2:4 variable already defined: <x>");
 		// execution
 		compileAndRun("int x;" + System.lineSeparator() + "int x;");
 
 		// evaluation performed by expected exception
 	}
 
-	@DataProvider
-	public Object[][] provide_code_expectedText() {
-		return new Object[][] {
+	public String[][] dataProvider() {
+		return new String[][] {
 				{ "print(1+2);", "3" },
 				{ "print(1+2+42);", "45" },
 				{ "print(1); print(2);", "1" + "2" },
@@ -139,7 +115,13 @@ public class CompilerTest {
 						"int x;\n" + "x = 5;\n" + "print(fact(x));\n"
 								+ "int fact(int n) {\n" + "	if(n==1) {\n"
 								+ "		return 1;\n" + "	}\n"
-								+ "	return n * fact(n-1);\n" + "}", "120" } };
+								+ "	return n * fact(n-1);\n" + "}", "120" },
+				{
+						"if(1<2) {\n" + "	if(2>3) {\n" + "		print(-1);\n"
+								+ "	} else {\n" + "		print(1);\n" + "	}\n"
+								+ "} else {\n" + "	print(0);\n" + "}\n"
+								+ "if(3<4) {\n" + "	print(2);\n" + "} else {\n"
+								+ "	print(-2);\n" + "}\n" + "print(3);", "123" } };
 	}
 
 	private void compileAndRun(String code) throws Exception {

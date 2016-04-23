@@ -2,6 +2,7 @@ package edu.asu.compiler;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Stack;
 
 import mycompiler.parser.MyLangBaseVisitor;
 import mycompiler.parser.MyLangParser.AssignmentContext;
@@ -39,7 +40,10 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 
 	private Set<String> variables = new HashSet<>();
 	private int labelCounter = 1;
-	private String pLabel = "label_main";
+	private Stack<String> outerScopeLabel = new Stack<String>();;
+//			{{
+//		push("label_main");
+//	}};
 
 	@Override
 	public String visitPrint(PrintContext ctx) {
@@ -133,8 +137,10 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	@Override
 	public String visitIfStat(IfStatContext ctx) {
 		String label = generateLabel();
-		pLabel = label;
-		return visitChildren(ctx) + "LABEL " + label + "\n";
+		outerScopeLabel.push(label);
+		String result = visitChildren(ctx) + "LABEL " + label + "\n";
+		outerScopeLabel.pop();
+		return result;
 	}
 
 	@Override
@@ -143,7 +149,7 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		String result = visit(ctx.expr);
 		result += "JIF " + label + "\n";
 		result += visit(ctx.statements);
-		result += "JMP " + getParentScopeLabel() + "\n";
+		result += "JMP " + getOuterScopeLabel() + "\n";
 		result += "LABEL " + label + "\n";
 		return result;
 	}
@@ -222,7 +228,7 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		return label;
 	}
 
-	private String getParentScopeLabel() {
-		return pLabel;
+	private String getOuterScopeLabel() {
+		return outerScopeLabel.peek();
 	}
 }
