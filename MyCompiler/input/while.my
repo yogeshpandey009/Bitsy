@@ -1,13 +1,12 @@
 int a;
 int b;
-int c;
 a = -2 -3;
 b = 5;
-c = 1;
+c = 2
 while(a < b){
 	print(b);
 	b = b - 3;
-	while( c < 5){
+	while(c < b){
 		print(c);
 		c = c + 1;
 	}

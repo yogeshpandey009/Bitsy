@@ -18,6 +18,7 @@ import mycompiler.parser.MyLangParser.LessContext;
 import mycompiler.parser.MyLangParser.LessEqContext;
 import mycompiler.parser.MyLangParser.LogicalANDContext;
 import mycompiler.parser.MyLangParser.LogicalORContext;
+import mycompiler.parser.MyLangParser.LoopingContext;
 import mycompiler.parser.MyLangParser.MainStatementContext;
 import mycompiler.parser.MyLangParser.MinusContext;
 import mycompiler.parser.MyLangParser.MultContext;
@@ -29,6 +30,7 @@ import mycompiler.parser.MyLangParser.ProgramContext;
 import mycompiler.parser.MyLangParser.ReturnStatContext;
 import mycompiler.parser.MyLangParser.VarDeclarationContext;
 import mycompiler.parser.MyLangParser.VariableContext;
+import mycompiler.parser.MyLangParser.WhileConditionContext;
 
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -149,6 +151,31 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		result += "JMP " + getOuterScopeLabel() + "\n";
 		result += "LABEL " + label + "\n";
 		return result;
+	}
+	
+	@Override
+	public String visitLooping(LoopingContext ctx) {
+	String label = generateLabel();
+	outerScopeLabel.push(label);
+	//System.out.println("PLabel value inside while"+ pLabel);
+	String result = visitChildren(ctx) + "LABEL " + label + "\n";
+	outerScopeLabel.pop();
+	return result;
+	}
+
+
+	@Override
+	public String visitWhileCondition(WhileConditionContext ctx) {
+	String label = generateLabel(); //current label
+	//pLabel = label;
+	//System.out.println("Label value inside condition"+ label);
+	String result = "LABEL " + label + "\n";
+	result += visit(ctx.expr);
+	result += "JIF " + getOuterScopeLabel() + "\n"; // if condition fails jump to parent
+	result += visit(ctx.statements);	// while condition passed so execute statements
+	//System.out.println("PLabel value inside condition"+ pLabel);
+	result += "JMP " + label + "\n";// again jump to parent label to check while condition
+	return result;
 	}
 
 	@Override

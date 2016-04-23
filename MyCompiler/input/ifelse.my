@@ -7,3 +7,12 @@ if(a < 5) {
 } else {
 	print(3);
 }
+
+if(2>1) {
+	if(3>2) {
+		print(1);
+	}
+} else {
+	print(2);
+}
+print(3);
