@@ -26,7 +26,7 @@ expression: '(' expr=expression ')' #Paran
           | left=expression '!=' right=expression #NotEq
           | left=expression '&&' right=expression #LogicalAND
           | left=expression '||' right=expression #LogicalOR
-          | number=NUMBER #Number
+          | number=signedNum #Number
           | varName=IDENTIFIER #Variable
           | functionCall #funcCallExpression
           ;
@@ -61,6 +61,11 @@ functionCall: funcName=IDENTIFIER '(' arguments=expressionList ')' ;
 expressionList: expressions+=expression (',' expressions+=expression)*
               |
               ;
+
+signedNum:  '-' number=NUMBER #NegNum
+  |  '+' number=NUMBER #PosNum
+  |  number=NUMBER #Num
+  ;
 
 IDENTIFIER: [a-zA-Z][a-zA-Z0-9]* ;
 NUMBER: [0-9]+;
