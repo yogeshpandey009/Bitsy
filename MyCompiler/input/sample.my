@@ -1,15 +1,9 @@
-int a;
-int b;
-int c;
-a = -2 -3;
-b = 5;
-c = 1;
-while(a < b){
-	print(b);
-	b = b - 3;
-	while( c < 5){
-		print(c);
-		c = c + 1;
-	}
+bool x;
+x = false;
+if ( x ){
+	print(1);
+}else{
+	x = true || x;
 }
-print(a);
+
+print(x);

@@ -28,13 +28,15 @@ expression: '(' expr=expression ')' #Paran
           | left=expression '&&' right=expression #LogicalAND
           | left=expression '||' right=expression #LogicalOR
           | number=signedNum #Number
+          | boolValue=BOOLEAN #Boolean
           | varName=IDENTIFIER #Variable
           | functionCall #funcCallExpression
           ;
 
-varDeclaration: 'int' varName=IDENTIFIER ;
+varDeclaration: 'int' varName=IDENTIFIER 
+          | 'bool' varName=IDENTIFIER ;
 
-assignment: varName=IDENTIFIER '=' expr=expression;
+assignment: varName=IDENTIFIER '=' expr=expression ;
 
 print: 'print(' argument=expression ')' ;
 
@@ -70,7 +72,8 @@ signedNum:  '-' number=NUMBER #NegNum
   |  '+' number=NUMBER #PosNum
   |  number=NUMBER #Num
   ;
-
+  
+BOOLEAN: 'true' | 'false';
 IDENTIFIER: [a-zA-Z][a-zA-Z0-9]* ;
 NUMBER: [0-9]+;
 WHITESPACE: [ \t\n\r]+ -> skip;

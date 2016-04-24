@@ -1,39 +1,16 @@
-PUSH -2
-PUSH 3
-SUB
-STORE a
-PUSH 5
-STORE b
+PUSH 0
+STORE x
+LOAD x
+JIF label_2
 PUSH 1
-STORE c
+PRINT
+JMP label_1
 LABEL label_2
-LOAD a
-LOAD b
-ISGE
-NOT
-JIF label_1
-LOAD b
-PRINT
-LOAD b
-PUSH 3
-SUB
-STORE b
-LABEL label_4
-LOAD c
-PUSH 5
-ISGE
-NOT
-JIF label_3
-LOAD c
-PRINT
-LOAD c
 PUSH 1
-ADD
-STORE c
-JMP label_4
-LABEL label_3
-JMP label_2
+LOAD x
+OR
+STORE x
 LABEL label_1
-LOAD a
+LOAD x
 PRINT
 HALT

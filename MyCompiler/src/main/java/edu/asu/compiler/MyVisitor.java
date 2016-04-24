@@ -6,6 +6,7 @@ import java.util.Stack;
 
 import mycompiler.parser.MyLangBaseVisitor;
 import mycompiler.parser.MyLangParser.AssignmentContext;
+import mycompiler.parser.MyLangParser.BooleanContext;
 import mycompiler.parser.MyLangParser.ConditionBlockContext;
 import mycompiler.parser.MyLangParser.DivContext;
 import mycompiler.parser.MyLangParser.FunctionCallContext;
@@ -73,6 +74,11 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	public String visitNumber(NumberContext ctx) {
 		return "PUSH " + ctx.number.getText() + "\n";
 	}
+	
+	@Override
+	public String visitBoolean(BooleanContext ctx) {
+		return "PUSH " + getBooleanValue(ctx.boolValue.getText()) + "\n" ;
+	}
 
 	@Override
 	public String visitVarDeclaration(VarDeclarationContext ctx) {
@@ -82,6 +88,7 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		variables.add(ctx.varName.getText());
 		return "";
 	}
+
 
 	@Override
 	public String visitAssignment(AssignmentContext ctx) {
@@ -166,14 +173,12 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 
 	@Override
 	public String visitWhileCondition(WhileConditionContext ctx) {
+		
 	String label = generateLabel(); //current label
-	//pLabel = label;
-	//System.out.println("Label value inside condition"+ label);
 	String result = "LABEL " + label + "\n";
 	result += visit(ctx.expr);
 	result += "JIF " + getOuterScopeLabel() + "\n"; // if condition fails jump to parent
 	result += visit(ctx.statements);	// while condition passed so execute statements
-	//System.out.println("PLabel value inside condition"+ pLabel);
 	result += "JMP " + label + "\n";// again jump to parent label to check while condition
 	return result;
 	}
@@ -254,5 +259,12 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 
 	private String getOuterScopeLabel() {
 		return outerScopeLabel.peek();
+	}
+	
+	private int getBooleanValue(String text){
+		if("true".equals(text)){
+			return 1;
+		}
+		return 0;
 	}
 }
