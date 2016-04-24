@@ -90,17 +90,22 @@ public class CompilerTest {
 				{ "int foo; foo = 42; print(foo);", "42" },
 				{ "int foo; foo = 42; print(foo+2);", "44" },
 				{ "int a; int b; a = 2; b = 5; print(a+b);", "7" },
-				{ "int randomNumber() { return 4; } print(randomNumber());",
+				{
+					"int a;\n" + "a = 1;\n" + "a++;\n" + "print(a);\n"
+							+ "a--;\n" + "print(a);\n" + "++a;\n"
+							+ "print(a);\n" + "--a;\n" + "print(a);",
+					"2121" },
+				{ "int someNumber() { return 4; } print(someNumber());",
 						"4" },
 				{
-						"int randomNumber() {\n" + "  int i;\n" + "  i = 4;\n"
+						"int someNumber() {\n" + "  int i;\n" + "  i = 4;\n"
 								+ "  return i;\n" + "}\n"
-								+ "print(randomNumber());", "4" },
+								+ "print(someNumber());", "4" },
 
 				{
-						"int randomNumber() {\n" + "  int i;\n" + "  i = 4;\n"
+						"int someNumber() {\n" + "  int i;\n" + "  i = 4;\n"
 								+ "  return i;\n" + "}\n" + "int i;\n"
-								+ "i = 42;\n" + "print(randomNumber());\n"
+								+ "i = 42;\n" + "print(someNumber());\n"
 								+ "print(i);", "4" + "42" },
 				{
 						"int add(int a, int b) {\n" + "  return a+b;\n" + "}\n"
@@ -124,9 +129,9 @@ public class CompilerTest {
 				{
 						"int a;\n" + "int b;\n" + "int c;\n" + "a = 1;\n"
 								+ "b = 1;\n" + "c = 3;\n" + "while(a < c){\n"
-								+ "	print(a);\n" + "	a = a + 1;\n" + "}\n"
+								+ "	print(a);\n" + "	a++;\n" + "}\n"
 								+ "while(b < c){\n" + "	print(b);\n"
-								+ "	b = b + 1;\n" + "}\n" + "print(a);\n"
+								+ "	++b;\n" + "}\n" + "print(a);\n"
 								+ "print(b);\n" + "print(c);", "1212333" } };
 	}
 

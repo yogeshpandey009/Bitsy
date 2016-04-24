@@ -26,7 +26,11 @@ import mycompiler.parser.MyLangParser.MultContext;
 import mycompiler.parser.MyLangParser.NotEqContext;
 import mycompiler.parser.MyLangParser.NumberContext;
 import mycompiler.parser.MyLangParser.PlusContext;
+import mycompiler.parser.MyLangParser.PostDecVarContext;
+import mycompiler.parser.MyLangParser.PostIncVarContext;
 import mycompiler.parser.MyLangParser.PowerContext;
+import mycompiler.parser.MyLangParser.PreDecVarContext;
+import mycompiler.parser.MyLangParser.PreIncVarContext;
 import mycompiler.parser.MyLangParser.PrintContext;
 import mycompiler.parser.MyLangParser.ProgramContext;
 import mycompiler.parser.MyLangParser.ReturnStatContext;
@@ -238,6 +242,30 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 			}
 		}
 		return mainCode + "HALT\n" + functions;
+	}
+
+	@Override
+	public String visitPostIncVar(PostIncVarContext ctx) {
+		return "LOAD " + getVariableName(ctx.varName) + "\n" + "PUSH 1" + "\n"
+				+ "ADD" + "\n" + "STORE " + getVariableName(ctx.varName) + "\n";
+	}
+
+	@Override
+	public String visitPostDecVar(PostDecVarContext ctx) {
+		return "LOAD " + getVariableName(ctx.varName) + "\n" + "PUSH 1" + "\n"
+				+ "SUB" + "\n" + "STORE " + getVariableName(ctx.varName) + "\n";
+	}
+
+	@Override
+	public String visitPreIncVar(PreIncVarContext ctx) {
+		return "LOAD " + getVariableName(ctx.varName) + "\n" + "PUSH 1" + "\n"
+				+ "ADD" + "\n" + "STORE " + getVariableName(ctx.varName) + "\n";
+	}
+
+	@Override
+	public String visitPreDecVar(PreDecVarContext ctx) {
+		return "LOAD " + getVariableName(ctx.varName) + "\n" + "PUSH 1" + "\n"
+				+ "SUB" + "\n" + "STORE " + getVariableName(ctx.varName) + "\n";
 	}
 
 	private String getVariableName(Token varNameToken) {

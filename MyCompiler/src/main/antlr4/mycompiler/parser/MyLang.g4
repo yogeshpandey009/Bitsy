@@ -10,6 +10,7 @@ statement: print ';'
          | varDeclaration ';'
          | assignment ';'
          | returnStat ';'
+         | prePostStat ';'
          | ifStat
          | whileStat
          ;
@@ -63,6 +64,12 @@ conditionBlock: '(' expr=expression ')' '{' statements=statementList '}';
 whileStat: 'while' whileBock=whileConditionBlock;
 
 whileConditionBlock: '(' expr=expression ')' '{' statements=statementList '}';
+
+prePostStat: varName=IDENTIFIER '+' '+' #PostIncVar
+         | varName=IDENTIFIER '-' '-' #PostDecVar
+         | '+' '+' varName=IDENTIFIER #PreIncVar
+         | '-' '-' varName=IDENTIFIER #PreDecVar
+         ;
 
 functionCall: funcName=IDENTIFIER '(' arguments=expressionList ')' ;
 
