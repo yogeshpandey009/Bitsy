@@ -1,17 +1,24 @@
 int a;
 int b;
 int c;
+int d;
 a = 1;
 b = 1;
-c = 3;
-while(a < c){
+c = 1;
+d = 3;
+while(a < d){
 	b=1;
-	while(b < c){
+	while(b < d){
 		print(b);
 		b = b + 1;
 	}
 	a = a + 1;
 }
+while(c<d) {
+	print(c);
+	c=c+1;
+}
 print(a);
 print(b);
 print(c);
+print(d);

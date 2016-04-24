@@ -5,12 +5,12 @@ a = 1;
 b = 1;
 c = 3;
 while(a < c){
-	b=1;
-	while(b < c){
-		print(b);
-		b = b + 1;
-	}
+	print(a);
 	a = a + 1;
+}
+while(b < c){
+	print(b);
+	b = b + 1;
 }
 print(a);
 print(b);

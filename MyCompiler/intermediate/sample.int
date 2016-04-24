@@ -10,8 +10,14 @@ LOAD c
 ISGE
 NOT
 JIF label_1
+LOAD a
+PRINT
+LOAD a
 PUSH 1
-STORE b
+ADD
+STORE a
+JMP label_2
+LABEL label_1
 LABEL label_4
 LOAD b
 LOAD c
@@ -26,12 +32,6 @@ ADD
 STORE b
 JMP label_4
 LABEL label_3
-LOAD a
-PUSH 1
-ADD
-STORE a
-JMP label_2
-LABEL label_1
 LOAD a
 PRINT
 LOAD b

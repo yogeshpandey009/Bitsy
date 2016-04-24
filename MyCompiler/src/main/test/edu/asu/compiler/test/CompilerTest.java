@@ -21,10 +21,9 @@ public class CompilerTest {
 	public ExpectedException thrown = ExpectedException.none();
 
 	@Test
-	public void perfromAllValidTest()
-			throws Exception {
+	public void perfromAllValidTest() throws Exception {
 		String[][] data = dataProvider();
-		for(String[] tc: data) {
+		for (String[] tc : data) {
 			try {
 				// execution
 				ByteArrayOutputStream outSpy = new ByteArrayOutputStream();
@@ -33,7 +32,7 @@ public class CompilerTest {
 				// evaluation performed by expected exception
 				Assert.assertEquals(tc[1], outSpy.toString());
 				System.setOut(null);
-			} catch(ProgramExecutionException e) {
+			} catch (ProgramExecutionException e) {
 				e.printStackTrace();
 			}
 		}
@@ -121,7 +120,14 @@ public class CompilerTest {
 								+ "	} else {\n" + "		print(1);\n" + "	}\n"
 								+ "} else {\n" + "	print(0);\n" + "}\n"
 								+ "if(3<4) {\n" + "	print(2);\n" + "} else {\n"
-								+ "	print(-2);\n" + "}\n" + "print(3);", "123" } };
+								+ "	print(-2);\n" + "}\n" + "print(3);", "123" },
+				{
+						"int a;\n" + "int b;\n" + "int c;\n" + "a = 1;\n"
+								+ "b = 1;\n" + "c = 3;\n" + "while(a < c){\n"
+								+ "	print(a);\n" + "	a = a + 1;\n" + "}\n"
+								+ "while(b < c){\n" + "	print(b);\n"
+								+ "	b = b + 1;\n" + "}\n" + "print(a);\n"
+								+ "print(b);\n" + "print(c);", "1212333" } };
 	}
 
 	private void compileAndRun(String code) throws Exception {

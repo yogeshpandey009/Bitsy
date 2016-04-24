@@ -45,7 +45,7 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 
 	private Set<String> variables = new HashSet<>();
 	private int labelCounter = 1;
-	private Stack<String> outerScopeLabel = new Stack<String>();
+	private Stack<String> scopeEndLabel = new Stack<String>();
 
 	@Override
 	public String visitPrint(PrintContext ctx) {
@@ -154,9 +154,9 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	@Override
 	public String visitIfStat(IfStatContext ctx) {
 		String label = generateLabel();
-		outerScopeLabel.push(label);
+		scopeEndLabel.push(label);
 		String result = visitChildren(ctx) + "LABEL " + label + "\n";
-		outerScopeLabel.pop();
+		scopeEndLabel.pop();
 		return result;
 	}
 
@@ -166,7 +166,7 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		String result = visit(ctx.expr);
 		result += "JIF " + label + "\n";
 		result += visit(ctx.statements);
-		result += "JMP " + getOuterScopeLabel() + "\n";
+		result += "JMP " + getScopeEndLabel() + "\n";
 		result += "LABEL " + label + "\n";
 		return result;
 	}
@@ -174,9 +174,9 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	@Override
 	public String visitWhileStat(WhileStatContext ctx) {
 		String label = generateLabel();
-		outerScopeLabel.push(label);
+		scopeEndLabel.push(label);
 		String result = visitChildren(ctx) + "LABEL " + label + "\n";
-		outerScopeLabel.pop();
+		scopeEndLabel.pop();
 		return result;
 	}
 
@@ -185,7 +185,7 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		String label = generateLabel();
 		String result = "LABEL " + label + "\n";
 		result += visit(ctx.expr);
-		result += "JIF " + getOuterScopeLabel() + "\n";
+		result += "JIF " + getScopeEndLabel() + "\n";
 		result += visit(ctx.statements);
 		result += "JMP " + label + "\n";
 		return result;
@@ -265,8 +265,8 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		return label;
 	}
 
-	private String getOuterScopeLabel() {
-		return outerScopeLabel.peek();
+	private String getScopeEndLabel() {
+		return scopeEndLabel.peek();
 	}
 
 	private int getBooleanValue(String text) {
