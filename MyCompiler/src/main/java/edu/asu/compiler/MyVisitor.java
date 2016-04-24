@@ -22,10 +22,12 @@ import mycompiler.parser.MyLangParser.LogicalORContext;
 import mycompiler.parser.MyLangParser.LoopingContext;
 import mycompiler.parser.MyLangParser.MainStatementContext;
 import mycompiler.parser.MyLangParser.MinusContext;
+import mycompiler.parser.MyLangParser.ModContext;
 import mycompiler.parser.MyLangParser.MultContext;
 import mycompiler.parser.MyLangParser.NotEqContext;
 import mycompiler.parser.MyLangParser.NumberContext;
 import mycompiler.parser.MyLangParser.PlusContext;
+import mycompiler.parser.MyLangParser.PowerContext;
 import mycompiler.parser.MyLangParser.PrintContext;
 import mycompiler.parser.MyLangParser.ProgramContext;
 import mycompiler.parser.MyLangParser.ReturnStatContext;
@@ -68,6 +70,16 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	@Override
 	public String visitMult(MultContext ctx) {
 		return visitChildren(ctx) + "MUL" + "\n";
+	}
+	
+	@Override
+	public String visitPower(PowerContext ctx) {
+		return visitChildren(ctx) + "POW" + "\n";
+	}
+	
+	@Override
+	public String visitMod(ModContext ctx) {
+		return visitChildren(ctx) + "MOD" + "\n";
 	}
 
 	@Override

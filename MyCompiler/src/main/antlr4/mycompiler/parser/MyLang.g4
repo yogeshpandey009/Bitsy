@@ -15,6 +15,8 @@ statement: print ';'
          ;
 
 expression: '(' expr=expression ')' #Paran
+		  | left=expression '^' right=expression #Power
+		  | left=expression '%' right=expression #Mod
           | left=expression '/' right=expression #Div
           | left=expression '*' right=expression #Mult
           | left=expression '-' right=expression #Minus
