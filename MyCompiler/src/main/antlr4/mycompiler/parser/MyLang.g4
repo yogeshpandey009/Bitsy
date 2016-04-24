@@ -16,6 +16,10 @@ statement: print ';'
          ;
 
 expression: '(' expr=expression ')' #Paran
+		  | expression '+' '+' #PostIncExpr
+		  | expression '-' '-' #PostDecExpr
+		  | '+' '+' expression #PreIncExpr
+		  | '-' '-' expression #PreDecExpr
 		  | left=expression '^' right=expression #Power
 		  | left=expression '%' right=expression #Mod
           | left=expression '/' right=expression #Div
