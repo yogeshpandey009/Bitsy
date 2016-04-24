@@ -1,14 +1,17 @@
 int a;
 int b;
-a = -2 -3;
-b = 5;
-c = 2
-while(a < b){
-	print(b);
-	b = b - 3;
-	while(c < b){
-		print(c);
-		c = c + 1;
+int c;
+a = 1;
+b = 1;
+c = 3;
+while(a < c){
+	b=1;
+	while(b < c){
+		print(b);
+		b = b + 1;
 	}
+	a = a + 1;
 }
 print(a);
+print(b);
+print(c);

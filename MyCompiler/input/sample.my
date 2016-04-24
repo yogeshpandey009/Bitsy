@@ -1,9 +1,17 @@
-int x;
-x=5;
-int y;
-y=2;
-int z;
-z = x%y;
-print(z);
-z = x^y;
-print(z);
+int a;
+int b;
+int c;
+a = 1;
+b = 1;
+c = 3;
+while(a < c){
+	b=1;
+	while(b < c){
+		print(b);
+		b = b + 1;
+	}
+	a = a + 1;
+}
+print(a);
+print(b);
+print(c);

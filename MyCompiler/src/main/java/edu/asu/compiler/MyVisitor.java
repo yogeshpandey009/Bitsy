@@ -19,7 +19,6 @@ import mycompiler.parser.MyLangParser.LessContext;
 import mycompiler.parser.MyLangParser.LessEqContext;
 import mycompiler.parser.MyLangParser.LogicalANDContext;
 import mycompiler.parser.MyLangParser.LogicalORContext;
-import mycompiler.parser.MyLangParser.LoopingContext;
 import mycompiler.parser.MyLangParser.MainStatementContext;
 import mycompiler.parser.MyLangParser.MinusContext;
 import mycompiler.parser.MyLangParser.ModContext;
@@ -33,7 +32,8 @@ import mycompiler.parser.MyLangParser.ProgramContext;
 import mycompiler.parser.MyLangParser.ReturnStatContext;
 import mycompiler.parser.MyLangParser.VarDeclarationContext;
 import mycompiler.parser.MyLangParser.VariableContext;
-import mycompiler.parser.MyLangParser.WhileConditionContext;
+import mycompiler.parser.MyLangParser.WhileConditionBlockContext;
+import mycompiler.parser.MyLangParser.WhileStatContext;
 
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -71,12 +71,12 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	public String visitMult(MultContext ctx) {
 		return visitChildren(ctx) + "MUL" + "\n";
 	}
-	
+
 	@Override
 	public String visitPower(PowerContext ctx) {
 		return visitChildren(ctx) + "POW" + "\n";
 	}
-	
+
 	@Override
 	public String visitMod(ModContext ctx) {
 		return visitChildren(ctx) + "MOD" + "\n";
@@ -86,10 +86,10 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	public String visitNumber(NumberContext ctx) {
 		return "PUSH " + ctx.number.getText() + "\n";
 	}
-	
+
 	@Override
 	public String visitBoolean(BooleanContext ctx) {
-		return "PUSH " + getBooleanValue(ctx.boolValue.getText()) + "\n" ;
+		return "PUSH " + getBooleanValue(ctx.boolValue.getText()) + "\n";
 	}
 
 	@Override
@@ -100,7 +100,6 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		variables.add(ctx.varName.getText());
 		return "";
 	}
-
 
 	@Override
 	public String visitAssignment(AssignmentContext ctx) {
@@ -171,28 +170,25 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		result += "LABEL " + label + "\n";
 		return result;
 	}
-	
+
 	@Override
-	public String visitLooping(LoopingContext ctx) {
-	String label = generateLabel();
-	outerScopeLabel.push(label);
-	//System.out.println("PLabel value inside while"+ pLabel);
-	String result = visitChildren(ctx) + "LABEL " + label + "\n";
-	outerScopeLabel.pop();
-	return result;
+	public String visitWhileStat(WhileStatContext ctx) {
+		String label = generateLabel();
+		outerScopeLabel.push(label);
+		String result = visitChildren(ctx) + "LABEL " + label + "\n";
+		outerScopeLabel.pop();
+		return result;
 	}
 
-
 	@Override
-	public String visitWhileCondition(WhileConditionContext ctx) {
-		
-	String label = generateLabel(); //current label
-	String result = "LABEL " + label + "\n";
-	result += visit(ctx.expr);
-	result += "JIF " + getOuterScopeLabel() + "\n"; // if condition fails jump to parent
-	result += visit(ctx.statements);	// while condition passed so execute statements
-	result += "JMP " + label + "\n";// again jump to parent label to check while condition
-	return result;
+	public String visitWhileConditionBlock(WhileConditionBlockContext ctx) {
+		String label = generateLabel();
+		String result = "LABEL " + label + "\n";
+		result += visit(ctx.expr);
+		result += "JIF " + getOuterScopeLabel() + "\n";
+		result += visit(ctx.statements);
+		result += "JMP " + label + "\n";
+		return result;
 	}
 
 	@Override
@@ -272,9 +268,9 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	private String getOuterScopeLabel() {
 		return outerScopeLabel.peek();
 	}
-	
-	private int getBooleanValue(String text){
-		if("true".equals(text)){
+
+	private int getBooleanValue(String text) {
+		if ("true".equals(text)) {
 			return 1;
 		}
 		return 0;

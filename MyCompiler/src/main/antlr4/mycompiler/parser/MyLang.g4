@@ -11,7 +11,7 @@ statement: print ';'
          | assignment ';'
          | returnStat ';'
          | ifStat
-         | looping
+         | whileStat
          ;
 
 expression: '(' expr=expression ')' #Paran
@@ -60,9 +60,9 @@ elseStat: 'else' '{' statements=statementList '}' ;
  
 conditionBlock: '(' expr=expression ')' '{' statements=statementList '}';
  
-looping: 'while' whileBock=whileCondition;
+whileStat: 'while' whileBock=whileConditionBlock;
 
-whileCondition: '(' expr=expression ')' '{' statements=statementList '}';
+whileConditionBlock: '(' expr=expression ')' '{' statements=statementList '}';
 
 functionCall: funcName=IDENTIFIER '(' arguments=expressionList ')' ;
 
