@@ -51,7 +51,9 @@ assignment: varName=IDENTIFIER '=' expr=expression ;
 assignmentWithDeclaration: 'int' varName=IDENTIFIER '=' expr=expression 
 						| 'bool' varName=IDENTIFIER '=' expr=expression ;
 
-print: 'print(' argument=expression ')' ;
+print: 'print(' argument=expression ')' #printExpr
+		  | 'print(' text=QUOTED_STRING ')' #printText
+		  ;
 
 returnStat: 'return' returnValue=expression ;
 
@@ -95,4 +97,12 @@ signedNum:  '-' number=NUMBER #NegNum
 BOOLEAN: 'true' | 'false';
 IDENTIFIER: [a-zA-Z][a-zA-Z0-9]* ;
 NUMBER: [0-9]+;
+QUOTED_STRING: '"' (~["])* '"' ;
 WHITESPACE: [ \t\n\r]+ -> skip;
+COMMENT
+    :   '/*' .*? '*/' -> skip
+    ;
+
+LINE_COMMENT
+    :   '//' ~[\r\n]* -> skip
+    ;

@@ -91,12 +91,14 @@ public class CompilerTest {
 				{ "int foo; foo = 42; print(foo+2);", "44" },
 				{ "int a; int b; a = 2; b = 5; print(a+b);", "7" },
 				{
-					"int a;\n" + "a = 1;\n" + "a++;\n" + "print(a);\n"
-							+ "a--;\n" + "print(a);\n" + "++a;\n"
-							+ "print(a);\n" + "--a;\n" + "print(a);",
-					"2121" },
-				{ "int someNumber() { return 4; } print(someNumber());",
-						"4" },
+						"//This is hello world program\n"
+								+ "print(\"hello world\");", "hello world" },
+				{
+						"int a;\n" + "a = 1;\n" + "a++;\n" + "print(a);\n"
+								+ "a--;\n" + "print(a);\n" + "++a;\n"
+								+ "print(a);\n" + "--a;\n" + "print(a);",
+						"2121" },
+				{ "int someNumber() { return 4; } print(someNumber());", "4" },
 				{
 						"int someNumber() {\n" + "  int i;\n" + "  i = 4;\n"
 								+ "  return i;\n" + "}\n"

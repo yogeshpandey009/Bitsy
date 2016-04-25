@@ -38,7 +38,8 @@ import mycompiler.parser.MyLangParser.PreDecExprContext;
 import mycompiler.parser.MyLangParser.PreDecVarContext;
 import mycompiler.parser.MyLangParser.PreIncExprContext;
 import mycompiler.parser.MyLangParser.PreIncVarContext;
-import mycompiler.parser.MyLangParser.PrintContext;
+import mycompiler.parser.MyLangParser.PrintExprContext;
+import mycompiler.parser.MyLangParser.PrintTextContext;
 import mycompiler.parser.MyLangParser.ProgramContext;
 import mycompiler.parser.MyLangParser.ReturnStatContext;
 import mycompiler.parser.MyLangParser.VarDeclarationContext;
@@ -59,8 +60,13 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	private Stack<String> scopeEndLabel = new Stack<String>();
 
 	@Override
-	public String visitPrint(PrintContext ctx) {
+	public String visitPrintExpr(PrintExprContext ctx) {
 		return visit(ctx.argument) + "PRINT" + "\n";
+	}
+
+	@Override
+	public String visitPrintText(PrintTextContext ctx) {
+		return "PUSH " + ctx.text.getText() + "\n" + "PRINT" + "\n";
 	}
 
 	@Override
@@ -138,16 +144,17 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	public String visitAssignment(AssignmentContext ctx) {
 		return visit(ctx.expr) + "STORE " + getVariableName(ctx.varName) + "\n";
 	}
-	
+
 	@Override
-	public String visitAssignmentWithDeclaration(AssignmentWithDeclarationContext ctx){
+	public String visitAssignmentWithDeclaration(
+			AssignmentWithDeclarationContext ctx) {
 		if (variables.contains(ctx.varName.getText())) {
 			throw new VariableAlreadyDefinedException(ctx.varName);
 		}
 		variables.add(ctx.varName.getText());
-		return visit(ctx.expr)+"STORE "+ getVariableName(ctx.varName)+"\n";
+		return visit(ctx.expr) + "STORE " + getVariableName(ctx.varName) + "\n";
 	}
-	
+
 	@Override
 	public String visitVariable(VariableContext ctx) {
 		return "LOAD " + getVariableName(ctx.varName) + "\n";
@@ -305,15 +312,15 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		return "LOAD " + getVariableName(ctx.varName) + "\n" + "PUSH 1" + "\n"
 				+ "SUB" + "\n" + "STORE " + getVariableName(ctx.varName) + "\n";
 	}
-	
+
 	@Override
 	public String visitPositive(PositiveContext ctx) {
-		 return visitChildren(ctx)+"\n";
+		return visitChildren(ctx) + "\n";
 	}
-	
+
 	@Override
 	public String visitNegative(NegativeContext ctx) {
-		 return "PUSH 0 " + visitChildren(ctx) + "\n"+"SUB " + "\n";
+		return "PUSH 0 " + visitChildren(ctx) + "\n" + "SUB " + "\n";
 	}
 
 	private String getVariableName(Token varNameToken) {

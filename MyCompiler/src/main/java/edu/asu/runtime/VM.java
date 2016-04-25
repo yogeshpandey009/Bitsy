@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class VM {
 
@@ -29,10 +32,15 @@ public class VM {
 			input.close();
 		}
 	}
-	
+
 	public static void run(String code) {
-		String[] instr = code.split("\\s+");
-		executeInstr(instr);
+		List<String> instr = new ArrayList<>();
+		Pattern p = Pattern.compile("(\"[^\"]+\")|\\S+");
+		Matcher m = p.matcher(code);
+		while (m.find()) {
+			instr.add(m.group().replaceAll("\"", ""));
+		}
+		executeInstr(instr.toArray(new String[0]));
 	}
 
 	public static void executeInstr(String[] instr) {

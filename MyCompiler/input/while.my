@@ -10,13 +10,13 @@ while(a < d){
 	b=1;
 	while(b < d){
 		print(b);
-		b = b + 1;
+		b++;
 	}
-	a = a + 1;
+	a++;
 }
 while(c<d) {
 	print(c);
-	c=c+1;
+	c++;
 }
 print(a);
 print(b);
