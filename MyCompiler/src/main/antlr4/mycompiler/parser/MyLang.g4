@@ -13,11 +13,14 @@ statement: print ';'
          | prePostStat ';'
          | ifStat
          | whileStat
+         | assignmentWithDeclaration ';'
          ;
 
 expression: '(' expr=expression ')' #Paran
 		  | expression '+' '+' #PostIncExpr
 		  | expression '-' '-' #PostDecExpr
+		  | '+' expression #Positive
+		  | '-' expression #Negative
 		  | '+' '+' expression #PreIncExpr
 		  | '-' '-' expression #PreDecExpr
 		  | left=expression '^' right=expression #Power
@@ -44,6 +47,9 @@ varDeclaration: 'int' varName=IDENTIFIER
           | 'bool' varName=IDENTIFIER ;
 
 assignment: varName=IDENTIFIER '=' expr=expression ;
+
+assignmentWithDeclaration: 'int' varName=IDENTIFIER '=' expr=expression 
+						| 'bool' varName=IDENTIFIER '=' expr=expression ;
 
 print: 'print(' argument=expression ')' ;
 

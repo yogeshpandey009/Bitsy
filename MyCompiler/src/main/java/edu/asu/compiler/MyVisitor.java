@@ -6,6 +6,7 @@ import java.util.Stack;
 
 import mycompiler.parser.MyLangBaseVisitor;
 import mycompiler.parser.MyLangParser.AssignmentContext;
+import mycompiler.parser.MyLangParser.AssignmentWithDeclarationContext;
 import mycompiler.parser.MyLangParser.BooleanContext;
 import mycompiler.parser.MyLangParser.ConditionBlockContext;
 import mycompiler.parser.MyLangParser.DivContext;
@@ -23,9 +24,11 @@ import mycompiler.parser.MyLangParser.MainStatementContext;
 import mycompiler.parser.MyLangParser.MinusContext;
 import mycompiler.parser.MyLangParser.ModContext;
 import mycompiler.parser.MyLangParser.MultContext;
+import mycompiler.parser.MyLangParser.NegativeContext;
 import mycompiler.parser.MyLangParser.NotEqContext;
 import mycompiler.parser.MyLangParser.NumberContext;
 import mycompiler.parser.MyLangParser.PlusContext;
+import mycompiler.parser.MyLangParser.PositiveContext;
 import mycompiler.parser.MyLangParser.PostDecExprContext;
 import mycompiler.parser.MyLangParser.PostDecVarContext;
 import mycompiler.parser.MyLangParser.PostIncExprContext;
@@ -135,7 +138,16 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	public String visitAssignment(AssignmentContext ctx) {
 		return visit(ctx.expr) + "STORE " + getVariableName(ctx.varName) + "\n";
 	}
-
+	
+	@Override
+	public String visitAssignmentWithDeclaration(AssignmentWithDeclarationContext ctx){
+		if (variables.contains(ctx.varName.getText())) {
+			throw new VariableAlreadyDefinedException(ctx.varName);
+		}
+		variables.add(ctx.varName.getText());
+		return visit(ctx.expr)+"STORE "+ getVariableName(ctx.varName)+"\n";
+	}
+	
 	@Override
 	public String visitVariable(VariableContext ctx) {
 		return "LOAD " + getVariableName(ctx.varName) + "\n";
@@ -292,6 +304,16 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	public String visitPreDecVar(PreDecVarContext ctx) {
 		return "LOAD " + getVariableName(ctx.varName) + "\n" + "PUSH 1" + "\n"
 				+ "SUB" + "\n" + "STORE " + getVariableName(ctx.varName) + "\n";
+	}
+	
+	@Override
+	public String visitPositive(PositiveContext ctx) {
+		 return visitChildren(ctx)+"\n";
+	}
+	
+	@Override
+	public String visitNegative(NegativeContext ctx) {
+		 return "PUSH 0 " + visitChildren(ctx) + "\n"+"SUB " + "\n";
 	}
 
 	private String getVariableName(Token varNameToken) {
