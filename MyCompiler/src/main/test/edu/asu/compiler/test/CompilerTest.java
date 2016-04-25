@@ -134,7 +134,16 @@ public class CompilerTest {
 								+ "	print(a);\n" + "	a++;\n" + "}\n"
 								+ "while(b < c){\n" + "	print(b);\n"
 								+ "	++b;\n" + "}\n" + "print(a);\n"
-								+ "print(b);\n" + "print(c);", "1212333" } };
+								+ "print(b);\n" + "print(c);", "1212333" },
+				{
+						"/* Check if number is Even or Odd\n"
+								+ " * @param x: input number\n"
+								+ " * @return: 0 if Odd\n" + " 			1 if Even\n"
+								+ " */\n" + "int isEven(int x) {\n"
+								+ "	return x%2==0;\n" + "}\n"
+								+ "print(isEven(4));// should print 1\n"
+								+ "print(\"\\n\");\n"
+								+ "print(isEven(7));// should print 0", "1\n0" } };
 	}
 
 	private void compileAndRun(String code) throws Exception {

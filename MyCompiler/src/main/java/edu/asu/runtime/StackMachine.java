@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Stack;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 import edu.asu.runtime.exceptions.ProgramExecutionException;
 
 public class StackMachine {
@@ -149,7 +151,8 @@ public class StackMachine {
 
 		case PRINT: {
 			checkStackHasAtLeastOneItem("PRINT");
-			System.out.print(executionStack.peek());
+			String escapedStr = executionStack.peek();
+			System.out.print(StringEscapeUtils.unescapeJava(escapedStr));
 			break;
 		}
 
