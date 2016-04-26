@@ -143,7 +143,20 @@ public class CompilerTest {
 								+ "	return x%2==0;\n" + "}\n"
 								+ "print(isEven(4));// should print 1\n"
 								+ "print(\"\\n\");\n"
-								+ "print(isEven(7));// should print 0", "1\n0" } };
+								+ "print(isEven(7));// should print 0", "1\n0" },
+				{
+						"int x;\n" + "x=5;\n" + "int y;\n" 
+								+ "y=2;\n" + "int z;\n" + "z = x%y;\n" 
+								+ "z = x%y;\n" + "print(z);"
+									 },
+				{
+											"int x;\n" + "x=5;\n" + "int y;\n" 
+													+ "y=2;\n" + "int z;\n" + "z = x%y;\n" 
+													+ "z = x^y;\n" + "print(z);"
+														 },
+				{		"int z;\n" + "x = 5 > 3;\n" + "print(z);\n" 
+								+ "int z1;\n" + "y = 4 <= 7;\n" + "print(z1);\n"
+								+ "print(z || false);\n"}};
 	}
 
 	private void compileAndRun(String code) throws Exception {

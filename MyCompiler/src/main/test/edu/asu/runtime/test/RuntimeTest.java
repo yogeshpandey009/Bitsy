@@ -125,11 +125,11 @@ public class RuntimeTest {
 	@Test
 	public void testLogicalOperators() {
 		/*
-		 * print(5 > 3 && 4 <= 7)
+		 * print(5 > 3 && 4 <= 7);
 		 */
 		VM.executeInstr(new String[] { "PUSH", "5", "PUSH", "3", "ISGT", "PUSH",
 				"4", "PUSH", "7", "ISGT", "NOT", "AND", "PRINT", "HALT" });
-		assertEquals("1", outContent.toString());
+		assertEquals("true", outContent.toString());
 	}
 
 	@Test
@@ -212,5 +212,37 @@ public class RuntimeTest {
 				"RET", "LABEL", "label1", "LOAD", "n", "LOAD", "n", "PUSH",
 				"1", "SUB", "CALL", "fact", "MUL", "RET" });
 		assertEquals("120", outContent.toString());
+	}
+	@Test
+	public void testPower() {
+		/*
+		 * int x;
+		 * x=5;
+		 * int y;
+		 * y=2;
+		 * int z;
+		 * z = x^y;
+		 * print(z);
+		 */
+		VM.executeInstr(new String[] { "PUSH", "5", "STORE", "x", "PUSH", "2", 
+				  "STORE", "y", "LOAD", "x", "LOAD", "y", "POW", "STORE", "z",
+				  "LOAD", "z", "PRINT", "HALT"});
+		assertEquals("1024", outContent.toString());
+	}
+	
+	@Test
+	public void testBoolean() {
+		/*
+		 * int z;
+		 * z = 5 > 3;
+		 * int z1;
+		 * z1 = 4 <= 7;
+		 * print(z || false);
+		 */
+		VM.executeInstr(new String[] { "PUSH", "5",	"PUSH", "3", "ISGT",
+				"STORE", "z", "PUSH", "4", "PUSH", "7",
+				"ISGT", "NOT", "STORE", "z1",
+				"LOAD", "z", "PUSH", "false", "OR", "PRINT", "HALT"});
+		assertEquals("true", outContent.toString());
 	}
 }
