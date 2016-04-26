@@ -106,7 +106,7 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 
 	@Override
 	public String visitBoolean(BooleanContext ctx) {
-		return "PUSH " + getBooleanValue(ctx.boolValue.getText()) + "\n";
+		return "PUSH " + ctx.boolValue.getText() + "\n";
 	}
 
 	// TODO:
@@ -352,10 +352,10 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		return scopeEndLabel.peek();
 	}
 
-	private int getBooleanValue(String text) {
-		if ("true".equals(text)) {
-			return 1;
-		}
-		return 0;
-	}
+//	private int getBooleanValue(String text) {
+//		if ("true".equals(text)) {
+//			return 1;
+//		}
+//		return 0;
+//	}
 }

@@ -93,8 +93,6 @@ public class StackMachine {
 		case DIV:
 		case MOD:
 		case POW:
-		case AND:
-		case OR:
 		case ISEQ:
 		case ISGE:
 		case ISGT: {
@@ -107,6 +105,33 @@ public class StackMachine {
 			executionStack.push(doBinaryOp(instruction, n1, n2) + "");
 			break;
 		}
+		case AND:
+		case OR:{
+			if (executionStack.size() < 2) {
+				throw new ProgramExecutionException(
+						"There should be at least two items on the stack to execute a binary instruction");
+			}
+			Object s2 = executionStack.peek();
+			//System.out.println("s2:"+ s2);
+			Object s1 = executionStack.peek();
+			//System.out.println("s1:"+ s1);
+			String n1 = executionStack.pop();
+			String n2 = executionStack.pop();
+//			if((s1 instanceof Integer) && (s2 instanceof Integer)){
+//				n1 = toStringBoolean(n1);
+//				n2 = toStringBoolean(n2);
+//			}
+//			else if(s1 instanceof Integer && !(s2 instanceof Integer)){
+//				n1 = toStringBoolean(n1);
+//			}
+//			else if(!(s1 instanceof Integer) && (s2 instanceof Integer)){
+//				
+//			}
+			Boolean n = doBooleanOp(instruction, toStringBoolean(n1), toStringBoolean(n2));
+			//System.out.println("Result:" + n);
+			executionStack.push(n + "");
+			break;
+		}
 
 		case JIF: {
 			// JMP if stack top value is false
@@ -115,8 +140,15 @@ public class StackMachine {
 			String label = getNextInstruction("Should have the address after the JIF instruction");
 			int address = getLabelAddress(label);
 			checkStackHasAtLeastOneItem("JIF");
-			if (!toBool(Integer.parseInt(executionStack.pop()))) {
+			String stackValue = executionStack.pop();
+			if(stackValue.equals("true") || stackValue.equals("false")){
+				if (!Boolean.parseBoolean(stackValue)) {
 				this.instructionAddress = address;
+				}
+			}else{
+				if (!toBool(Integer.parseInt(stackValue))) {
+					this.instructionAddress = address;
+					}
 			}
 			break;
 		}
@@ -219,16 +251,27 @@ public class StackMachine {
 			return n1 % n2;
 		case POW:
 			return (int) Math.pow(n1, n2);
-		case AND:
-			return toInt(toBool(n1) && toBool(n2));
-		case OR:
-			return toInt(toBool(n1) || toBool(n2));
 		case ISEQ:
 			return toInt(n1 == n2);
 		case ISGE:
 			return toInt(n1 >= n2);
 		case ISGT:
 			return toInt(n1 > n2);
+		default:
+			throw new AssertionError();
+		}
+	}
+	
+	private Boolean doBooleanOp(String instruction, String n1, String n2) {
+		switch (Instruction.valueOf(instruction)) {	
+		case AND:
+			//System.out.println("n1 =" + (Boolean.parseBoolean(n1)));
+			//System.out.println("n2 =" + (Boolean.parseBoolean(n2)));
+			//System.out.println("Inside AND:" + (Boolean.parseBoolean(n1) && Boolean.parseBoolean(n2)));
+		return Boolean.parseBoolean(n1) && Boolean.parseBoolean(n2);
+		case OR:
+			//System.out.println("Inside OR:" + (Boolean.parseBoolean(n1) ||  Boolean.parseBoolean(n2)));
+		return Boolean.parseBoolean(n1) || Boolean.parseBoolean(n2);
 		default:
 			throw new AssertionError();
 		}
@@ -241,6 +284,16 @@ public class StackMachine {
 	private int toInt(boolean b) {
 		return b ? 1 : 0;
 	}
+	
+	private String toStringBoolean(String s){
+		if(s.equals("1")){
+			s = "true";
+		}else if(s.equals("0")){
+			s = "false";
+		}
+		return s;
+	}
+	
 
 	private String getNextInstruction(String errorMessage) {
 		if (instructionAddress >= program.length) {

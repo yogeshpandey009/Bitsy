@@ -1,9 +1,16 @@
 bool x;
 x = false;
+int y;
+y = 5;
 if ( x ){
-	print(1);
+	print("Inside if");
+	print(y);
 }else{
+	print("Inside else");
 	x = true || x;
+	print(x);
+	x = x && false;
 }
 
+print("Outside");
 print(x);
