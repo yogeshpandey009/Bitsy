@@ -42,6 +42,10 @@ import mycompiler.parser.MyLangParser.PrintExprContext;
 import mycompiler.parser.MyLangParser.PrintTextContext;
 import mycompiler.parser.MyLangParser.ProgramContext;
 import mycompiler.parser.MyLangParser.ReturnStatContext;
+import mycompiler.parser.MyLangParser.StackIsEmptyContext;
+import mycompiler.parser.MyLangParser.StackPeekContext;
+import mycompiler.parser.MyLangParser.StackPopContext;
+import mycompiler.parser.MyLangParser.StackPushContext;
 import mycompiler.parser.MyLangParser.StackVariableDeclarationContext;
 import mycompiler.parser.MyLangParser.VarDeclarationContext;
 import mycompiler.parser.MyLangParser.VariableContext;
@@ -103,6 +107,28 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	}
 
 	@Override
+	public String visitStackPush(StackPushContext ctx) {
+		return visit(ctx.expr) + "STACK_PUSH "
+				+ getStackVariableNameIfExist(ctx.varName) + "\n";
+	}
+
+	@Override
+	public String visitStackPop(StackPopContext ctx) {
+		return "STACK_POP " + getStackVariableNameIfExist(ctx.varName) + "\n";
+	}
+
+	@Override
+	public String visitStackPeek(StackPeekContext ctx) {
+		return "STACK_PEEK " + getStackVariableNameIfExist(ctx.varName) + "\n";
+	}
+
+	@Override
+	public String visitStackIsEmpty(StackIsEmptyContext ctx) {
+		return "STACK_ISEMPTY " + getStackVariableNameIfExist(ctx.varName)
+				+ "\n";
+	}
+
+	@Override
 	public String visitNumber(NumberContext ctx) {
 		return "PUSH " + ctx.number.getText() + "\n";
 	}
@@ -118,7 +144,7 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		return visitChildren(ctx) + "PUSH 1" + "\n" + "ADD" + "\n";
 	}
 
-	// TODO:
+	// TODO: Prefix and Postfix expr should be handled differently
 	@Override
 	public String visitPostDecExpr(PostDecExprContext ctx) {
 		return visitChildren(ctx) + "PUSH 1" + "\n" + "SUB" + "\n";
@@ -165,8 +191,7 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	public String visitAssignmentWithDeclaration(
 			AssignmentWithDeclarationContext ctx) {
 		VarDeclarationContext varDecCtx = ctx.varDeclaration();
-		visit(varDecCtx);
-		return visit(ctx.expr) + "STORE "
+		return visit(varDecCtx) + visit(ctx.expr) + "STORE "
 				+ getVariableNameToken(varDecCtx).getText() + "\n";
 	}
 
@@ -343,12 +368,15 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		return "PUSH 0 " + visitChildren(ctx) + "\n" + "SUB " + "\n";
 	}
 
-	private String getVariableNameIfExist(Token varNameToken) {
-		String varName = varNameToken.getText();
-		if (!variables.contains(varName)) {
-			throw new UndeclaredVariableException(varNameToken);
+	@Override
+	protected String aggregateResult(String aggregate, String nextResult) {
+		if (aggregate == null) {
+			return nextResult;
 		}
-		return varName;
+		if (nextResult == null) {
+			return aggregate;
+		}
+		return aggregate + nextResult;
 	}
 
 	private Token getVariableNameToken(VarDeclarationContext varDecCtx) {
@@ -361,15 +389,20 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		return varNameToken;
 	}
 
-	@Override
-	protected String aggregateResult(String aggregate, String nextResult) {
-		if (aggregate == null) {
-			return nextResult;
+	private String getVariableNameIfExist(Token varNameToken) {
+		String varName = varNameToken.getText();
+		if (!variables.contains(varName)) {
+			throw new UndeclaredVariableException(varNameToken);
 		}
-		if (nextResult == null) {
-			return aggregate;
+		return varName;
+	}
+
+	private String getStackVariableNameIfExist(Token stackVarNameToken) {
+		String stackVarName = stackVarNameToken.getText();
+		if (!stackVariables.contains(stackVarName)) {
+			throw new UndeclaredVariableException(stackVarNameToken);
 		}
-		return aggregate + nextResult;
+		return stackVarName;
 	}
 
 	private String generateLabel() {

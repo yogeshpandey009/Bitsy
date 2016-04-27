@@ -37,10 +37,10 @@ expression: '(' expr=expression ')' #Paran
           | left=expression '!=' right=expression #NotEq
           | left=expression '&&' right=expression #LogicalAND
           | left=expression '||' right=expression #LogicalOR
-          | varName=IDENTIFIER '.''push' '(' num=signedNum ')' #StackPush
+          | varName=IDENTIFIER '.''push' '(' expr=expression ')' #StackPush
           | varName=IDENTIFIER '.''pop' '(' ')' #StackPop
           | varName=IDENTIFIER '.''peek' '(' ')' #StackPeek
-          | varName=IDENTIFIER '.''isEmpty' '(' ')' #StackEmpty
+          | varName=IDENTIFIER '.''isEmpty' '(' ')' #StackIsEmpty
           | number=signedNum #Number
           | boolValue=BOOLEAN #Boolean
           | varName=IDENTIFIER #Variable
