@@ -14,17 +14,20 @@ public class VM {
 	private static HashMap<String, Integer> labelMap = new HashMap<String, Integer>();
 
 	public static void main(String[] args) {
-		String filename = "intermediate/sample.int";
+		String srcPath = "";
 		if (args.length > 0) {
-			filename = args[0];
+			srcPath = args[0];
+		} else {
+			System.out.println("Usage: -sourcepath <path> of intermediate class to execute");
+			return;
 		}
-		File file = new File(filename);
+
+		File file = new File(srcPath);
 		Scanner input = null;
 		try {
 			input = new Scanner(file);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Error: Could not find or  class " + srcPath);
 		}
 		if (input != null) {
 			String code = input.useDelimiter("\\Z").next();

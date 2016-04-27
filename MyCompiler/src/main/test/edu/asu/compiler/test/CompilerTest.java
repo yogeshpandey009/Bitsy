@@ -160,7 +160,7 @@ public class CompilerTest {
 	}
 
 	private void compileAndRun(String code) throws Exception {
-		code = Translator.compile(new ANTLRInputStream(code));
+		code = Translator.generateIntermediateCode(Translator.parse(new ANTLRInputStream(code)));
 		VM.run(code);
 	}
 

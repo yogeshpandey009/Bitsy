@@ -14,27 +14,48 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 public class Translator {
 
-	public static void main(String[] args) throws Exception {
-		String filename = "input/sample.my";
+	public static void main(String[] args) {
+		String srcPath = "";
 		if (args.length > 0) {
-			filename = args[0];
+			srcPath = args[0];
+		} else {
+			System.out
+					.println("Usage: -sourcepath <path> Specify where to find input source file");
+			return;
 		}
-		ANTLRInputStream input = new ANTLRFileStream(filename);
-
-		System.out.println(compile(input));
+		ANTLRInputStream input = null;
+		try {
+			input = new ANTLRFileStream(srcPath);
+		} catch (IOException e) {
+			System.out.println("Error: Could not find or load souce file "
+					+ srcPath);
+			return;
+		}
+		if (input != null) {
+			ParseTree tree = parse(input);
+			String intermediateCode = generateIntermediateCode(tree);
+			System.out.println(intermediateCode);
+			String desPath = srcPath.substring(0, srcPath.lastIndexOf('.'))
+					+ ".int";
+			createFile(intermediateCode, desPath);
+		}
 	}
 
-	public static String compile(ANTLRInputStream input) {
+	public static ParseTree parse(ANTLRInputStream input) {
 		MyLangLexer lexer = new MyLangLexer(input);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		MyLangParser parser = new MyLangParser(tokens);
 
 		ParseTree tree = parser.program();
-		return createIntermediateCode(new MyVisitor().visit(tree));
+		return tree;
 	}
 
-	private static String createIntermediateCode(String instructions) {
-		File intrFile = new File("intermediate/sample.int");
+	public static String generateIntermediateCode(ParseTree tree) {
+		return new MyVisitor().visit(tree);
+	}
+
+	private static void createFile(String instructions, String desPath) {
+		File intrFile = new File(desPath);
 		try {
 			if (!intrFile.exists()) {
 				intrFile.createNewFile();
@@ -46,6 +67,5 @@ public class Translator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return instructions;
 	}
 }
