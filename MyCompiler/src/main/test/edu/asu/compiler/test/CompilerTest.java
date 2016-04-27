@@ -150,10 +150,10 @@ public class CompilerTest {
 								+ "print(\"\\n\");\n" + "z = x^y;\n"
 								+ "print(z);", "1\n25" },
 				{
-						"int z;\n" + "z = 5 > 3;\n" + "print(z);\n"
+						"int z;\n" + "z = 5 > 3;\n"
 								+ "int z1;\n" + "z1 = 4 >= 7;\n"
-								+ "print(z1);\n" + "print(z || z1);\n",
-						"10true" } };
+							 + "print(z || z1);\n",
+						"true" } };
 	}
 
 	private void compileAndRun(String code) throws Exception {
