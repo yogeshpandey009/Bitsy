@@ -24,7 +24,7 @@ public class StackMachine {
 		}
 		this.program = instructions;
 		this.labelMap = labelsMap;
-		this.callStack.push(new FuncMetaData(0)); // Prepare the initial frame
+		this.callStack.push(new FuncMetaData(0, "main")); // Prepare the main method with 0 as retAddr
 	}
 
 	public void run() {
@@ -69,21 +69,41 @@ public class StackMachine {
 
 		case LOAD: {
 			String var = getNextInstruction("Should have the variable name after the LOAD instruction");
-			executionStack.push(getCurrentContext().getVariable(var));
+			executionStack.push(getCurrFuncContext().getVariable(var));
 			break;
 		}
 
 		case STORE: {
 			String var = getNextInstruction("Should have the variable name after the STORE instruction");
 			checkStackHasAtLeastOneItem("STORE");
-			getCurrentContext().setVariable(var, executionStack.pop());
+			getCurrFuncContext().setVariable(var, executionStack.pop());
 			break;
 		}
 
+		case STACK_PUSH: {
+			String var = getNextInstruction("Should have the variable name after the STACK_PUSH instruction");
+			checkStackHasAtLeastOneItem("STACK_PUSH");
+			getCurrFuncContext().pushOnStackVariable(var, executionStack.pop());
+			break;
+		}
+		case STACK_POP: {
+			String var = getNextInstruction("Should have the variable name after the STACK_POP instruction");
+			executionStack.push(getCurrFuncContext().popOnStackVariable(var));
+			break;
+		}
+		case STACK_PEEK: {
+			String var = getNextInstruction("Should have the variable name after the STACK_PEEK instruction");
+			executionStack.push(getCurrFuncContext().peekOnStackVariable(var));
+			break;
+		}
+		case STACK_ISEMPTY: {
+			String var = getNextInstruction("Should have the variable name after the STACK_ISEMPTY instruction");
+			executionStack.push(toInt(getCurrFuncContext().isEmptyStackVariable(var)) + "");
+			break;
+		}
 		case NOT: {
 			checkStackHasAtLeastOneItem("NOT");
-			executionStack.push(toInt(!toBool(Integer.parseInt(executionStack
-					.pop()))) + "");
+			executionStack.push(toInt(!toBool(executionStack.pop())) + "");
 			break;
 		}
 
@@ -106,34 +126,28 @@ public class StackMachine {
 			break;
 		}
 		case AND:
-		case OR:{
+		case OR: {
 			if (executionStack.size() < 2) {
 				throw new ProgramExecutionException(
 						"There should be at least two items on the stack to execute a binary instruction");
 			}
 			String n1 = executionStack.pop();
 			String n2 = executionStack.pop();
-			Boolean n = doBooleanOp(instruction, toStringBoolean(n1), toStringBoolean(n2));
+			Boolean n = doBooleanOp(instruction, toStringBoolean(n1),
+					toStringBoolean(n2));
 			executionStack.push(n + "");
 			break;
 		}
-
 		case JIF: {
 			// JMP if stack top value is false
 			// The word after the instruction will contain the address to jump
-			// to 
+			// to
 			String label = getNextInstruction("Should have the address after the JIF instruction");
 			int address = getLabelAddress(label);
 			checkStackHasAtLeastOneItem("JIF");
 			String stackValue = executionStack.pop();
-			if(stackValue.equals("true") || stackValue.equals("false")){
-				if (!Boolean.parseBoolean(stackValue)) {
+			if (!toBool(stackValue)) {
 				this.instructionAddress = address;
-				}
-			}else{
-				if (!toBool(Integer.parseInt(stackValue))) {
-					this.instructionAddress = address;
-					}
 			}
 			break;
 		}
@@ -152,7 +166,7 @@ public class StackMachine {
 			String label = getNextInstruction("Should have the address after the CALL instruction");
 			int address = getLabelAddress(label);
 			// Push a new stack frame
-			this.callStack.push(new FuncMetaData(this.instructionAddress));
+			this.callStack.push(new FuncMetaData(this.instructionAddress, label));
 			this.instructionAddress = address; // and jump!
 			break;
 		}
@@ -160,7 +174,7 @@ public class StackMachine {
 		case RET: {
 			// Pop the stack frame and return to the previous address
 			checkThereIsAReturnAddress();
-			int returnAddress = getCurrentContext().getReturnAddress();
+			int returnAddress = getCurrFuncContext().getReturnAddress();
 			this.callStack.pop();
 			this.instructionAddress = returnAddress;
 			break;
@@ -246,35 +260,38 @@ public class StackMachine {
 			throw new AssertionError();
 		}
 	}
-	
+
 	private Boolean doBooleanOp(String instruction, String n1, String n2) {
-		switch (Instruction.valueOf(instruction)) {	
+		switch (Instruction.valueOf(instruction)) {
 		case AND:
-		return Boolean.parseBoolean(n1) && Boolean.parseBoolean(n2);
+			return Boolean.parseBoolean(n1) && Boolean.parseBoolean(n2);
 		case OR:
-		return Boolean.parseBoolean(n1) || Boolean.parseBoolean(n2);
-		default:
-			throw new AssertionError();
+			return Boolean.parseBoolean(n1) || Boolean.parseBoolean(n2);
 		}
+		return false;
 	}
 
-	private boolean toBool(int n) {
-		return n != 0;
+	private boolean toBool(String val) {
+		try {
+			int n = Integer.parseInt(val);
+			return n != 0;
+		} catch (NumberFormatException e) {
+			return Boolean.parseBoolean(val);
+		}
 	}
 
 	private int toInt(boolean b) {
 		return b ? 1 : 0;
 	}
-	
-	private String toStringBoolean(String s){
-		if(s.equals("1")){
+
+	private String toStringBoolean(String s) {
+		if (s.equals("1")) {
 			s = "true";
-		}else if(s.equals("0")){
+		} else if (s.equals("0")) {
 			s = "false";
 		}
 		return s;
 	}
-	
 
 	private String getNextInstruction(String errorMessage) {
 		if (instructionAddress >= program.length) {
@@ -285,7 +302,7 @@ public class StackMachine {
 		return nextWord;
 	}
 
-	private FuncMetaData getCurrentContext() {
+	private FuncMetaData getCurrFuncContext() {
 		return callStack.peek();
 	}
 }
