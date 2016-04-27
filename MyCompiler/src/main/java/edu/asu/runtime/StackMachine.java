@@ -111,24 +111,9 @@ public class StackMachine {
 				throw new ProgramExecutionException(
 						"There should be at least two items on the stack to execute a binary instruction");
 			}
-			Object s2 = executionStack.peek();
-			//System.out.println("s2:"+ s2);
-			Object s1 = executionStack.peek();
-			//System.out.println("s1:"+ s1);
 			String n1 = executionStack.pop();
 			String n2 = executionStack.pop();
-//			if((s1 instanceof Integer) && (s2 instanceof Integer)){
-//				n1 = toStringBoolean(n1);
-//				n2 = toStringBoolean(n2);
-//			}
-//			else if(s1 instanceof Integer && !(s2 instanceof Integer)){
-//				n1 = toStringBoolean(n1);
-//			}
-//			else if(!(s1 instanceof Integer) && (s2 instanceof Integer)){
-//				
-//			}
 			Boolean n = doBooleanOp(instruction, toStringBoolean(n1), toStringBoolean(n2));
-			//System.out.println("Result:" + n);
 			executionStack.push(n + "");
 			break;
 		}
@@ -265,12 +250,8 @@ public class StackMachine {
 	private Boolean doBooleanOp(String instruction, String n1, String n2) {
 		switch (Instruction.valueOf(instruction)) {	
 		case AND:
-			//System.out.println("n1 =" + (Boolean.parseBoolean(n1)));
-			//System.out.println("n2 =" + (Boolean.parseBoolean(n2)));
-			//System.out.println("Inside AND:" + (Boolean.parseBoolean(n1) && Boolean.parseBoolean(n2)));
 		return Boolean.parseBoolean(n1) && Boolean.parseBoolean(n2);
 		case OR:
-			//System.out.println("Inside OR:" + (Boolean.parseBoolean(n1) ||  Boolean.parseBoolean(n2)));
 		return Boolean.parseBoolean(n1) || Boolean.parseBoolean(n2);
 		default:
 			throw new AssertionError();

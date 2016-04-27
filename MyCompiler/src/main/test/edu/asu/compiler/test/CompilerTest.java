@@ -145,22 +145,20 @@ public class CompilerTest {
 								+ "print(\"\\n\");\n"
 								+ "print(isEven(7));// should print 0", "1\n0" },
 				{
-						"int x;\n" + "x=5;\n" + "int y;\n" 
-								+ "y=2;\n" + "int z;\n" + "z = x%y;\n" 
-								+ "z = x%y;\n" + "print(z);"
-									 },
+						"int x;\n" + "x=5;\n" + "int y;\n" + "y=2;\n"
+								+ "int z;\n" + "z = x%y;\n" + "print(z);\n"
+								+ "print(\"\\n\");\n" + "z = x^y;\n"
+								+ "print(z);", "1\n25" },
 				{
-											"int x;\n" + "x=5;\n" + "int y;\n" 
-													+ "y=2;\n" + "int z;\n" + "z = x%y;\n" 
-													+ "z = x^y;\n" + "print(z);"
-														 },
-				{		"int z;\n" + "x = 5 > 3;\n" + "print(z);\n" 
-								+ "int z1;\n" + "y = 4 <= 7;\n" + "print(z1);\n"
-								+ "print(z || false);\n"}};
+						"int z;\n" + "z = 5 > 3;\n" + "print(z);\n"
+								+ "int z1;\n" + "z1 = 4 >= 7;\n"
+								+ "print(z1);\n" + "print(z || z1);\n",
+						"10true" } };
 	}
 
 	private void compileAndRun(String code) throws Exception {
-		code = Translator.generateIntermediateCode(Translator.parse(new ANTLRInputStream(code)));
+		code = Translator.generateIntermediateCode(Translator
+				.parse(new ANTLRInputStream(code)));
 		VM.run(code);
 	}
 

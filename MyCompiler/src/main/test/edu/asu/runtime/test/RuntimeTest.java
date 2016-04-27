@@ -227,7 +227,7 @@ public class RuntimeTest {
 		VM.executeInstr(new String[] { "PUSH", "5", "STORE", "x", "PUSH", "2", 
 				  "STORE", "y", "LOAD", "x", "LOAD", "y", "POW", "STORE", "z",
 				  "LOAD", "z", "PRINT", "HALT"});
-		assertEquals("1024", outContent.toString());
+		assertEquals("25", outContent.toString());
 	}
 	
 	@Test

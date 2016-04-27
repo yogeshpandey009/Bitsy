@@ -37,10 +37,10 @@ expression: '(' expr=expression ')' #Paran
           | left=expression '!=' right=expression #NotEq
           | left=expression '&&' right=expression #LogicalAND
           | left=expression '||' right=expression #LogicalOR
-          | IDENTIFIER '.''pushStack' '(' num=signedNum ')' #StackPush
-          | IDENTIFIER '.''popStack' '(' ')' #StackPop
-          | IDENTIFIER '.''peekStack' '(' ')' #StackPeek
-          | IDENTIFIER '.''emptyStack' '(' ')' #StackEmpty
+          | IDENTIFIER '.''push' '(' num=signedNum ')' #StackPush
+          | IDENTIFIER '.''pop' '(' ')' #StackPop
+          | IDENTIFIER '.''peek' '(' ')' #StackPeek
+          | IDENTIFIER '.''isEmpty' '(' ')' #StackEmpty
           | number=signedNum #Number
           | boolValue=BOOLEAN #Boolean
           | varName=IDENTIFIER #Variable
@@ -54,8 +54,7 @@ varDeclaration: 'int' varName=IDENTIFIER
 assignment: varName=IDENTIFIER '=' expr=expression ;
 
 assignmentWithDeclaration: 'int' varName=IDENTIFIER '=' expr=expression 
-						| 'bool' varName=IDENTIFIER '=' expr=expression
-						| 'stack' varName=IDENTIFIER '=' expr=expression;
+						| 'bool' varName=IDENTIFIER '=' expr=expression;
 
 print: 'print(' argument=expression ')' #printExpr
 		  | 'print(' text=QUOTED_STRING ')' #printText
