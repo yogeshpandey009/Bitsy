@@ -1,5 +1,2 @@
-int z;
-z = 5 > 3;
-int z1;
-z1 = 4 <= 7;
-print(z || z1);
+stack s;
+s = s.pushStack(4);
