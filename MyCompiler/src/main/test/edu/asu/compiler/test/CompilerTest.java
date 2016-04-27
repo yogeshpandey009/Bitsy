@@ -150,9 +150,8 @@ public class CompilerTest {
 								+ "print(\"\\n\");\n" + "z = x^y;\n"
 								+ "print(z);", "1\n25" },
 				{
-						"int z;\n" + "z = 5 > 3;\n"
-								+ "int z1;\n" + "z1 = 4 >= 7;\n"
-							 + "print(z || z1);\n",
+						"int z;\n" + "z = 5 > 3;\n" + "int z1;\n"
+								+ "z1 = 4 >= 7;\n" + "print(z || z1);\n",
 						"true" } };
 	}
 

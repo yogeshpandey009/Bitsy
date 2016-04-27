@@ -42,8 +42,10 @@ import mycompiler.parser.MyLangParser.PrintExprContext;
 import mycompiler.parser.MyLangParser.PrintTextContext;
 import mycompiler.parser.MyLangParser.ProgramContext;
 import mycompiler.parser.MyLangParser.ReturnStatContext;
+import mycompiler.parser.MyLangParser.StackVariableDeclarationContext;
 import mycompiler.parser.MyLangParser.VarDeclarationContext;
 import mycompiler.parser.MyLangParser.VariableContext;
+import mycompiler.parser.MyLangParser.VariableDeclarationContext;
 import mycompiler.parser.MyLangParser.WhileConditionBlockContext;
 import mycompiler.parser.MyLangParser.WhileStatContext;
 
@@ -56,6 +58,7 @@ import edu.asu.compiler.exceptions.VariableAlreadyDefinedException;
 public class MyVisitor extends MyLangBaseVisitor<String> {
 
 	private Set<String> variables = new HashSet<>();
+	private Set<String> stackVariables = new HashSet<>();
 	private int labelCounter = 1;
 	private Stack<String> scopeEndLabel = new Stack<String>();
 
@@ -132,8 +135,9 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	}
 
 	@Override
-	public String visitVarDeclaration(VarDeclarationContext ctx) {
-		if (variables.contains(ctx.varName.getText())) {
+	public String visitVariableDeclaration(VariableDeclarationContext ctx) {
+		String name = ctx.varName.getText();
+		if (variables.contains(name) || stackVariables.contains(name)) {
 			throw new VariableAlreadyDefinedException(ctx.varName);
 		}
 		variables.add(ctx.varName.getText());
@@ -141,23 +145,34 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 	}
 
 	@Override
+	public String visitStackVariableDeclaration(
+			StackVariableDeclarationContext ctx) {
+		String name = ctx.varName.getText();
+		if (variables.contains(name) || stackVariables.contains(name)) {
+			throw new VariableAlreadyDefinedException(ctx.varName);
+		}
+		stackVariables.add(ctx.varName.getText());
+		return "";
+	}
+
+	@Override
 	public String visitAssignment(AssignmentContext ctx) {
-		return visit(ctx.expr) + "STORE " + getVariableName(ctx.varName) + "\n";
+		return visit(ctx.expr) + "STORE " + getVariableNameIfExist(ctx.varName)
+				+ "\n";
 	}
 
 	@Override
 	public String visitAssignmentWithDeclaration(
 			AssignmentWithDeclarationContext ctx) {
-		if (variables.contains(ctx.varName.getText())) {
-			throw new VariableAlreadyDefinedException(ctx.varName);
-		}
-		variables.add(ctx.varName.getText());
-		return visit(ctx.expr) + "STORE " + getVariableName(ctx.varName) + "\n";
+		VarDeclarationContext varDecCtx = ctx.varDeclaration();
+		visit(varDecCtx);
+		return visit(ctx.expr) + "STORE "
+				+ getVariableNameToken(varDecCtx).getText() + "\n";
 	}
 
 	@Override
 	public String visitVariable(VariableContext ctx) {
-		return "LOAD " + getVariableName(ctx.varName) + "\n";
+		return "LOAD " + getVariableNameIfExist(ctx.varName) + "\n";
 	}
 
 	@Override
@@ -261,7 +276,8 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		int numberOfParameters = ctx.params.declarations.size();
 		for (int i = numberOfParameters - 1; i >= 0; i--) {
 			result += "STORE "
-					+ ctx.params.declarations.get(i).varName.getText() + "\n";
+					+ getVariableNameToken(ctx.params.declarations.get(i))
+							.getText() + "\n";
 		}
 		result += (statementInstructions == null ? "" : statementInstructions);
 		variables = oldVariables;
@@ -291,26 +307,30 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 
 	@Override
 	public String visitPostIncVar(PostIncVarContext ctx) {
-		return "LOAD " + getVariableName(ctx.varName) + "\n" + "PUSH 1" + "\n"
-				+ "ADD" + "\n" + "STORE " + getVariableName(ctx.varName) + "\n";
+		return "LOAD " + getVariableNameIfExist(ctx.varName) + "\n" + "PUSH 1"
+				+ "\n" + "ADD" + "\n" + "STORE "
+				+ getVariableNameIfExist(ctx.varName) + "\n";
 	}
 
 	@Override
 	public String visitPostDecVar(PostDecVarContext ctx) {
-		return "LOAD " + getVariableName(ctx.varName) + "\n" + "PUSH 1" + "\n"
-				+ "SUB" + "\n" + "STORE " + getVariableName(ctx.varName) + "\n";
+		return "LOAD " + getVariableNameIfExist(ctx.varName) + "\n" + "PUSH 1"
+				+ "\n" + "SUB" + "\n" + "STORE "
+				+ getVariableNameIfExist(ctx.varName) + "\n";
 	}
 
 	@Override
 	public String visitPreIncVar(PreIncVarContext ctx) {
-		return "LOAD " + getVariableName(ctx.varName) + "\n" + "PUSH 1" + "\n"
-				+ "ADD" + "\n" + "STORE " + getVariableName(ctx.varName) + "\n";
+		return "LOAD " + getVariableNameIfExist(ctx.varName) + "\n" + "PUSH 1"
+				+ "\n" + "ADD" + "\n" + "STORE "
+				+ getVariableNameIfExist(ctx.varName) + "\n";
 	}
 
 	@Override
 	public String visitPreDecVar(PreDecVarContext ctx) {
-		return "LOAD " + getVariableName(ctx.varName) + "\n" + "PUSH 1" + "\n"
-				+ "SUB" + "\n" + "STORE " + getVariableName(ctx.varName) + "\n";
+		return "LOAD " + getVariableNameIfExist(ctx.varName) + "\n" + "PUSH 1"
+				+ "\n" + "SUB" + "\n" + "STORE "
+				+ getVariableNameIfExist(ctx.varName) + "\n";
 	}
 
 	@Override
@@ -323,12 +343,22 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		return "PUSH 0 " + visitChildren(ctx) + "\n" + "SUB " + "\n";
 	}
 
-	private String getVariableName(Token varNameToken) {
+	private String getVariableNameIfExist(Token varNameToken) {
 		String varName = varNameToken.getText();
 		if (!variables.contains(varName)) {
 			throw new UndeclaredVariableException(varNameToken);
 		}
 		return varName;
+	}
+
+	private Token getVariableNameToken(VarDeclarationContext varDecCtx) {
+		Token varNameToken = null;
+		if (varDecCtx instanceof VariableDeclarationContext) {
+			varNameToken = ((VariableDeclarationContext) varDecCtx).varName;
+		} else {
+			varNameToken = ((StackVariableDeclarationContext) varDecCtx).varName;
+		}
+		return varNameToken;
 	}
 
 	@Override
@@ -352,10 +382,10 @@ public class MyVisitor extends MyLangBaseVisitor<String> {
 		return scopeEndLabel.peek();
 	}
 
-//	private int getBooleanValue(String text) {
-//		if ("true".equals(text)) {
-//			return 1;
-//		}
-//		return 0;
-//	}
+	// private int getBooleanValue(String text) {
+	// if ("true".equals(text)) {
+	// return 1;
+	// }
+	// return 0;
+	// }
 }

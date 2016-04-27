@@ -37,24 +37,23 @@ expression: '(' expr=expression ')' #Paran
           | left=expression '!=' right=expression #NotEq
           | left=expression '&&' right=expression #LogicalAND
           | left=expression '||' right=expression #LogicalOR
-          | IDENTIFIER '.''push' '(' num=signedNum ')' #StackPush
-          | IDENTIFIER '.''pop' '(' ')' #StackPop
-          | IDENTIFIER '.''peek' '(' ')' #StackPeek
-          | IDENTIFIER '.''isEmpty' '(' ')' #StackEmpty
+          | varName=IDENTIFIER '.''push' '(' num=signedNum ')' #StackPush
+          | varName=IDENTIFIER '.''pop' '(' ')' #StackPop
+          | varName=IDENTIFIER '.''peek' '(' ')' #StackPeek
+          | varName=IDENTIFIER '.''isEmpty' '(' ')' #StackEmpty
           | number=signedNum #Number
           | boolValue=BOOLEAN #Boolean
           | varName=IDENTIFIER #Variable
           | functionCall #funcCallExpression
           ;
 
-varDeclaration: 'int' varName=IDENTIFIER 
-          | 'bool' varName=IDENTIFIER
-          | 'stack' varName=IDENTIFIER;
+varDeclaration: ('int' | 'bool' ) varName=IDENTIFIER #VariableDeclaration
+          | 'stack' varName=IDENTIFIER #stackVariableDeclaration
+          ;
 
 assignment: varName=IDENTIFIER '=' expr=expression ;
 
-assignmentWithDeclaration: 'int' varName=IDENTIFIER '=' expr=expression 
-						| 'bool' varName=IDENTIFIER '=' expr=expression;
+assignmentWithDeclaration: varDeclaration '=' expr=expression ;
 
 print: 'print(' argument=expression ')' #printExpr
 		  | 'print(' text=QUOTED_STRING ')' #printText
