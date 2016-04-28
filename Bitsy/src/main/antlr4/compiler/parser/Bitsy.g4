@@ -15,6 +15,7 @@ statement: print ';'
          | whileStat
          | assignmentWithDeclaration ';'
          | stackExpr ';'
+         | expression ';'
          ;
 
 expression: '(' expr=expression ')' #Paran
@@ -64,9 +65,9 @@ print: 'print(' argument=expression ')' #printExpr
 		  | 'print(' text=QUOTED_STRING ')' #printText
 		  ;
 
-returnStat: 'return' returnValue=expression ;
+returnStat: 'return' (returnValue=expression)? ;
 
-functionDefinition: 'int' funcName=IDENTIFIER '(' params=parameterDeclaration ')' '{' statements=statementList '}' ;
+functionDefinition: 'func' funcName=IDENTIFIER '(' params=parameterDeclaration ')' '{' statements=statementList '}' ;
 
 parameterDeclaration: declarations+=varDeclaration (',' declarations+=varDeclaration)*
                     |
@@ -81,7 +82,7 @@ elifStat: 'elif' cond=conditionBlock ;
 elseStat: 'else' '{' statements=statementList '}' ;
  
 conditionBlock: '(' expr=expression ')' '{' statements=statementList '}';
- 
+
 whileStat: 'while' whileBock=whileConditionBlock;
 
 whileConditionBlock: '(' expr=expression ')' '{' statements=statementList '}';

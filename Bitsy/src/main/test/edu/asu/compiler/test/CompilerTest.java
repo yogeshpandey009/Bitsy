@@ -98,19 +98,19 @@ public class CompilerTest {
 								+ "a--;\n" + "print(a);\n" + "++a;\n"
 								+ "print(a);\n" + "--a;\n" + "print(a);",
 						"2121" },
-				{ "int someNumber() { return 4; } print(someNumber());", "4" },
+				{ "func someNumber() { return 4; } print(someNumber());", "4" },
 				{
-						"int someNumber() {\n" + "  int i;\n" + "  i = 4;\n"
+						"func someNumber() {\n" + "  int i;\n" + "  i = 4;\n"
 								+ "  return i;\n" + "}\n"
 								+ "print(someNumber());", "4" },
 
 				{
-						"int someNumber() {\n" + "  int i;\n" + "  i = 4;\n"
+						"func someNumber() {\n" + "  int i;\n" + "  i = 4;\n"
 								+ "  return i;\n" + "}\n" + "int i;\n"
 								+ "i = 42;\n" + "print(someNumber());\n"
 								+ "print(i);", "4" + "42" },
 				{
-						"int add(int a, int b) {\n" + "  return a+b;\n" + "}\n"
+						"func add(int a, int b) {\n" + "  return a+b;\n" + "}\n"
 								+ "print(add(5,8));", "13" },
 				{
 						"int a;\n" + "a = 6;\n" + "if(a < 5) {\n"
@@ -119,7 +119,7 @@ public class CompilerTest {
 								+ "	print(3);\n" + "}", "2" },
 				{
 						"int x;\n" + "x = 5;\n" + "print(fact(x));\n"
-								+ "int fact(int n) {\n" + "	if(n==1) {\n"
+								+ "func fact(int n) {\n" + "	if(n==1) {\n"
 								+ "		return 1;\n" + "	}\n"
 								+ "	return n * fact(n-1);\n" + "}", "120" },
 				{
@@ -139,7 +139,7 @@ public class CompilerTest {
 						"/* Check if number is Even or Odd\n"
 								+ " * @param x: input number\n"
 								+ " * @return: 0 if Odd\n" + " 			1 if Even\n"
-								+ " */\n" + "int isEven(int x) {\n"
+								+ " */\n" + "func isEven(int x) {\n"
 								+ "	return x%2==0;\n" + "}\n"
 								+ "print(isEven(4));// should print 1\n"
 								+ "print(\"\\n\");\n"

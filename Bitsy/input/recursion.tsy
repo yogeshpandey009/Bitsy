@@ -1,7 +1,7 @@
 int x;
 x = 5;
 print(fact(x));
-int fact(int n) {
+func fact(int n) {
 	if(n==1) {
 		return 1;
 	}

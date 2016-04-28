@@ -1,5 +1,4 @@
-bool x;
-x = false;
+bool x = false;
 int y;
 y = 5;
 if ( x ){

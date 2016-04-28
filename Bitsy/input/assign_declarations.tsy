@@ -1,0 +1,5 @@
+int i = 1;
+print(i);
+int j;
+j = 2;
+print(j);

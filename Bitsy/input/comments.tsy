@@ -3,7 +3,7 @@
  * @return: 0 if Odd
  			1 if Even
  */
-int isEven(int x) {
+func isEven(int x) {
 	return x%2==0;
 }
 print(isEven(4));// should print 1

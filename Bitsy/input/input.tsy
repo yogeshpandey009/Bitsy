@@ -1,4 +1,2 @@
-print("Enter a number: ");
-int x = input();
-print("You Entered: ");
-print(x);
+print("Enter two numbers to sum");
+print(input() + input());

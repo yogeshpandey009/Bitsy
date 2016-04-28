@@ -1,0 +1,4 @@
+print("Enter a number: ");
+int x = input();
+print("You Entered: ");
+print(x);

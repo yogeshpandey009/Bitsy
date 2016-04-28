@@ -1,9 +1,16 @@
-PUSH "Enter a number: "
-PRINT
-INPUT
+PUSH 1
 STORE x
-PUSH "You Entered: "
+CALL test
+PUSH "\noutside x:"
 PRINT
 LOAD x
 PRINT
 HALT
+LABEL test
+PUSH 2
+STORE x
+PUSH "inside x:"
+PRINT
+LOAD x
+PRINT
+RET

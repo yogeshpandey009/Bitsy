@@ -1,0 +1,11 @@
+int a = 1;
+int b = 1;
+int c = 3;
+while(a < c){
+	b=1;
+	while(b < c){
+		print(b);
+		b++;
+	}
+	a++;
+}

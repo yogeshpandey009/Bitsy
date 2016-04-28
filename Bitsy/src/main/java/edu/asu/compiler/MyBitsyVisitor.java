@@ -316,7 +316,11 @@ public class MyBitsyVisitor extends BitsyBaseVisitor<String> {
 
 	@Override
 	public String visitReturnStat(ReturnStatContext ctx) {
-		return visitChildren(ctx) + "RET\n";
+		String result = "";
+		if(ctx.returnValue != null) {
+			result += visitChildren(ctx);
+		}
+		return result + "RET\n";
 	}
 
 	@Override
