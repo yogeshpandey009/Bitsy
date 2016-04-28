@@ -103,7 +103,8 @@ public class StackMachine {
 		}
 		case NOT: {
 			checkStackHasAtLeastOneItem("NOT");
-			executionStack.push(toInt(!toBool(executionStack.pop())) + "");
+			String v = executionStack.pop();
+			executionStack.push(Boolean.toString(!Boolean.parseBoolean(v)));
 			break;
 		}
 
@@ -115,27 +116,15 @@ public class StackMachine {
 		case POW:
 		case ISEQ:
 		case ISGE:
-		case ISGT: {
-			if (executionStack.size() < 2) {
-				throw new ProgramExecutionException(
-						"There should be at least two items on the stack to execute a binary instruction");
-			}
-			int n2 = Integer.parseInt(executionStack.pop());
-			int n1 = Integer.parseInt(executionStack.pop());
-			executionStack.push(doBinaryOp(instruction, n1, n2) + "");
-			break;
-		}
+		case ISGT:
 		case AND:
-		case OR: {
-			if (executionStack.size() < 2) {
+		case OR: {	if (executionStack.size() < 2) {
 				throw new ProgramExecutionException(
 						"There should be at least two items on the stack to execute a binary instruction");
 			}
-			String n1 = executionStack.pop();
-			String n2 = executionStack.pop();
-			Boolean n = doBooleanOp(instruction, toStringBoolean(n1),
-					toStringBoolean(n2));
-			executionStack.push(n + "");
+			String v1 = executionStack.pop();
+			String v2 = executionStack.pop();
+			executionStack.push(doBinaryOp(instruction, v2, v1).toString());
 			break;
 		}
 		case JIF: {
@@ -236,39 +225,33 @@ public class StackMachine {
 		}
 	}
 
-	private Integer doBinaryOp(String instruction, int n1, int n2) {
+	private Object doBinaryOp(String instruction, String op1, String op2) {
 		switch (Instruction.valueOf(instruction)) {
 		case ADD:
-			return n1 + n2;
+			return Integer.parseInt(op1) + Integer.parseInt(op2);
 		case SUB:
-			return n1 - n2;
+			return Integer.parseInt(op1) - Integer.parseInt(op2);
 		case MUL:
-			return n1 * n2;
+			return Integer.parseInt(op1) * Integer.parseInt(op2);
 		case DIV:
-			return n1 / n2;
+			return Integer.parseInt(op1) / Integer.parseInt(op2);
 		case MOD:
-			return n1 % n2;
+			return Integer.parseInt(op1) % Integer.parseInt(op2);
 		case POW:
-			return (int) Math.pow(n1, n2);
+			return (int) Math.pow(Integer.parseInt(op1), Integer.parseInt(op2));
 		case ISEQ:
-			return toInt(n1 == n2);
+			return Integer.parseInt(op1) == Integer.parseInt(op2);
 		case ISGE:
-			return toInt(n1 >= n2);
+			return Integer.parseInt(op1) >= Integer.parseInt(op2);
 		case ISGT:
-			return toInt(n1 > n2);
+			return Integer.parseInt(op1) > Integer.parseInt(op2);
+		case AND:
+			return Boolean.parseBoolean(op1) && Boolean.parseBoolean(op2);
+		case OR:
+			return Boolean.parseBoolean(op1) || Boolean.parseBoolean(op2);
 		default:
 			throw new AssertionError();
 		}
-	}
-
-	private Boolean doBooleanOp(String instruction, String n1, String n2) {
-		switch (Instruction.valueOf(instruction)) {
-		case AND:
-			return Boolean.parseBoolean(n1) && Boolean.parseBoolean(n2);
-		case OR:
-			return Boolean.parseBoolean(n1) || Boolean.parseBoolean(n2);
-		}
-		return false;
 	}
 
 	private boolean toBool(String val) {

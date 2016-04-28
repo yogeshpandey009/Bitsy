@@ -107,7 +107,7 @@ public class RuntimeTest {
 		 */
 		VM.executeInstr(new String[] { "PUSH", "3", "PUSH", "3", "ISEQ",
 				"PRINT", "HALT" });
-		assertEquals("1", outContent.toString());
+		assertEquals("true", outContent.toString());
 	}
 
 	@Test
@@ -117,7 +117,7 @@ public class RuntimeTest {
 		 */
 		VM.executeInstr(new String[] { "PUSH", "3", "PUSH", "3", "ISEQ", "NOT",
 				"PRINT", "HALT" });
-		assertEquals("0", outContent.toString());
+		assertEquals("false", outContent.toString());
 	}
 
 	@Test

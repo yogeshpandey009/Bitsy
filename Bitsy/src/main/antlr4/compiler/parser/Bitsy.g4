@@ -13,41 +13,50 @@ statement: print ';'
          | prePostStat ';'
          | ifStat
          | whileStat
-         | assignmentWithDeclaration ';'
-         | stackExpr ';'
+         | assignWithDecl ';'
          | expression ';'
          ;
 
-expression: '(' expr=expression ')' #Paran
-		  | expression '+' '+' #PostIncExpr
-		  | expression '-' '-' #PostDecExpr
-		  | '+' expression #Positive
-		  | '-' expression #Negative
-		  | '+' '+' expression #PreIncExpr
-		  | '-' '-' expression #PreDecExpr
-		  | left=expression '^' right=expression #Power
-		  | left=expression '%' right=expression #Mod
-          | left=expression '/' right=expression #Div
-          | left=expression '*' right=expression #Mult
-          | left=expression '-' right=expression #Minus
-          | left=expression '+' right=expression #Plus
-          | left=expression '<' right=expression #Less
-          | left=expression '>' right=expression #Greater
-          | left=expression '<=' right=expression #LessEq
-          | left=expression '>=' right=expression #GreaterEq
-          | left=expression '==' right=expression #IsEq
-          | left=expression '!=' right=expression #NotEq
-          | left=expression '&&' right=expression #LogicalAND
-          | left=expression '||' right=expression #LogicalOR
-          | 'input()' #Input
-          | stackExpr #StackExpression
-          | number=signedNum #Number
-          | boolValue=BOOLEAN #Boolean
-          | varName=IDENTIFIER #Variable
-          | functionCall #funcCallExpression
-          ;
+baseExpression: 'input()' #Input
+		  | stackExpression #StackExpr
+		  | functionCall #funcCallExpr
+		  | varName=IDENTIFIER #Variable
+		  ;
 
-stackExpr: varName=IDENTIFIER '.' 'push' '(' expr=expression ')' #StackPush
+numExpression: numExpression '+' '+' #PostIncExpr
+		  | numExpression '-' '-' #PostDecExpr
+		  | '+' numExpression #Positive
+		  | '-' numExpression #Negative
+		  | '+' '+' numExpression #PreIncExpr
+		  | '-' '-' numExpression #PreDecExpr
+		  | left=numExpression '^' right=numExpression #Power
+		  | left=numExpression '%' right=numExpression #Mod
+		  | left=numExpression '/' right=numExpression #Div
+		  | left=numExpression '*' right=numExpression #Mult
+		  | left=numExpression '-' right=numExpression #Minus
+		  | left=numExpression '+' right=numExpression #Plus
+		  | number=signedNum #Number
+		  | baseExpression #BaseNumExpr
+		  ;
+
+boolExpression: left=numExpression '<' right=numExpression #Less
+		  | left=numExpression '>' right=numExpression #Greater
+		  | left=numExpression '<=' right=numExpression #LessEq
+		  | left=numExpression '>=' right=numExpression #GreaterEq
+		  | left=numExpression '==' right=numExpression #IsEq
+		  | left=numExpression '!=' right=numExpression #NotEq
+		  | left=boolExpression '&&' right=boolExpression #LogicalAND
+		  | left=boolExpression '||' right=boolExpression #LogicalOR
+		  | boolValue=BOOLEAN #Boolean
+		  | baseExpression #BaseBoolExpr
+		  ;
+
+expression: '(' expr=expression ')' #Paran
+		  | numExpression #NumExpr
+		  | boolExpression #BoolExpr
+		  ;
+
+stackExpression: varName=IDENTIFIER '.' 'push' '(' expr=expression ')' #StackPush
           | varName=IDENTIFIER '.' 'pop' '(' ')' #StackPop
           | varName=IDENTIFIER '.' 'peek' '(' ')' #StackPeek
           | varName=IDENTIFIER '.' 'isEmpty' '(' ')' #StackIsEmpty
@@ -59,7 +68,7 @@ varDeclaration: ('int' | 'bool' ) varName=IDENTIFIER #VariableDeclaration
 
 assignment: varName=IDENTIFIER '=' expr=expression ;
 
-assignmentWithDeclaration: varDeclaration '=' expr=expression ;
+assignWithDecl: varDeclaration '=' expr=expression ;
 
 print: 'print(' argument=expression ')' #printExpr
 		  | 'print(' text=QUOTED_STRING ')' #printText

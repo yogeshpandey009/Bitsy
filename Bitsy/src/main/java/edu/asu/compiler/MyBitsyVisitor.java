@@ -8,8 +8,8 @@ import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import compiler.parser.BitsyBaseVisitor;
+import compiler.parser.BitsyParser.AssignWithDeclContext;
 import compiler.parser.BitsyParser.AssignmentContext;
-import compiler.parser.BitsyParser.AssignmentWithDeclarationContext;
 import compiler.parser.BitsyParser.BooleanContext;
 import compiler.parser.BitsyParser.ConditionBlockContext;
 import compiler.parser.BitsyParser.DivContext;
@@ -56,6 +56,7 @@ import compiler.parser.BitsyParser.VariableContext;
 import compiler.parser.BitsyParser.VariableDeclarationContext;
 import compiler.parser.BitsyParser.WhileConditionBlockContext;
 import compiler.parser.BitsyParser.WhileStatContext;
+
 import edu.asu.compiler.exceptions.UndeclaredVariableException;
 import edu.asu.compiler.exceptions.VariableAlreadyDefinedException;
 
@@ -193,8 +194,8 @@ public class MyBitsyVisitor extends BitsyBaseVisitor<String> {
 	}
 
 	@Override
-	public String visitAssignmentWithDeclaration(
-			AssignmentWithDeclarationContext ctx) {
+	public String visitAssignWithDecl(
+			AssignWithDeclContext ctx) {
 		VarDeclarationContext varDecCtx = ctx.varDeclaration();
 		return visit(varDecCtx) + visit(ctx.expr) + "STORE "
 				+ getVariableNameToken(varDecCtx).getText() + "\n";

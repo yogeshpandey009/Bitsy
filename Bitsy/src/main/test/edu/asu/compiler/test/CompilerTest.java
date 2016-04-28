@@ -143,7 +143,7 @@ public class CompilerTest {
 								+ "	return x%2==0;\n" + "}\n"
 								+ "print(isEven(4));// should print 1\n"
 								+ "print(\"\\n\");\n"
-								+ "print(isEven(7));// should print 0", "1\n0" },
+								+ "print(isEven(7));// should print 0", "true\nfalse" },
 				{
 						"int x;\n" + "x=5;\n" + "int y;\n" + "y=2;\n"
 								+ "int z;\n" + "z = x%y;\n" + "print(z);\n"
