@@ -18,6 +18,7 @@ import compiler.parser.BitsyParser.FunctionDefinitionContext;
 import compiler.parser.BitsyParser.GreaterContext;
 import compiler.parser.BitsyParser.GreaterEqContext;
 import compiler.parser.BitsyParser.IfStatContext;
+import compiler.parser.BitsyParser.InputContext;
 import compiler.parser.BitsyParser.IsEqContext;
 import compiler.parser.BitsyParser.LessContext;
 import compiler.parser.BitsyParser.LessEqContext;
@@ -55,7 +56,6 @@ import compiler.parser.BitsyParser.VariableContext;
 import compiler.parser.BitsyParser.VariableDeclarationContext;
 import compiler.parser.BitsyParser.WhileConditionBlockContext;
 import compiler.parser.BitsyParser.WhileStatContext;
-
 import edu.asu.compiler.exceptions.UndeclaredVariableException;
 import edu.asu.compiler.exceptions.VariableAlreadyDefinedException;
 
@@ -69,6 +69,11 @@ public class MyBitsyVisitor extends BitsyBaseVisitor<String> {
 	@Override
 	public String visitPrintExpr(PrintExprContext ctx) {
 		return visit(ctx.argument) + "PRINT" + "\n";
+	}
+
+	@Override
+	public String visitInput(InputContext ctx) {
+		return "INPUT" + "\n";
 	}
 
 	@Override

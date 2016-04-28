@@ -38,6 +38,7 @@ expression: '(' expr=expression ')' #Paran
           | left=expression '!=' right=expression #NotEq
           | left=expression '&&' right=expression #LogicalAND
           | left=expression '||' right=expression #LogicalOR
+          | 'input()' #Input
           | stackExpr #StackExpression
           | number=signedNum #Number
           | boolValue=BOOLEAN #Boolean
