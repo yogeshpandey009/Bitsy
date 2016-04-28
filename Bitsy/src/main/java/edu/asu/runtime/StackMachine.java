@@ -240,7 +240,7 @@ public class StackMachine {
 		case POW:
 			return (int) Math.pow(Integer.parseInt(op1), Integer.parseInt(op2));
 		case ISEQ:
-			return Integer.parseInt(op1) == Integer.parseInt(op2);
+			return op1.equals(op2);
 		case ISGE:
 			return Integer.parseInt(op1) >= Integer.parseInt(op2);
 		case ISGT:

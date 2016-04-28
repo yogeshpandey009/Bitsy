@@ -43,8 +43,6 @@ boolExpression: left=numExpression '<' right=numExpression #Less
 		  | left=numExpression '>' right=numExpression #Greater
 		  | left=numExpression '<=' right=numExpression #LessEq
 		  | left=numExpression '>=' right=numExpression #GreaterEq
-		  | left=numExpression '==' right=numExpression #IsEq
-		  | left=numExpression '!=' right=numExpression #NotEq
 		  | left=boolExpression '&&' right=boolExpression #LogicalAND
 		  | left=boolExpression '||' right=boolExpression #LogicalOR
 		  | boolValue=BOOLEAN #Boolean
@@ -54,6 +52,8 @@ boolExpression: left=numExpression '<' right=numExpression #Less
 expression: '(' expr=expression ')' #Paran
 		  | numExpression #NumExpr
 		  | boolExpression #BoolExpr
+		  | left=expression '==' right=expression #IsEq
+		  | left=expression '!=' right=expression #NotEq
 		  ;
 
 stackExpression: varName=IDENTIFIER '.' 'push' '(' expr=expression ')' #StackPush
