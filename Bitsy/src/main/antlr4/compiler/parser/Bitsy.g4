@@ -14,6 +14,7 @@ statement: print ';'
          | ifStat
          | whileStat
          | assignmentWithDeclaration ';'
+         | stackExpr ';'
          ;
 
 expression: '(' expr=expression ')' #Paran
@@ -37,15 +38,18 @@ expression: '(' expr=expression ')' #Paran
           | left=expression '!=' right=expression #NotEq
           | left=expression '&&' right=expression #LogicalAND
           | left=expression '||' right=expression #LogicalOR
-          | varName=IDENTIFIER '.''push' '(' expr=expression ')' #StackPush
-          | varName=IDENTIFIER '.''pop' '(' ')' #StackPop
-          | varName=IDENTIFIER '.''peek' '(' ')' #StackPeek
-          | varName=IDENTIFIER '.''isEmpty' '(' ')' #StackIsEmpty
+          | stackExpr #StackExpression
           | number=signedNum #Number
           | boolValue=BOOLEAN #Boolean
           | varName=IDENTIFIER #Variable
           | functionCall #funcCallExpression
           ;
+
+stackExpr: varName=IDENTIFIER '.' 'push' '(' expr=expression ')' #StackPush
+          | varName=IDENTIFIER '.' 'pop' '(' ')' #StackPop
+          | varName=IDENTIFIER '.' 'peek' '(' ')' #StackPeek
+          | varName=IDENTIFIER '.' 'isEmpty' '(' ')' #StackIsEmpty
+          ; 
 
 varDeclaration: ('int' | 'bool' ) varName=IDENTIFIER #VariableDeclaration
           | 'stack' varName=IDENTIFIER #stackVariableDeclaration

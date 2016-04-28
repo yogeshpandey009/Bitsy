@@ -152,7 +152,11 @@ public class CompilerTest {
 				{
 						"int z;\n" + "z = 5 > 3;\n" + "int z1;\n"
 								+ "z1 = 4 >= 7;\n" + "print(z || z1);\n",
-						"true" } };
+						"true" },
+				{
+						"stack s;\n" + "s.push(4+3);\n" + "print(s.peek());\n"
+								+ "print(\"\\n\");\n" + "s.pop();\n"
+								+ "print(s.isEmpty());", "7\n1" } };
 	}
 
 	private void compileAndRun(String code) throws Exception {

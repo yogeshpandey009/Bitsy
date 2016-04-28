@@ -1,2 +1,6 @@
 stack s;
-s = s.pushStack(4);
+s.push(4+3);
+print(s.peek());
+print("\n");
+s.pop();
+print(s.isEmpty());

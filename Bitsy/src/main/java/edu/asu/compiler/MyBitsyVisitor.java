@@ -59,7 +59,7 @@ import compiler.parser.BitsyParser.WhileStatContext;
 import edu.asu.compiler.exceptions.UndeclaredVariableException;
 import edu.asu.compiler.exceptions.VariableAlreadyDefinedException;
 
-public class BitsyVisitor extends BitsyBaseVisitor<String> {
+public class MyBitsyVisitor extends BitsyBaseVisitor<String> {
 
 	private Set<String> variables = new HashSet<>();
 	private Set<String> stackVariables = new HashSet<>();
