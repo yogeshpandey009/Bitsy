@@ -1,9 +1,0 @@
-int x;
-x=5;
-int y;
-y=2;
-int z;
-z = x%y;
-print(z);
-z = x^y;
-print(z);

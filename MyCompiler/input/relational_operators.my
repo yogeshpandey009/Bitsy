@@ -1,3 +1,0 @@
-int x;
-x = 8 < 7;
-println(x);

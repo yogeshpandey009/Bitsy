@@ -1,2 +1,0 @@
-stack s;
-s = s.pushStack(4);
