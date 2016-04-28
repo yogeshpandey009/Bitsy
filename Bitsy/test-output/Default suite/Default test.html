@@ -1,0 +1,549 @@
+<html>
+<head>
+<title>TestNG:  Default test</title>
+<link href="../testng.css" rel="stylesheet" type="text/css" />
+<link href="../my-testng.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+.log { display: none;} 
+.stack-trace { display: none;} 
+</style>
+<script type="text/javascript">
+<!--
+function flip(e) {
+  current = e.style.display;
+  if (current == 'block') {
+    e.style.display = 'none';
+    return 0;
+  }
+  else {
+    e.style.display = 'block';
+    return 1;
+  }
+}
+
+function toggleBox(szDivId, elem, msg1, msg2)
+{
+  var res = -1;  if (document.getElementById) {
+    res = flip(document.getElementById(szDivId));
+  }
+  else if (document.all) {
+    // this is the way old msie versions work
+    res = flip(document.all[szDivId]);
+  }
+  if(elem) {
+    if(res == 0) elem.innerHTML = msg1; else elem.innerHTML = msg2;
+  }
+
+}
+
+function toggleAllBoxes() {
+  if (document.getElementsByTagName) {
+    d = document.getElementsByTagName('div');
+    for (i = 0; i < d.length; i++) {
+      if (d[i].className == 'log') {
+        flip(d[i]);
+      }
+    }
+  }
+}
+
+// -->
+</script>
+
+</head>
+<body>
+<h2 align='center'>Default test</h2><table border='1' align="center">
+<tr>
+<td>Tests passed/Failed/Skipped:</td><td>21/1/0</td>
+</tr><tr>
+<td>Started on:</td><td>Thu Apr 21 21:18:35 MST 2016</td>
+</tr>
+<tr><td>Total time:</td><td>0 seconds (415 ms)</td>
+</tr><tr>
+<td>Included groups:</td><td></td>
+</tr><tr>
+<td>Excluded groups:</td><td></td>
+</tr>
+</table><p/>
+<small><i>(Hover the method name to see the test class name)</i></small><p/>
+<table width='100%' border='1' class='invocation-failed'>
+<tr><td colspan='4' align='center'><b>FAILED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: edu.asu.compiler.test.CompilerTest<br>Parameters: int a;
+a = 3;
+if(a < 5) {
+	print(1);
+} elif(a < 10) {
+	print(2);
+} else {
+	print(3);
+}, 2</td>
+<td><div><pre>java.lang.AssertionError: expected [2] but found [1]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:176)
+	at org.testng.Assert.assertEquals(Assert.java:186)
+	at edu.asu.compiler.test.CompilerTest.runningCode_outputsExpectedText(CompilerTest.java:67)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1198)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1123)
+	at org.testng.TestNG.run(TestNG.java:1031)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:126)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:137)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:58)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1391942103", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1391942103'><pre>java.lang.AssertionError: expected [2] but found [1]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:176)
+	at org.testng.Assert.assertEquals(Assert.java:186)
+	at edu.asu.compiler.test.CompilerTest.runningCode_outputsExpectedText(CompilerTest.java:67)
+	at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1198)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1123)
+	at org.testng.TestNG.run(TestNG.java:1031)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:126)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:137)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:58)
+</pre></div></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+</table><p>
+<table width='100%' border='1' class='invocation-passed'>
+<tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.compilingCode_throwsUndeclaredVariableException_ifReadingUndefinedVariable()'><b>compilingCode_throwsUndeclaredVariableException_ifReadingUndefinedVariable</b><br>Test class: edu.asu.compiler.test.CompilerTest</td>
+<td><div><pre>edu.asu.compiler.exceptions.UndeclaredVariableException: 1:6 undeclared variable &lt;x&gt;
+	at edu.asu.compiler.MyVisitor.getVariableName(MyVisitor.java:198)
+	at edu.asu.compiler.MyVisitor.visitVariable(MyVisitor.java:89)
+	at edu.asu.compiler.MyVisitor.visitVariable(MyVisitor.java:37)
+	at mycompiler.parser.MyLangParser$VariableContext.accept(MyLangParser.java:333)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
+	at edu.asu.compiler.MyVisitor.visitPrint(MyVisitor.java:45)
+	at edu.asu.compiler.MyVisitor.visitPrint(MyVisitor.java:37)
+	at mycompiler.parser.MyLangParser$PrintContext.accept(MyLangParser.java:999)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
+	at mycompiler.parser.MyLangBaseVisitor.visitStatement(MyLangBaseVisitor.java:101)
+	at mycompiler.parser.MyLangParser$StatementContext.accept(MyLangParser.java:231)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
+	at mycompiler.parser.MyLangBaseVisitor.visitMainStatement(MyLangBaseVisitor.java:157)
+	at mycompiler.parser.MyLangParser$MainStatementContext.accept(MyLangParser.java:146)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
+	at edu.asu.compiler.MyVisitor.visitProgram(MyVisitor.java:185)
+	at edu.asu.compiler.MyVisitor.visitProgram(MyVisitor.java:37)
+	at mycompiler.parser.MyLangParser$ProgramContext.accept(MyLangParser.java:82)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
+	at edu.asu.compiler.Translator.compile(Translator.java:33)
+	at edu.asu.compiler.test.CompilerTest.compileAndRun(CompilerTest.java:138)
+	at edu.asu.compiler.test.CompilerTest.compilingCode_throwsUndeclaredVariableException_ifReadingUndefinedVariable(CompilerTest.java:75)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1198)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1123)
+	at org.testng.TestNG.run(TestNG.java:1031)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:126)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:137)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:58)
+</pre></div><a href='#' onClick='toggleBox("stack-trace438135304", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace438135304'><pre>edu.asu.compiler.exceptions.UndeclaredVariableException: 1:6 undeclared variable &lt;x&gt;
+	at edu.asu.compiler.MyVisitor.getVariableName(MyVisitor.java:198)
+	at edu.asu.compiler.MyVisitor.visitVariable(MyVisitor.java:89)
+	at edu.asu.compiler.MyVisitor.visitVariable(MyVisitor.java:37)
+	at mycompiler.parser.MyLangParser$VariableContext.accept(MyLangParser.java:333)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
+	at edu.asu.compiler.MyVisitor.visitPrint(MyVisitor.java:45)
+	at edu.asu.compiler.MyVisitor.visitPrint(MyVisitor.java:37)
+	at mycompiler.parser.MyLangParser$PrintContext.accept(MyLangParser.java:999)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
+	at mycompiler.parser.MyLangBaseVisitor.visitStatement(MyLangBaseVisitor.java:101)
+	at mycompiler.parser.MyLangParser$StatementContext.accept(MyLangParser.java:231)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
+	at mycompiler.parser.MyLangBaseVisitor.visitMainStatement(MyLangBaseVisitor.java:157)
+	at mycompiler.parser.MyLangParser$MainStatementContext.accept(MyLangParser.java:146)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
+	at edu.asu.compiler.MyVisitor.visitProgram(MyVisitor.java:185)
+	at edu.asu.compiler.MyVisitor.visitProgram(MyVisitor.java:37)
+	at mycompiler.parser.MyLangParser$ProgramContext.accept(MyLangParser.java:82)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
+	at edu.asu.compiler.Translator.compile(Translator.java:33)
+	at edu.asu.compiler.test.CompilerTest.compileAndRun(CompilerTest.java:138)
+	at edu.asu.compiler.test.CompilerTest.compilingCode_throwsUndeclaredVariableException_ifReadingUndefinedVariable(CompilerTest.java:75)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1198)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1123)
+	at org.testng.TestNG.run(TestNG.java:1031)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:126)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:137)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:58)
+</pre></div></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.compilingCode_throwsUndeclaredVariableException_ifWritingUndefinedVariable()'><b>compilingCode_throwsUndeclaredVariableException_ifWritingUndefinedVariable</b><br>Test class: edu.asu.compiler.test.CompilerTest</td>
+<td><div><pre>edu.asu.compiler.exceptions.UndeclaredVariableException: 1:0 undeclared variable &lt;x&gt;
+	at edu.asu.compiler.MyVisitor.getVariableName(MyVisitor.java:198)
+	at edu.asu.compiler.MyVisitor.visitAssignment(MyVisitor.java:84)
+	at edu.asu.compiler.MyVisitor.visitAssignment(MyVisitor.java:37)
+	at mycompiler.parser.MyLangParser$AssignmentContext.accept(MyLangParser.java:953)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
+	at mycompiler.parser.MyLangBaseVisitor.visitStatement(MyLangBaseVisitor.java:101)
+	at mycompiler.parser.MyLangParser$StatementContext.accept(MyLangParser.java:231)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
+	at mycompiler.parser.MyLangBaseVisitor.visitMainStatement(MyLangBaseVisitor.java:157)
+	at mycompiler.parser.MyLangParser$MainStatementContext.accept(MyLangParser.java:146)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
+	at edu.asu.compiler.MyVisitor.visitProgram(MyVisitor.java:185)
+	at edu.asu.compiler.MyVisitor.visitProgram(MyVisitor.java:37)
+	at mycompiler.parser.MyLangParser$ProgramContext.accept(MyLangParser.java:82)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
+	at edu.asu.compiler.Translator.compile(Translator.java:33)
+	at edu.asu.compiler.test.CompilerTest.compileAndRun(CompilerTest.java:138)
+	at edu.asu.compiler.test.CompilerTest.compilingCode_throwsUndeclaredVariableException_ifWritingUndefinedVariable(CompilerTest.java:84)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1198)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1123)
+	at org.testng.TestNG.run(TestNG.java:1031)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:126)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:137)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:58)
+</pre></div><a href='#' onClick='toggleBox("stack-trace738433734", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace738433734'><pre>edu.asu.compiler.exceptions.UndeclaredVariableException: 1:0 undeclared variable &lt;x&gt;
+	at edu.asu.compiler.MyVisitor.getVariableName(MyVisitor.java:198)
+	at edu.asu.compiler.MyVisitor.visitAssignment(MyVisitor.java:84)
+	at edu.asu.compiler.MyVisitor.visitAssignment(MyVisitor.java:37)
+	at mycompiler.parser.MyLangParser$AssignmentContext.accept(MyLangParser.java:953)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
+	at mycompiler.parser.MyLangBaseVisitor.visitStatement(MyLangBaseVisitor.java:101)
+	at mycompiler.parser.MyLangParser$StatementContext.accept(MyLangParser.java:231)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
+	at mycompiler.parser.MyLangBaseVisitor.visitMainStatement(MyLangBaseVisitor.java:157)
+	at mycompiler.parser.MyLangParser$MainStatementContext.accept(MyLangParser.java:146)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
+	at edu.asu.compiler.MyVisitor.visitProgram(MyVisitor.java:185)
+	at edu.asu.compiler.MyVisitor.visitProgram(MyVisitor.java:37)
+	at mycompiler.parser.MyLangParser$ProgramContext.accept(MyLangParser.java:82)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
+	at edu.asu.compiler.Translator.compile(Translator.java:33)
+	at edu.asu.compiler.test.CompilerTest.compileAndRun(CompilerTest.java:138)
+	at edu.asu.compiler.test.CompilerTest.compilingCode_throwsUndeclaredVariableException_ifWritingUndefinedVariable(CompilerTest.java:84)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1198)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1123)
+	at org.testng.TestNG.run(TestNG.java:1031)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:126)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:137)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:58)
+</pre></div></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.compilingCode_throwsVariableAlreadyDefinedException_whenDefiningAlreadyDefinedVariable()'><b>compilingCode_throwsVariableAlreadyDefinedException_whenDefiningAlreadyDefinedVariable</b><br>Test class: edu.asu.compiler.test.CompilerTest</td>
+<td><div><pre>edu.asu.compiler.exceptions.VariableAlreadyDefinedException: 2:4 variable already defined: &lt;x&gt;
+	at edu.asu.compiler.MyVisitor.visitVarDeclaration(MyVisitor.java:76)
+	at edu.asu.compiler.MyVisitor.visitVarDeclaration(MyVisitor.java:37)
+	at mycompiler.parser.MyLangParser$VarDeclarationContext.accept(MyLangParser.java:906)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
+	at mycompiler.parser.MyLangBaseVisitor.visitStatement(MyLangBaseVisitor.java:101)
+	at mycompiler.parser.MyLangParser$StatementContext.accept(MyLangParser.java:231)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
+	at mycompiler.parser.MyLangBaseVisitor.visitMainStatement(MyLangBaseVisitor.java:157)
+	at mycompiler.parser.MyLangParser$MainStatementContext.accept(MyLangParser.java:146)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
+	at edu.asu.compiler.MyVisitor.visitProgram(MyVisitor.java:185)
+	at edu.asu.compiler.MyVisitor.visitProgram(MyVisitor.java:37)
+	at mycompiler.parser.MyLangParser$ProgramContext.accept(MyLangParser.java:82)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
+	at edu.asu.compiler.Translator.compile(Translator.java:33)
+	at edu.asu.compiler.test.CompilerTest.compileAndRun(CompilerTest.java:138)
+	at edu.asu.compiler.test.CompilerTest.compilingCode_throwsVariableAlreadyDefinedException_whenDefiningAlreadyDefinedVariable(CompilerTest.java:93)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1198)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1123)
+	at org.testng.TestNG.run(TestNG.java:1031)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:126)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:137)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:58)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1538399081", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1538399081'><pre>edu.asu.compiler.exceptions.VariableAlreadyDefinedException: 2:4 variable already defined: &lt;x&gt;
+	at edu.asu.compiler.MyVisitor.visitVarDeclaration(MyVisitor.java:76)
+	at edu.asu.compiler.MyVisitor.visitVarDeclaration(MyVisitor.java:37)
+	at mycompiler.parser.MyLangParser$VarDeclarationContext.accept(MyLangParser.java:906)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
+	at mycompiler.parser.MyLangBaseVisitor.visitStatement(MyLangBaseVisitor.java:101)
+	at mycompiler.parser.MyLangParser$StatementContext.accept(MyLangParser.java:231)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
+	at mycompiler.parser.MyLangBaseVisitor.visitMainStatement(MyLangBaseVisitor.java:157)
+	at mycompiler.parser.MyLangParser$MainStatementContext.accept(MyLangParser.java:146)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
+	at edu.asu.compiler.MyVisitor.visitProgram(MyVisitor.java:185)
+	at edu.asu.compiler.MyVisitor.visitProgram(MyVisitor.java:37)
+	at mycompiler.parser.MyLangParser$ProgramContext.accept(MyLangParser.java:82)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)
+	at edu.asu.compiler.Translator.compile(Translator.java:33)
+	at edu.asu.compiler.test.CompilerTest.compileAndRun(CompilerTest.java:138)
+	at edu.asu.compiler.test.CompilerTest.compilingCode_throwsVariableAlreadyDefinedException_whenDefiningAlreadyDefinedVariable(CompilerTest.java:93)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1198)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1123)
+	at org.testng.TestNG.run(TestNG.java:1031)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:126)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:137)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:58)
+</pre></div></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: edu.asu.compiler.test.CompilerTest<br>Parameters: print(1+2);, 3</td>
+<td></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: edu.asu.compiler.test.CompilerTest<br>Parameters: print(1+2+42);, 45</td>
+<td></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: edu.asu.compiler.test.CompilerTest<br>Parameters: print(1); print(2);, 12</td>
+<td></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: edu.asu.compiler.test.CompilerTest<br>Parameters: print(3-2);, 1</td>
+<td></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: edu.asu.compiler.test.CompilerTest<br>Parameters: print(2*3);, 6</td>
+<td></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: edu.asu.compiler.test.CompilerTest<br>Parameters: print(6/2);, 3</td>
+<td></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: edu.asu.compiler.test.CompilerTest<br>Parameters: print(7/2);, 3</td>
+<td></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: edu.asu.compiler.test.CompilerTest<br>Parameters: print(8/2*4);, 16</td>
+<td></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: edu.asu.compiler.test.CompilerTest<br>Parameters: print(2+3*3);, 11</td>
+<td></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: edu.asu.compiler.test.CompilerTest<br>Parameters: print(9-2*3);, 3</td>
+<td></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: edu.asu.compiler.test.CompilerTest<br>Parameters: print(8-2+5);, 11</td>
+<td></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: edu.asu.compiler.test.CompilerTest<br>Parameters: int foo; foo = 42; print(foo);, 42</td>
+<td></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: edu.asu.compiler.test.CompilerTest<br>Parameters: int foo; foo = 42; print(foo+2);, 44</td>
+<td></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: edu.asu.compiler.test.CompilerTest<br>Parameters: int a; int b; a = 2; b = 5; print(a+b);, 7</td>
+<td></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: edu.asu.compiler.test.CompilerTest<br>Parameters: int randomNumber() { return 4; } print(randomNumber());, 4</td>
+<td></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: edu.asu.compiler.test.CompilerTest<br>Parameters: int randomNumber() {
+  int i;
+  i = 4;
+  return i;
+}
+print(randomNumber());, 4</td>
+<td></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: edu.asu.compiler.test.CompilerTest<br>Parameters: int randomNumber() {
+  int i;
+  i = 4;
+  return i;
+}
+int i;
+i = 42;
+print(randomNumber());
+print(i);, 442</td>
+<td></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+<tr>
+<td title='edu.asu.compiler.test.CompilerTest.runningCode_outputsExpectedText()'><b>runningCode_outputsExpectedText</b><br>Test class: edu.asu.compiler.test.CompilerTest<br>Parameters: int add(int a, int b) {
+  return a+b;
+}
+print(add(5,8));, 13</td>
+<td></td>
+<td>0</td>
+<td>edu.asu.compiler.test.CompilerTest@23ceabc1</td></tr>
+</table><p>
+</body>
+</html>

@@ -1,0 +1,10 @@
+int a;
+a = 1;
+a++;
+print(a);
+a--;
+print(a);
+++a;
+print(a);
+--a;
+print(a);

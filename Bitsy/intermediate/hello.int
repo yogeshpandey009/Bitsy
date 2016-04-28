@@ -1,0 +1,4 @@
+PUSH 
+hello
+PRINT
+HALT

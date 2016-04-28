@@ -1,0 +1,24 @@
+int a;
+int b;
+int c;
+int d;
+a = 1;
+b = 1;
+c = 1;
+d = 3;
+while(a < d){
+	b=1;
+	while(b < d){
+		print(b);
+		b++;
+	}
+	a++;
+}
+while(c<d) {
+	print(c);
+	c++;
+}
+print(a);
+print(b);
+print(c);
+print(d);
