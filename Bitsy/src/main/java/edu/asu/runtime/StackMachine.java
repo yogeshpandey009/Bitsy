@@ -98,7 +98,7 @@ public class StackMachine {
 		}
 		case STACK_ISEMPTY: {
 			String var = getNextInstruction("Should have the variable name after the STACK_ISEMPTY instruction");
-			executionStack.push(toInt(getCurrFuncContext().isEmptyStackVariable(var)) + "");
+			executionStack.push(Boolean.toString(getCurrFuncContext().isEmptyStackVariable(var)));
 			break;
 		}
 		case NOT: {
@@ -261,19 +261,6 @@ public class StackMachine {
 		} catch (NumberFormatException e) {
 			return Boolean.parseBoolean(val);
 		}
-	}
-
-	private int toInt(boolean b) {
-		return b ? 1 : 0;
-	}
-
-	private String toStringBoolean(String s) {
-		if (s.equals("1")) {
-			s = "true";
-		} else if (s.equals("0")) {
-			s = "false";
-		}
-		return s;
 	}
 
 	private String getNextInstruction(String errorMessage) {

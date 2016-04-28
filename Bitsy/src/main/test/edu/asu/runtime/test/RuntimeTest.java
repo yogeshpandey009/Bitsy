@@ -247,6 +247,6 @@ public class RuntimeTest {
 		VM.executeInstr(new String[] { "PUSH", "4", "PUSH", "3", "ADD",
 				"STACK_PUSH", "s", "STACK_PEEK", "s", "PRINT", "PUSH", "\n",
 				"PRINT", "STACK_POP", "s", "STACK_ISEMPTY", "s", "PRINT", "HALT" });
-		assertEquals(outContent.toString(), "7\n1");
+		assertEquals(outContent.toString(), "7\ntrue");
 	}
 }

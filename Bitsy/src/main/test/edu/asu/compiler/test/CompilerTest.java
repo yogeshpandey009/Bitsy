@@ -160,7 +160,7 @@ public class CompilerTest {
 				{
 						"stack s;\n" + "s.push(4+3);\n" + "print(s.peek());\n"
 								+ "print(\"\\n\");\n" + "s.pop();\n"
-								+ "print(s.isEmpty());", "7\n1" } };
+								+ "print(s.isEmpty());", "7\ntrue" } };
 	}
 
 	private void compileAndRun(String code) throws Exception {
