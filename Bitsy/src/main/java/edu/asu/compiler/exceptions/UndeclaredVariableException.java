@@ -2,7 +2,7 @@ package edu.asu.compiler.exceptions;
 
 import org.antlr.v4.runtime.Token;
 
-public class UndeclaredVariableException extends CompileException {
+public class UndeclaredVariableException extends CompileTimeException {
 	private String varName;
 	
 	public UndeclaredVariableException(Token varNameToken) {

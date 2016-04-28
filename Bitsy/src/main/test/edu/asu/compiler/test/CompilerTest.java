@@ -9,9 +9,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import edu.asu.compiler.Translator;
 import edu.asu.compiler.exceptions.UndeclaredVariableException;
 import edu.asu.compiler.exceptions.VariableAlreadyDefinedException;
+import edu.asu.parser.Translator;
 import edu.asu.runtime.VM;
 import edu.asu.runtime.exceptions.ProgramExecutionException;
 

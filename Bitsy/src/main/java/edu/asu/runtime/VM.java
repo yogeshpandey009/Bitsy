@@ -18,7 +18,7 @@ public class VM {
 		if (args.length > 0) {
 			srcPath = args[0];
 		} else {
-			System.out.println("Usage: -sourcepath <path> of intermediate class to execute");
+			System.out.println("Usage: <sourcepath> to specify where to find intermediate code to execute");
 			return;
 		}
 

@@ -1,4 +1,4 @@
-package edu.asu.compiler;
+package edu.asu.parser;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,9 +24,9 @@ public class Translator {
 			}
 		} else {
 			System.out
-					.println(" Usage: -sourcepath <path> Arg1 to specify where to find input source file");
+					.println(" Usage: <sourcepath> to specify where to find input source file");
 			System.out
-			.println("\t-destinationpath <path> Optional Arg2 to specify where to save compiled file");
+			.println("\t <destinationpath> (Optional) to specify where to save compiled file");
 			return;
 		}
 		ANTLRInputStream input = null;

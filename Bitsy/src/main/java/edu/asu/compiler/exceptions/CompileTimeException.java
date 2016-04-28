@@ -2,11 +2,11 @@ package edu.asu.compiler.exceptions;
 
 import org.antlr.v4.runtime.Token;
 
-public class CompileException extends RuntimeException {
+public class CompileTimeException extends RuntimeException {
 	protected int line;
 	protected int column;
 	
-	public CompileException(Token token) {
+	public CompileTimeException(Token token) {
 		line = token.getLine();
 		column = token.getCharPositionInLine();
 	}

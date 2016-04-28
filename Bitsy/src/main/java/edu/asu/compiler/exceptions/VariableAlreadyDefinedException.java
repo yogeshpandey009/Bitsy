@@ -2,7 +2,7 @@ package edu.asu.compiler.exceptions;
 
 import org.antlr.v4.runtime.Token;
 
-public class VariableAlreadyDefinedException extends CompileException {
+public class VariableAlreadyDefinedException extends CompileTimeException {
 	private String varName;
 	
 	public VariableAlreadyDefinedException(Token variableNameToken) {
