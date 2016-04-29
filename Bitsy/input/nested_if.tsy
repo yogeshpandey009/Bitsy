@@ -1,7 +1,12 @@
-if(2>1) {
-	if(3>2) {
-		print("here");
+print("Enter your age: ");
+int age = input();
+if(age < 18) {
+	print("go study!\n");
+} elif(age >= 18) {
+	if(age > 21) {
+		print("can drink and can drive\n");
+	} else {
+		print("can't drive\n");
 	}
-} else {
-	print("hello");
 }
+print("Never drink and drive!\n");

@@ -23,6 +23,8 @@ import compiler.parser.BitsyParser.IsEqContext;
 import compiler.parser.BitsyParser.LessContext;
 import compiler.parser.BitsyParser.LessEqContext;
 import compiler.parser.BitsyParser.LogicalANDContext;
+import compiler.parser.BitsyParser.LogicalIsEqContext;
+import compiler.parser.BitsyParser.LogicalNotEqContext;
 import compiler.parser.BitsyParser.LogicalORContext;
 import compiler.parser.BitsyParser.MainStatementContext;
 import compiler.parser.BitsyParser.MinusContext;
@@ -243,6 +245,16 @@ public class MyBitsyVisitor extends BitsyBaseVisitor<String> {
 
 	@Override
 	public String visitNotEq(NotEqContext ctx) {
+		return visitChildren(ctx) + "ISEQ" + "\n" + "NOT" + "\n";
+	}
+
+	@Override
+	public String visitLogicalIsEq(LogicalIsEqContext ctx) {
+		return visitChildren(ctx) + "ISEQ" + "\n";
+	}
+
+	@Override
+	public String visitLogicalNotEq(LogicalNotEqContext ctx) {
 		return visitChildren(ctx) + "ISEQ" + "\n" + "NOT" + "\n";
 	}
 

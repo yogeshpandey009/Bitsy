@@ -23,7 +23,8 @@ baseExpression: 'input()' #Input
 		  | varName=IDENTIFIER #Variable
 		  ;
 
-numExpression: numExpression '+' '+' #PostIncExpr
+numExpression: '(' expr=numExpression ')' #NumExprParan
+		  | numExpression '+' '+' #PostIncExpr
 		  | numExpression '-' '-' #PostDecExpr
 		  | '+' numExpression #Positive
 		  | '-' numExpression #Negative
@@ -39,21 +40,23 @@ numExpression: numExpression '+' '+' #PostIncExpr
 		  | baseExpression #BaseNumExpr
 		  ;
 
-boolExpression: left=numExpression '<' right=numExpression #Less
+boolExpression: '(' expr=boolExpression ')' #BoolExprParan
+		  | left=numExpression '<' right=numExpression #Less
 		  | left=numExpression '>' right=numExpression #Greater
 		  | left=numExpression '<=' right=numExpression #LessEq
 		  | left=numExpression '>=' right=numExpression #GreaterEq
+		  | left=numExpression '==' right=numExpression #IsEq
+		  | left=numExpression '!=' right=numExpression #NotEq
 		  | left=boolExpression '&&' right=boolExpression #LogicalAND
 		  | left=boolExpression '||' right=boolExpression #LogicalOR
+		  | left=boolExpression '==' right=boolExpression #LogicalIsEq
+		  | left=boolExpression '!=' right=boolExpression #LogicalNotEq
 		  | boolValue=BOOLEAN #Boolean
 		  | baseExpression #BaseBoolExpr
 		  ;
 
-expression: '(' expr=expression ')' #Paran
-		  | numExpression #NumExpr
+expression: numExpression #NumExpr
 		  | boolExpression #BoolExpr
-		  | left=expression '==' right=expression #IsEq
-		  | left=expression '!=' right=expression #NotEq
 		  ;
 
 stackExpression: varName=IDENTIFIER '.' 'push' '(' expr=expression ')' #StackPush

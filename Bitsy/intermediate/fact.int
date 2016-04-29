@@ -1,4 +1,6 @@
-PUSH 3
+PUSH "Enter a number: "
+PRINT
+INPUT
 CALL fact
 PRINT
 HALT
