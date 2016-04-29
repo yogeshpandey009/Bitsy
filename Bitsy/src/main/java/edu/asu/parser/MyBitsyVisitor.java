@@ -325,22 +325,6 @@ public class MyBitsyVisitor extends BitsyBaseVisitor<String> {
 	}
 
 	@Override
-	public String visitProgram(ProgramContext ctx) {
-		String mainCode = "";
-		String functions = "";
-		for (int i = 0; i < ctx.getChildCount(); ++i) {
-			ParseTree child = ctx.getChild(i);
-			String instructions = visit(child);
-			if (child instanceof MainStatementContext) {
-				mainCode += instructions;
-			} else {
-				functions += instructions;
-			}
-		}
-		return mainCode + "HALT\n" + functions;
-	}
-
-	@Override
 	public String visitPostIncVar(PostIncVarContext ctx) {
 		return "LOAD " + getVariableNameIfExist(ctx.varName) + "\n" + "PUSH 1"
 				+ "\n" + "ADD" + "\n" + "STORE "
@@ -389,6 +373,22 @@ public class MyBitsyVisitor extends BitsyBaseVisitor<String> {
 		return aggregate + nextResult;
 	}
 
+	@Override
+	public String visitProgram(ProgramContext ctx) {
+		String mainCode = "";
+		String functions = "";
+		for (int i = 0; i < ctx.getChildCount(); ++i) {
+			ParseTree child = ctx.getChild(i);
+			String instructions = visit(child);
+			if (child instanceof MainStatementContext) {
+				mainCode += instructions;
+			} else {
+				functions += instructions;
+			}
+		}
+		return mainCode + "HALT\n" + functions;
+	}
+
 	private Token getVariableNameToken(VarDeclarationContext varDecCtx) {
 		Token varNameToken = null;
 		if (varDecCtx instanceof VariableDeclarationContext) {
@@ -425,10 +425,4 @@ public class MyBitsyVisitor extends BitsyBaseVisitor<String> {
 		return scopeEndLabel.peek();
 	}
 
-	// private int getBooleanValue(String text) {
-	// if ("true".equals(text)) {
-	// return 1;
-	// }
-	// return 0;
-	// }
 }
