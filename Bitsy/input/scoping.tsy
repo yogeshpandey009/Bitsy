@@ -1,6 +1,6 @@
 int x = 1;
 func test() {
-  int x = 2;
+  x = 2;
   print("inside x:");
   print(x);
   return;
