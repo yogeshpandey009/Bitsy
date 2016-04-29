@@ -1,11 +1,8 @@
-int x;
-x = 0 && 1;
-println(x);
+int x = false && true;
+print(x);
 
-int y;
-y = 0 || 0;
-println(y);
+int y = false || false;
+print(y);
 
-int z;
-z = 6 <= 8 && 5 > 7;
-println(z);
+int z = 6 <= 8 && 5 > 7;
+print(z);

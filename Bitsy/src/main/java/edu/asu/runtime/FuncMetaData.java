@@ -1,22 +1,26 @@
 package edu.asu.runtime;
 
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Stack;
 
 import edu.asu.runtime.exceptions.ProgramExecutionException;
 
 public class FuncMetaData {
 
-	private final Map<String, String> variables = new HashMap<>();
-	private final Map<String, Stack<String>> stackVariables = new HashMap<>();
+	private HashMap<String, String> variables = null;
+	private HashMap<String, Stack<String>> stackVariables = null;
 	private int returnAddress;
 	private String funcName = "";
 
-	public FuncMetaData(int returnAddress, String funcName) {
+	@SuppressWarnings("unchecked")
+	public FuncMetaData(int returnAddress, String funcName,
+			HashMap<String, String> variables,
+			HashMap<String, Stack<String>> stackVariables) {
 		this.returnAddress = returnAddress;
 		this.funcName = funcName;
+		this.variables = (HashMap<String, String>) variables.clone();
+		this.stackVariables = (HashMap<String, Stack<String>>) stackVariables
+				.clone();
 	}
 
 	public String getVariable(String var) {
@@ -70,7 +74,11 @@ public class FuncMetaData {
 		return returnAddress;
 	}
 
-	public Map<String, String> getVariables() {
-		return Collections.unmodifiableMap(variables);
+	public HashMap<String, String> getVariables() {
+		return variables;
+	}
+
+	public HashMap<String, Stack<String>> getStackVariables() {
+		return stackVariables;
 	}
 }

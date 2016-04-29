@@ -299,8 +299,10 @@ public class MyBitsyVisitor extends BitsyBaseVisitor<String> {
 
 	@Override
 	public String visitFunctionDefinition(FunctionDefinitionContext ctx) {
-		Set<String> oldVariables = variables;
+		Set<String> oldVariables = variables;;
 		variables = new HashSet<>();
+		//add global variables at function level
+		variables.addAll(oldVariables);
 		visit(ctx.params);
 		String statementInstructions = visit(ctx.statements);
 		String result = "LABEL " + ctx.funcName.getText() + "\n";
@@ -311,6 +313,7 @@ public class MyBitsyVisitor extends BitsyBaseVisitor<String> {
 							.getText() + "\n";
 		}
 		result += (statementInstructions == null ? "" : statementInstructions);
+		//revert to global variables
 		variables = oldVariables;
 		return result;
 	}

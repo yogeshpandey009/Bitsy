@@ -1,0 +1,2 @@
+bool x = true;
+print(x + 1);

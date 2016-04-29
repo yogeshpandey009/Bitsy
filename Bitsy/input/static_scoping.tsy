@@ -1,0 +1,13 @@
+int x = 5;
+foo();
+print("\n");
+bar();
+func foo() {
+	print(x);
+	x = 6;
+	return;
+}
+func bar() {
+	print(x);
+	return;
+}

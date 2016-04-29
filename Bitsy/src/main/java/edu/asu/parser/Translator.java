@@ -52,8 +52,9 @@ public class Translator {
 		BitsyLexer lexer = new BitsyLexer(input);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		BitsyParser parser = new BitsyParser(tokens);
-
 		ParseTree tree = parser.program();
+		//final TreeViewer view = new TreeViewer(null, tree);
+	    //view.open();
 		return tree;
 	}
 

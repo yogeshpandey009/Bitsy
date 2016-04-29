@@ -15,6 +15,8 @@ public class StackMachine {
 	private boolean halted = false;
 	private Stack<FuncMetaData> callStack = new Stack<>();
 	private HashMap<String, Integer> labelMap = new HashMap<String, Integer>();
+	private FuncMetaData mainMethod = new FuncMetaData(0, "main",
+			new HashMap<>(), new HashMap<>());
 
 	public StackMachine(String[] instructions,
 			HashMap<String, Integer> labelsMap) {
@@ -24,7 +26,8 @@ public class StackMachine {
 		}
 		this.program = instructions;
 		this.labelMap = labelsMap;
-		this.callStack.push(new FuncMetaData(0, "main")); // Prepare the main method with 0 as retAddr
+		this.callStack.push(mainMethod); // Prepare the main method with 0 as
+											// retAddr
 	}
 
 	public void run() {
@@ -98,7 +101,8 @@ public class StackMachine {
 		}
 		case STACK_ISEMPTY: {
 			String var = getNextInstruction("Should have the variable name after the STACK_ISEMPTY instruction");
-			executionStack.push(Boolean.toString(getCurrFuncContext().isEmptyStackVariable(var)));
+			executionStack.push(Boolean.toString(getCurrFuncContext()
+					.isEmptyStackVariable(var)));
 			break;
 		}
 		case NOT: {
@@ -118,7 +122,8 @@ public class StackMachine {
 		case ISGE:
 		case ISGT:
 		case AND:
-		case OR: {	if (executionStack.size() < 2) {
+		case OR: {
+			if (executionStack.size() < 2) {
 				throw new ProgramExecutionException(
 						"There should be at least two items on the stack to execute a binary instruction");
 			}
@@ -155,7 +160,9 @@ public class StackMachine {
 			String label = getNextInstruction("Should have the address after the CALL instruction");
 			int address = getLabelAddress(label);
 			// Push a new stack frame
-			this.callStack.push(new FuncMetaData(this.instructionAddress, label));
+			this.callStack.push(new FuncMetaData(this.instructionAddress,
+					label, mainMethod.getVariables(), mainMethod
+							.getStackVariables()));
 			this.instructionAddress = address; // and jump!
 			break;
 		}
