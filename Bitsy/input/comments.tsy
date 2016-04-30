@@ -1,11 +1,11 @@
-/* Check if number is Even or Odd
+/** Check if number is Even or Odd
  * @param x: input number
- * @return: 0 if Odd
- 			1 if Even
+ * @return: false if Odd
+ 			true if Even
  */
 func isEven(int x) {
 	return x%2==0;
 }
-print(isEven(4));// should print 1
+print(isEven(4));// should print true
 print("\n");
-print(isEven(7));// should print 0
+print(isEven(7));// should print false
