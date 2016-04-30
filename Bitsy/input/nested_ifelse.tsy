@@ -1,0 +1,12 @@
+print("Enter your age: ");
+int age = input();
+if(age < 18) {
+	print("go study!\n");
+} elif(age >= 18) {
+	if(age > 21) {
+		print("can drink and can drive\n");
+	} else {
+		print("can't drive\n");
+	}
+}
+print("Never drink and drive!\n");

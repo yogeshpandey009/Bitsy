@@ -1,0 +1,16 @@
+PUSH 1
+STORE x
+CALL test
+PUSH "\noutside x:"
+PRINT
+LOAD x
+PRINT
+HALT
+LABEL test
+PUSH 2
+STORE x
+PUSH "inside x:"
+PRINT
+LOAD x
+PRINT
+RET

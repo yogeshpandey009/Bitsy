@@ -1,0 +1,34 @@
+PUSH "Enter your age: "
+PRINT
+INPUT
+STORE age
+LOAD age
+PUSH 18
+ISGE
+NOT
+JIF label_2
+PUSH "go study!\n"
+PRINT
+JMP label_1
+LABEL label_2
+LOAD age
+PUSH 18
+ISGE
+JIF label_3
+LOAD age
+PUSH 21
+ISGT
+JIF label_5
+PUSH "can drink and can drive\n"
+PRINT
+JMP label_4
+LABEL label_5
+PUSH "can't drive\n"
+PRINT
+LABEL label_4
+JMP label_1
+LABEL label_3
+LABEL label_1
+PUSH "Never drink and drive!\n"
+PRINT
+HALT
