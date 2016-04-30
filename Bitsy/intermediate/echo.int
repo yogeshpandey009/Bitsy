@@ -1,0 +1,9 @@
+PUSH "Enter a number: "
+PRINT
+INPUT
+STORE x
+PUSH "You Entered: "
+PRINT
+LOAD x
+PRINT
+HALT
