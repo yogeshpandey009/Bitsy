@@ -1,0 +1,24 @@
+PUSH 5
+STORE x
+LOAD x
+CALL fact
+PRINT
+HALT
+LABEL fact
+STORE n
+LOAD n
+PUSH 1
+ISEQ
+JIF label_2
+PUSH 1
+RET
+JMP label_1
+LABEL label_2
+LABEL label_1
+LOAD n
+LOAD n
+PUSH 1
+SUB
+CALL fact
+MUL
+RET

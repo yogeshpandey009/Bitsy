@@ -1,0 +1,30 @@
+PUSH false
+STORE x
+PUSH 5
+STORE y
+LOAD x
+JIF label_2
+PUSH "Inside if"
+PRINT
+LOAD y
+PRINT
+JMP label_1
+LABEL label_2
+PUSH "Inside else"
+PRINT
+PUSH true
+LOAD x
+OR
+STORE x
+LOAD x
+PRINT
+LOAD x
+PUSH false
+AND
+STORE x
+LABEL label_1
+PUSH "Outside"
+PRINT
+LOAD x
+PRINT
+HALT
